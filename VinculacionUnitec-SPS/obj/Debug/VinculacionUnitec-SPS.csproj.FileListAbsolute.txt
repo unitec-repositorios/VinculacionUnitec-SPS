@@ -1,0 +1,12 @@
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe.config
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.pdb
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.dll
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.xml
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csprojAssemblyReference.cache
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CoreCompileInputs.cache
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CopyComplete
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.exe
+C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.pdb
