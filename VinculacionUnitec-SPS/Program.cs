@@ -68,19 +68,20 @@ namespace LeerMensajesBotTelegram
                 {
                     case "1":
                         Console.WriteLine("OPCION 1");
-                        var ht = horasTotales(nCuenta);
+                        var ht = HorasTotales(nCuenta);
                         await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, 
                             "Tienes un total de " +ht+ " horas a la fecha.\nPara consultas enviar correo a:\nvinculacionsps@unitec.edu ó andrea.orellana@unitec.edu.hn");
                         await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, $"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
                         break;
                     case "2":
                         Console.WriteLine("OPCION 2");
+                        var hd = HorasDetalle(nCuenta);
+                        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,"Tu Informacion es la siguiente:\n"+hd+"\nPara consultas enviar correo a:\nvinculacionsps@unitec.edu ó andrea.orellana@unitec.edu.hn");
                         await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, $"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
                         break;
 
                     case "3":
                         Console.WriteLine("SALIO");
-                        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, $"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
                         verf = 0;
                         break;
                     default:
@@ -99,7 +100,7 @@ namespace LeerMensajesBotTelegram
                 eventoArgumentosErrorRecibidos.ApiRequestException.Message);
         }
         //Funcion para enviar correos de confirmacion 
-        private static bool enviarCorreo(string correo)
+        private static bool EnviarCorreo(string correo)
         {
             var codigo = "2111";
             MailMessage email = new MailMessage();
@@ -155,7 +156,7 @@ namespace LeerMensajesBotTelegram
             return false;
         }
         //Funcion  que devuelve horas totales del alumno 
-        private static string horasTotales(string nCuenta)
+        private static string HorasTotales(string nCuenta)
         {
             int n = 0;
             string lectura;
@@ -176,6 +177,67 @@ namespace LeerMensajesBotTelegram
             }
             con.Close();
             return n.ToString();
+        }
+        //Funcion que devuelve las horas en detalle del alumno
+        private static string HorasDetalle(string nCuenta)
+        {
+            string detalles = "";
+            string lectura;
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena_com = "SELECT * FROM [Tabla General]";
+            OleDbConnection con = new OleDbConnection(cadena);
+            OleDbCommand com = new OleDbCommand(cadena_com, con);
+            con.Open();
+
+            OleDbDataReader leer = com.ExecuteReader();
+            while (leer.Read())
+            {
+                lectura = leer.GetValue(6).ToString();
+                if (lectura == nCuenta)
+                {
+                    //PERIODO DE PROYECTO
+                    detalles += "Periodo: " + leer.GetValue(2).ToString() + "\n";
+
+                    //Extraccion de Campo Nombre Clase TABLA DATOS CLASE
+                    string l1 = leer.GetValue(3).ToString();
+                    string cadena_com1 = "SELECT * FROM [Datos Asignaturas]";
+                    OleDbConnection con1 = new OleDbConnection(cadena);
+                    OleDbCommand com1 = new OleDbCommand(cadena_com1, con1);
+                    con1.Open();
+
+                    OleDbDataReader leer1 = com1.ExecuteReader();
+                    if (leer1.Read())
+                    {
+                        lectura = leer1.GetValue(0).ToString();
+                        if (lectura == l1)
+                        {
+                            detalles += "Nombre Clase: " + leer.GetValue(1).ToString() + "\n";
+                        }
+                    }
+                    con1.Close();
+                    //Extraccion de Nombre Proyecto TABLA DATOS PROYECTOS
+                    string l2 = leer.GetValue(1).ToString();
+                    string cadena_com2 = "SELECT * FROM [Datos Proyectos]";
+                    OleDbConnection con2 = new OleDbConnection(cadena);
+                    OleDbCommand com2 = new OleDbCommand(cadena_com2, con2);
+                    con2.Open();
+
+                    OleDbDataReader leer2 = com2.ExecuteReader();
+                    if (leer2.Read())
+                    {
+                        lectura = leer2.GetValue(0).ToString();
+                        if (lectura == l2)
+                        {
+                            detalles += "Nombre Proyecto: " + leer.GetValue(1).ToString() + "\n";
+                        }
+                    }
+                    con2.Close();
+                    //HORAS DE PROYECTO 
+                    detalles += "Horas de Proyecto: " + leer.GetValue(8).ToString() + "\n\n";
+                }
+            }
+            con.Close();
+            return detalles;
         }
     }
 }
