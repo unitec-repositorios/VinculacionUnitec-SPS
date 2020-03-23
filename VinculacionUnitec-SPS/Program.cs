@@ -200,44 +200,64 @@ namespace LeerMensajesBotTelegram
 
                     //Extraccion de Campo Nombre Clase TABLA DATOS CLASE
                     string l1 = leer.GetValue(3).ToString();
-                    string cadena_com1 = "SELECT * FROM [Datos Asignaturas]";
-                    OleDbConnection con1 = new OleDbConnection(cadena);
-                    OleDbCommand com1 = new OleDbCommand(cadena_com1, con1);
-                    con1.Open();
-
-                    OleDbDataReader leer1 = com1.ExecuteReader();
-                    if (leer1.Read())
-                    {
-                        lectura = leer1.GetValue(0).ToString();
-                        if (lectura == l1)
-                        {
-                            detalles += "Nombre Clase: " + leer.GetValue(1).ToString() + "\n";
-                        }
-                    }
-                    con1.Close();
+                    detalles += "Nombre Clase: " + NombreClase(l1) + "\n";
                     //Extraccion de Nombre Proyecto TABLA DATOS PROYECTOS
                     string l2 = leer.GetValue(1).ToString();
-                    string cadena_com2 = "SELECT * FROM [Datos Proyectos]";
-                    OleDbConnection con2 = new OleDbConnection(cadena);
-                    OleDbCommand com2 = new OleDbCommand(cadena_com2, con2);
-                    con2.Open();
-
-                    OleDbDataReader leer2 = com2.ExecuteReader();
-                    if (leer2.Read())
-                    {
-                        lectura = leer2.GetValue(0).ToString();
-                        if (lectura == l2)
-                        {
-                            detalles += "Nombre Proyecto: " + leer.GetValue(1).ToString() + "\n";
-                        }
-                    }
-                    con2.Close();
+                    detalles += "Nombre Proyecto: " + Nombreproyecto(l2) + "\n";
                     //HORAS DE PROYECTO 
                     detalles += "Horas de Proyecto: " + leer.GetValue(8).ToString() + "\n\n";
                 }
             }
             con.Close();
             return detalles;
+        }
+        
+        ////Funciones Auxiliares  para Extraccion de NOMBRE PROYECTO y NOMBRE CLASES
+        private static string NombreClase(string n)
+        {
+            string ret = "";
+            string lectura;
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena_com1 = "SELECT * FROM [Datos Asignaturas]";
+            OleDbConnection con1 = new OleDbConnection(cadena);
+            OleDbCommand com1 = new OleDbCommand(cadena_com1, con1);
+            con1.Open();
+
+            OleDbDataReader leer1 = com1.ExecuteReader();
+            while(leer1.Read())
+            {
+                lectura = leer1.GetValue(0).ToString();
+                if (lectura == n)
+                {
+                    ret = leer1.GetValue(1).ToString();
+                    return ret;
+                }
+            }
+            con1.Close();
+            return ret;
+        }
+        private static string Nombreproyecto(string n)
+        {
+            string ret = "";
+            string lectura;
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena_com2 = "SELECT * FROM [Datos Proyectos]";
+            OleDbConnection con2 = new OleDbConnection(cadena);
+            OleDbCommand com2 = new OleDbCommand(cadena_com2, con2);
+            con2.Open();
+
+            OleDbDataReader leer2 = com2.ExecuteReader();
+            while(leer2.Read())
+            {
+                lectura = leer2.GetValue(0).ToString();
+                if (lectura == n)
+                {
+                   ret= leer2.GetValue(1).ToString();
+                   return ret;
+                }
+            }
+            con2.Close();
+            return ret;
         }
     }
 }
