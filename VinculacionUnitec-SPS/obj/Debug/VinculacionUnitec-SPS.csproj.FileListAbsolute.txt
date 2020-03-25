@@ -19,3 +19,23 @@ C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\De
 C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.xml
 C:\Users\ItsJaan\source\repos\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.dll.config
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe.config
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.pdb
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\EntityFramework.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.dll
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\EntityFramework.xml
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.xml
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.xml
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.dll.config
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.xml
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csprojAssemblyReference.cache
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CopyComplete
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.exe
+D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.pdb

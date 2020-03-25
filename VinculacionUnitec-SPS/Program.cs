@@ -41,8 +41,19 @@ namespace LeerMensajesBotTelegram
         {
             var mensaje = eventoArgumentosMensajeRecibido.Message;
             
-            if (mensaje == null || mensaje.Type != MessageType.Text)
+            if (mensaje == null)
                 return;
+
+            if(mensaje.Type != MessageType.Text)
+            {
+                await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, "Porfavor responder solamente en forma de texto");
+                if(verf == 0)
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
+                            "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
+                else
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, $"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
+                return;
+            }
 
             Console.WriteLine($"Mensaje de @{mensaje.Chat.Username}:" + mensaje.Text);
             var mens = mensaje.Text;
@@ -53,6 +64,11 @@ namespace LeerMensajesBotTelegram
                     await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,$"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
                     nCuenta = mens;
                     verf = 1;
+                }
+                else if (mens=="/start")
+                {
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
+                            "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
                 }
                 else
                 {
@@ -137,7 +153,7 @@ namespace LeerMensajesBotTelegram
         {
             string lectura;
             string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
-            string cadena_com = "SELECT * FROM [Datos Alumno]";
+            string cadena_com = "SELECT * FROM [Datos_Alumno]";
             OleDbConnection con = new OleDbConnection(cadena);
             OleDbCommand com = new OleDbCommand(cadena_com, con);
             con.Open();
