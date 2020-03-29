@@ -6,11 +6,13 @@ using System.Net.Mail;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
+using VinculacionUnitec_SPS;
 
 namespace LeerMensajesBotTelegram
 {
     class Program
     {
+        //new
         //Variables Globales necesarias para funcionamiento correcto
         private static readonly TelegramBotClient miBotTelegram = new TelegramBotClient("1099955313:AAE4MUcmOzK09op7z8K-K5VNANtumC2n9WQ");
         public static string nombreBot;
@@ -19,6 +21,8 @@ namespace LeerMensajesBotTelegram
 
         public static void Main(string[] args)
         {
+            Database db = new Database();
+
             //Escuchamos los mensajes enviados en los grupos donde esté el bot
             var me = miBotTelegram.GetMeAsync().Result;
             nombreBot = me.Username;
@@ -39,6 +43,8 @@ namespace LeerMensajesBotTelegram
         //Evento que lee los mensajes de los grupos donde esté el bot de Telegram        
         private static async void EventoBotTelegramLeerMensajes(object sender, MessageEventArgs eventoArgumentosMensajeRecibido)
         {
+            Database db = new Database();
+
             var mensaje = eventoArgumentosMensajeRecibido.Message;
             
             if (mensaje == null)
@@ -57,24 +63,50 @@ namespace LeerMensajesBotTelegram
 
             Console.WriteLine($"Mensaje de @{mensaje.Chat.Username}:" + mensaje.Text);
             var mens = mensaje.Text;
-            if(mens!="" && verf==0)
+            //if(mens!="" && verf==0)
+            //{
+            //    if (CuentaExiste(mens))
+            //    {
+            //        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,$"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
+            //        nCuenta = mens;
+            //        verf = 1;
+            //    }
+            //    else if (mens=="/start")
+            //    {
+            //        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
+            //                "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
+            //    }
+            //    else
+            //    {
+            //        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,"No se encontro Numero Cuenta");
+            //        await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
+            //                "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
+            //    }
+
+            //}
+            if (mens != "" && verf == 0)
             {
-                if (CuentaExiste(mens))
+                if (CuentaExiste(mens) && db.CuentaVerificada(mens))
                 {
-                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,$"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, $"1. Horas totales de vinculación\n2. Detalle de horas por proyecto");
                     nCuenta = mens;
                     verf = 1;
                 }
-                else if (mens=="/start")
+                if (CuentaExiste(mens))
                 {
-                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
-                            "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
+                    db.EnviarCorreo(mens);
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, "Codigo enviado a su correo, por favor ingreselo");
+                    var codigo = eventoArgumentosMensajeRecibido.Message;
+                    var codigoText = codigo.Text;
+                    db.CodigoRecibido(codigoText);
+
                 }
                 else
                 {
-                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,"No se encontro Numero Cuenta");
+                    await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, "No se encontro Numero Cuenta");
                     await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id,
-                            "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para sus consultas");
+                            "Estimado estudiante: Bienvenido al Asistente de Vinculación UNITEC-SPS\n\nIngrese su número de cuenta para luego recibir un codigo de verificación en su e-mail.");
+
                 }
 
             }
@@ -152,8 +184,8 @@ namespace LeerMensajesBotTelegram
         private static bool CuentaExiste(string nCuenta)
         {
             string lectura;
-            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
-            string cadena_com = "SELECT * FROM [Datos_Alumno]";
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Franco\source\repos\BDAccess.accdb";
+            string cadena_com = "SELECT * FROM [Datos Alumno]";
             OleDbConnection con = new OleDbConnection(cadena);
             OleDbCommand com = new OleDbCommand(cadena_com, con);
             con.Open();
@@ -176,7 +208,7 @@ namespace LeerMensajesBotTelegram
         {
             int n = 0;
             string lectura;
-            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Franco\source\repos\BDAccess.accdb";
             string cadena_com = "SELECT * FROM [Tabla General]";
             OleDbConnection con = new OleDbConnection(cadena);
             OleDbCommand com = new OleDbCommand(cadena_com, con);
@@ -199,7 +231,7 @@ namespace LeerMensajesBotTelegram
         {
             string detalles = "";
             string lectura;
-            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Franco\source\repos\BDAccess.accdb";
             string cadena_com = "SELECT * FROM [Tabla General]";
             OleDbConnection con = new OleDbConnection(cadena);
             OleDbCommand com = new OleDbCommand(cadena_com, con);
@@ -233,7 +265,7 @@ namespace LeerMensajesBotTelegram
         {
             string ret = "";
             string lectura;
-            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Franco\source\repos\BDAccess.accdb";
             string cadena_com1 = "SELECT * FROM [Datos Asignaturas]";
             OleDbConnection con1 = new OleDbConnection(cadena);
             OleDbCommand com1 = new OleDbCommand(cadena_com1, con1);
@@ -256,7 +288,7 @@ namespace LeerMensajesBotTelegram
         {
             string ret = "";
             string lectura;
-            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ItsJaan\Documents\BASE DATOS MODIFICADA 29 Ene.accdb";
+            string cadena = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Franco\source\repos\BDAccess.accdb";
             string cadena_com2 = "SELECT * FROM [Datos Proyectos]";
             OleDbConnection con2 = new OleDbConnection(cadena);
             OleDbCommand com2 = new OleDbCommand(cadena_com2, con2);

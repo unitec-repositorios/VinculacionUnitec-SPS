@@ -39,3 +39,24 @@ D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\Vinculacio
 D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CopyComplete
 D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.exe
 D:\Users\Suazo\Documents\Trabajos\Sistemas\Ing de Software 2\Telegram\VinculacionUnitec-SPS\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.pdb
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe.config
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.exe
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\VinculacionUnitec-SPS.pdb
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\EntityFramework.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.dll
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\EntityFramework.xml
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.xml
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\bin\Debug\Telegram.Bot.xml
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csprojAssemblyReference.cache
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CoreCompileInputs.cache
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.csproj.CopyComplete
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.exe
+C:\Users\Franco\Desktop\aaa\VinculacionUnitec-SPS\obj\Debug\VinculacionUnitec-SPS.pdb
