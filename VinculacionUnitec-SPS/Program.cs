@@ -18,6 +18,7 @@ namespace LeerMensajesBotTelegram
         public static string nombreBot;
         private static int verf=0;
         private static string nCuenta="";
+        public static bool correoEnviado = false;
 
         public static void Main(string[] args)
         {
@@ -96,10 +97,16 @@ namespace LeerMensajesBotTelegram
                 {
                     db.EnviarCorreo(mens);
                     await miBotTelegram.SendTextMessageAsync(mensaje.Chat.Id, "Codigo enviado a su correo, por favor ingreselo");
-                    var codigo = eventoArgumentosMensajeRecibido.Message;
-                    var codigoText = codigo.Text;
-                    db.CodigoRecibido(codigoText);
+                    //var codigo = eventoArgumentosMensajeRecibido.Message;
+                    //var codigoText = codigo.Text;
+                    //db.CodigoRecibido(codigoText);
+                    correoEnviado = true;
 
+                }
+                if (correoEnviado)
+                {
+                    db.CodigoRecibido(mens);
+                    correoEnviado = false;
                 }
                 else
                 {
