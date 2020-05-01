@@ -154,39 +154,6 @@ namespace LeerMensajesBotTelegram
                 eventoArgumentosErrorRecibidos.ApiRequestException.ErrorCode,
                 eventoArgumentosErrorRecibidos.ApiRequestException.Message);
         }
-        //Funcion para enviar correos de confirmacion 
-        private static bool EnviarCorreo(string correo)
-        {
-            var codigo = "2111";
-            MailMessage email = new MailMessage();
-            email.To.Add(new MailAddress("j.nunez@unitec.edu"));
-            email.From = new MailAddress("nunez0467@gmail.com");
-            email.Subject = "CONFIRMACION ( " + DateTime.Now.ToString("dd / MMM / yyy hh:mm:ss") + " ) ";
-            email.Body = "El codigo de Confirmacion es : " + codigo;
-            email.IsBodyHtml = true;
-            email.Priority = MailPriority.Normal;
-
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 25;
-            smtp.EnableSsl = false;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("nunez0467@gmail.com", "Novemberrain25");
-
-            string output = null;
-            try
-            {
-                smtp.Send(email);
-                email.Dispose();
-                Console.WriteLine("Correo Enviado con Exito");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
         //Funcion de verificacion de cuenta existente 
         private static bool CuentaExiste(string nCuenta)
         {
