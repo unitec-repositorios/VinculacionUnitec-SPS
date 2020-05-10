@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Professors;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
+using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Professors;
+using HoursTracker.Domain.Aggregates.Campus;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -45,8 +48,12 @@ namespace HoursTracker.Web
         {
             services.AddScoped<DbContext, HoursTrackerContext>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(EfRepository<>));
+
             services.AddScoped<IProfessorRepository, ProfessorRepository>();
             services.AddScoped<IProfessorService, ProfessorService>();
+
+            services.AddScoped<ICampusRepository, CampusRepository>();
+            services.AddScoped<ICampusService, CampusService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

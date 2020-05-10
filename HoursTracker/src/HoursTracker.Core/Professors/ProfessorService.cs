@@ -27,7 +27,7 @@ namespace HoursTracker.Core.Professors
         public async Task<IEnumerable<Professor>> All()
         {
             return await _professorRepository
-                .Filter(p => !p.Disabled)
+                .Filter(professor => !professor.Disabled)
                 .ToListAsync();
         }
 

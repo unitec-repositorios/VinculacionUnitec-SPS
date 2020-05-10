@@ -1,17 +1,18 @@
 ﻿
 @{
-    ViewData["Title"] = "Maestros";
-} 
+    ViewData["Title"] = "Campus";
+}
+
 
 @section Scripts {
     <script>
         $(function () {
-            
-          const table = $("#professorsTable").DataTable({
+
+          const table = $("#campusesTable").DataTable({
             language,
             dom: "Bfrtip",
             ajax: {
-                url: "@Url.Action("All", "Professors")",
+                url: "@Url.Action("All", "Campuses")",
                 dataSrc: ""
             },
             buttons: [
@@ -19,15 +20,13 @@
                 text: "Agregar",
                 className: "btn btn-primary waves-effect",
                 action: function () {
-                  window.location.href = "@Url.Action("Create", "Professors")";
+                  window.location.href = "@Url.Action("Create", "Campuses")";
                 },
               },
             ],
             columns: [
-              { data: "firstName" },
-              { data: "secondName" },
-              { data: "firstLastName" },
-              { data: "secondLastName" },
+              { data: "name" },
+              { data: "code" },
               { data: null },
             ],
             columnDefs: [
@@ -50,12 +49,12 @@
               },
             ],
           });
-          
+
           $(document).on('click', '.edit-action', function () {
-              
-              window.location.href = `@Url.Action("Edit", "Professors")/${this.dataset.id}`;
+
+              window.location.href = `@Url.Action("Edit", "Campuses")/${this.dataset.id}`;
           });
-          
+
           $(document).on('click', '.delete-action', function () {
               bootbox.confirm({
                   message: "¿Está seguro que desea elimiar el registro?",
@@ -71,9 +70,9 @@
                       },
                       callback: result => {
                           if (!result) return;
-                          
+
                           $.ajax({
-                              url: `@Url.Action("Delete", "Professors")/${this.dataset.id}`,
+                              url: `@Url.Action("Delete", "Campuses")/${this.dataset.id}`,
                               type: 'DELETE',
                               success: function() {
                                   table.ajax.reload();
@@ -91,19 +90,17 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    <span>Maestros</span>
+                    <span>Campus</span>
                 </h2>
             </div>
             <div class="body">
                 <div class="table-responsive">
 
-                    <table id="professorsTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <table id="campusesTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
-                                <th>Primer nombre</th>
-                                <th>Segundo nombre</th>
-                                <th>Primer apellido</th>
-                                <th>Segundo apellido</th>
+                                <th>Nombre</th>
+                                <th>Código</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -112,7 +109,4 @@
             </div>
         </div>
     </div>
-    </div>
-
-
-
+</div>
