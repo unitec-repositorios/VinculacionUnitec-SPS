@@ -1,5 +1,6 @@
 ﻿using HoursTracker.Domain.Aggregates.Campus;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.Students;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Data.Contexts
@@ -13,5 +14,7 @@ namespace HoursTracker.Data.Contexts
         public  DbSet<Professor> Professors { get; set; }
 
         public DbSet<Campus> Campuses { get; set; }
+        
+        public DbSet<Student> Students { get; set; } 
     }
 }
