@@ -15,6 +15,6 @@ namespace HoursTracker.Core.Campuses
 
         Task Remove(int id);
 
-        Task Update(int id,Campus campus);
+        Task Update(int id, Campus campus);
     }
 }
