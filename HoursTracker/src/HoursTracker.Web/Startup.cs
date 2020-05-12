@@ -8,7 +8,7 @@ using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
 using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Professors;
-using HoursTracker.Domain.Aggregates.Campus;
+using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
