@@ -7,14 +7,14 @@ namespace HoursTracker.Core.Campuses
 {
     public interface ICampusService
     {
-        Task<Domain.Aggregates.Campuses.Campus> FindById(int id);
+        Task<Campus> FindById(int id);
 
-        Task Create(Domain.Aggregates.Campuses.Campus campus);
+        Task Create(Campus campus);
 
-        Task<IEnumerable<Domain.Aggregates.Campuses.Campus>> All();
+        Task<IEnumerable<Campus>> All();
 
         Task Remove(int id);
 
-        Task Update(int id, Domain.Aggregates.Campuses.Campus campus);
+        Task Update(int id,Campus campus);
     }
 }

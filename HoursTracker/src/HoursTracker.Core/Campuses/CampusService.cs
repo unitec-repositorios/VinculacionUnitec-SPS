@@ -15,19 +15,19 @@ namespace HoursTracker.Core.Campuses
             _campusRepository = campusRepository;
         }
 
-        public async Task<IEnumerable<Domain.Aggregates.Campuses.Campus>> All()
+        public async Task<IEnumerable<Campus>> All()
         {
             return await _campusRepository
                 .Filter(campus => !campus.Disabled)
                 .ToListAsync();
         }
 
-        public async Task Create(Domain.Aggregates.Campuses.Campus campus)
+        public async Task Create(Campus campus)
         {
             await _campusRepository.Add(campus);
         }
 
-        public async Task<Domain.Aggregates.Campuses.Campus> FindById(int id)
+        public async Task<Campus> FindById(int id)
         {
             return await _campusRepository.FindById(id);
         }
@@ -38,7 +38,7 @@ namespace HoursTracker.Core.Campuses
             await _campusRepository.Disable(campus);
         }
 
-        public async Task Update(int id, Domain.Aggregates.Campuses.Campus campus)
+        public async Task Update(int id,Campus campus)
         {
             var existingCampus = await _campusRepository.FindById(id);
 
