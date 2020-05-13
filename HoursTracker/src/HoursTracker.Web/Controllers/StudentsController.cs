@@ -36,7 +36,7 @@ namespace HoursTracker.Web.Controllers
                     SecondSurname = student.SecondSurname,
                     MajorCode = student.MajorCode,
                     CampusCode = student.CampusCode,
-                    Settlement = student.Settlement
+                    Settlement = student.Settlement.ToString()
                 });
 
             return Ok(data);
@@ -66,7 +66,7 @@ namespace HoursTracker.Web.Controllers
                 SecondSurname = studentViewModel.SecondSurname,
                 MajorCode = studentViewModel.MajorCode,
                 CampusCode = studentViewModel.CampusCode,
-                Settlement = studentViewModel.Settlement
+                Settlement = int.Parse(studentViewModel.Settlement)
             };
 
             await _studentService.Create(student);
@@ -97,7 +97,7 @@ namespace HoursTracker.Web.Controllers
                 SecondSurname = studentViewModel.SecondSurname,
                 MajorCode = studentViewModel.MajorCode,
                 CampusCode = studentViewModel.CampusCode,
-                Settlement = studentViewModel.Settlement
+                Settlement = int.Parse(studentViewModel.Settlement)
             };
             await _studentService.Update(id, student);
         }

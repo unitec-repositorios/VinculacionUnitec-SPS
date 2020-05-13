@@ -8,12 +8,12 @@ namespace HoursTracker.Core.Students
     {
         Task<Student> FindById(int id);
 
-        Task Create(Student campus);
+        Task Create(Student student);
 
         Task<IEnumerable<Student>> All();
 
         Task Remove(int id);
 
-        Task Update(int id, Student students);
+        Task Update(int id, Student student);
     }
 }

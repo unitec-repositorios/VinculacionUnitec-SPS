@@ -10,6 +10,6 @@ namespace HoursTracker.Web.Models
         public string SecondSurname { get; set; }
         public string MajorCode { get; set; }
         public string CampusCode { get; set; }
-        public int Settlement { get; set; }
+        public string Settlement { get; set; }
     }
 }

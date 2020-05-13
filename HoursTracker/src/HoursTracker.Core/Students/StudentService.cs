@@ -32,17 +32,18 @@ namespace HoursTracker.Core.Students
             await _studentRepository.Disable(student);
         }
 
-        public async Task Update(int id, Student students)
+        public async Task Update(int id, Student student)
         {
             var existingStudent = await _studentRepository.FindById(id);
 
-            existingStudent.Account = students.Account;
-            existingStudent.Settlement = students.Settlement;
-            existingStudent.CampusCode = students.CampusCode;
-            existingStudent.FirstName = students.FirstName;
-            existingStudent.SecondName = students.SecondName;
-            existingStudent.FirstSurname = students.FirstSurname;
-            existingStudent.SecondSurname = students.SecondSurname;
+            existingStudent.Account = student.Account;
+            existingStudent.Settlement = student.Settlement;
+            existingStudent.CampusCode = student.CampusCode;
+            existingStudent.MajorCode = student.MajorCode;
+            existingStudent.FirstName = student.FirstName;
+            existingStudent.SecondName = student.SecondName;
+            existingStudent.FirstSurname = student.FirstSurname;
+            existingStudent.SecondSurname = student.SecondSurname;
             await _studentRepository.Update(existingStudent);
         }
 
