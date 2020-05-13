@@ -8,5 +8,7 @@ namespace HoursTracker.Domain.Aggregates.Classes
     public class Class : BaseEntity, IAggregateRoot
     {
         public string ClassName { get; set; }
+
+        public string ClassCode { get; set; }
     }
 }

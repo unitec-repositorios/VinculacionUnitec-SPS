@@ -44,6 +44,7 @@ namespace HoursTracker.Core.Classes
             var existingClass = await _classRepository.FindById(id);
 
             existingClass.ClassName = @class.ClassName;
+            existingClass.ClassCode = @class.ClassCode;
 
             await _classRepository.Update(existingClass);
         }
