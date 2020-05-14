@@ -35,7 +35,7 @@ namespace HoursTracker.Web
         {
             services.AddDbContext<HoursTrackerContext>(options =>
                 options
-                    .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
                 .AddControllersWithViews()
@@ -60,7 +60,7 @@ namespace HoursTracker.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var options = new DbContextOptionsBuilder<HoursTrackerContext>()
-                .UseSqlite(Configuration.GetConnectionString("DefaultConnection")).Options;
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).Options;
 
             using var context = new HoursTrackerContext(options);
             context.Database.EnsureCreated();
