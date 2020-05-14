@@ -1,4 +1,4 @@
-﻿using HoursTracker.Domain.Aggregates.Campus;
+﻿using HoursTracker.Domain.Aggregates.Campuses;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace HoursTracker.Core.Campuses
             await _campusRepository.Disable(campus);
         }
 
-        public async Task Update(int id, Campus campus)
+        public async Task Update(int id,Campus campus)
         {
             var existingCampus = await _campusRepository.FindById(id);
 

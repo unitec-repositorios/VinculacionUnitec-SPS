@@ -1,9 +1,13 @@
-﻿using HoursTracker.Domain.Contracts;
+﻿
+
+
+
+using HoursTracker.Domain.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HoursTracker.Domain.Aggregates.Campus
+namespace HoursTracker.Domain.Aggregates.Campuses
 {
     public class Campus : BaseEntity, IAggregateRoot
     {
