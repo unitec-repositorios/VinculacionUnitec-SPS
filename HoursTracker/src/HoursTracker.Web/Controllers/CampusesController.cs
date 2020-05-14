@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Campuses;
-using HoursTracker.Domain.Aggregates.Campus;
+using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 

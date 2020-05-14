@@ -1,4 +1,4 @@
-﻿using HoursTracker.Domain.Aggregates.Campus;
+﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.Students;
 using Microsoft.EntityFrameworkCore;

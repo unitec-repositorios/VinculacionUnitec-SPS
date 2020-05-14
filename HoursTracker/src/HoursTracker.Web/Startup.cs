@@ -11,6 +11,7 @@ using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Professors;
 using HoursTracker.Data.Repositories.Students;
 using HoursTracker.Domain.Aggregates.Campus;
+using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Contracts;
@@ -57,9 +58,6 @@ namespace HoursTracker.Web
 
             services.AddScoped<ICampusRepository, CampusRepository>();
             services.AddScoped<ICampusService, CampusService>();
-            
-            services.AddScoped<IStudentRepository, StudentsRepository>();
-            services.AddScoped<IStudentService, StudentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
