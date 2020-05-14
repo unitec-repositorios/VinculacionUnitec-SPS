@@ -14,7 +14,7 @@ using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
 using HoursTracker.Data.Repositories.Students;
-using HoursTracker.Domain.Aggregates.Campus;
+using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
@@ -45,7 +45,7 @@ namespace HoursTracker.Web
         {
             services.AddDbContext<HoursTrackerContext>(options =>
                 options
-                    .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
                 .AddControllersWithViews()
@@ -74,7 +74,7 @@ namespace HoursTracker.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var options = new DbContextOptionsBuilder<HoursTrackerContext>()
-                .UseSqlite(Configuration.GetConnectionString("DefaultConnection")).Options;
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).Options;
 
             using var context = new HoursTrackerContext(options);
             context.Database.EnsureCreated();
