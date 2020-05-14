@@ -1,7 +1,7 @@
 ﻿@model int
 
 @{
-    ViewData["Title"] = "Editar campus";
+    ViewData["Title"] = "Editar carrera";
 }
 
 
@@ -10,7 +10,7 @@
     <script>
 
     function setFormValues(id) {
-        $.get(`@Url.Action("Get", "Campuses")/${id}`, data => {
+        $.get(`@Url.Action("Get", "Careers")/${id}`, data => {
           for (var key in data) {
             $('[name="'+key+'"]').val(data[key]);
           }
@@ -25,14 +25,14 @@
             event.preventDefault();
 
             $(this).ajaxSubmit({
-                url: '@Url.Action("Edit", "Campuses")',
+                url: '@Url.Action("Edit", "Careers")',
                 type: 'put',
                 resetForm: false,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El campus ha si editado exitosamente!
+                            ¡La carrera ha sido editada exitosamente!
                         </div>
                     `);
                 }
@@ -50,7 +50,7 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    Editar campus
+                    Editar carrera
                 </h2>
             </div>
             <div class="body form-center">

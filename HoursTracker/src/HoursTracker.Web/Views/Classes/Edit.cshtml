@@ -1,16 +1,14 @@
-﻿@model int
-
+﻿
 @{
-    ViewData["Title"] = "Editar campus";
+    ViewData["Title"] = "Editar asignatura";
 }
-
 
 @section Scripts {
 
     <script>
 
     function setFormValues(id) {
-        $.get(`@Url.Action("Get", "Campuses")/${id}`, data => {
+        $.get(`@Url.Action("Get", "Classes")/${id}`, data => {
           for (var key in data) {
             $('[name="'+key+'"]').val(data[key]);
           }
@@ -25,14 +23,14 @@
             event.preventDefault();
 
             $(this).ajaxSubmit({
-                url: '@Url.Action("Edit", "Campuses")',
+                url: '@Url.Action("Edit", "Classes")',
                 type: 'put',
-                resetForm: false,
+                resetForm: true,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El campus ha si editado exitosamente!
+                            ¡La asignatura ha sido editada exitosamente!
                         </div>
                     `);
                 }
@@ -50,31 +48,31 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    Editar campus
+                    Editar asignatura
                 </h2>
             </div>
             <div class="body form-center">
                 <form class="form-horizontal">
-                    <div class="row">
+                    <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="code">Código</label>
+                            <label for="className">Nombre de Clase</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off">
+                                    <input type="text" id="className" name="className" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row clearfix">
+                    <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="name">Nombre</label>
+                            <label for="classCode">Codigo de Clase</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off">
+                                    <input type="text" id="classCode" name="classCode" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
