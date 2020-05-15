@@ -4,14 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
+using HoursTracker.Core.Classes;
 using HoursTracker.Core.Professors;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
 using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Careers;
+using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +41,7 @@ namespace HoursTracker.Web
         {
             services.AddDbContext<HoursTrackerContext>(options =>
                 options
-                    .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
                 .AddControllersWithViews()
@@ -57,16 +60,17 @@ namespace HoursTracker.Web
 
             services.AddScoped<ICampusRepository, CampusRepository>();
             services.AddScoped<ICampusService, CampusService>();
-
             services.AddScoped<ICareerRepository, CareerRepository>();
             services.AddScoped<ICareerService, CareerService>();
+            services.AddScoped<IClassRepository, ClassRepository>();
+            services.AddScoped<IClassService, ClassService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var options = new DbContextOptionsBuilder<HoursTrackerContext>()
-                .UseSqlite(Configuration.GetConnectionString("DefaultConnection")).Options;
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).Options;
 
             using var context = new HoursTrackerContext(options);
             context.Database.EnsureCreated();
