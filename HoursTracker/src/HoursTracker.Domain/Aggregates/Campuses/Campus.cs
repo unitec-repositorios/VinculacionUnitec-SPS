@@ -4,6 +4,7 @@
 
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Contracts;
+using HoursTracker.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +18,7 @@ namespace HoursTracker.Domain.Aggregates.Campuses
         public string Code { get; set; }
 
         public ICollection<Student> Students { get; set; }
+
+        public ICollection<CampusCareer> CampusCareer { get; set; } = new HashSet<CampusCareer>();
     }
 }

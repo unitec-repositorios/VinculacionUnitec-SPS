@@ -1,4 +1,4 @@
-using HoursTracker.Domain.Aggregates.Students;
+﻿using HoursTracker.Domain.Aggregates.Students;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Data.Repositories.Students
@@ -7,7 +7,7 @@ namespace HoursTracker.Data.Repositories.Students
     {
         public StudentsRepository(DbContext context) : base(context)
         {
-            
+
         }
     }
 }

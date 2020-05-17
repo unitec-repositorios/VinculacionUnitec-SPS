@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HoursTracker.Domain.Aggregates.Students;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +8,12 @@ namespace HoursTracker.Core.Students
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-    
+
         public StudentService(IStudentRepository studentRepository)
         {
             this._studentRepository = studentRepository;
         }
-    
+
         public async Task<Student> FindById(int id)
         {
             return await _studentRepository.FindById(id);
