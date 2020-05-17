@@ -16,7 +16,9 @@ namespace HoursTracker.Data.Contexts
         public DbSet<Professor> Professors { get; set; }
 
         public DbSet<Campus> Campuses { get; set; }
-        public DbSet<Career> Careers { get; set;  } 
+
+        public DbSet<Career> Careers { get; set;  }
+
         public DbSet<Class> Classes { get; set; }
         
         public DbSet<Student> Students { get; set; } 
