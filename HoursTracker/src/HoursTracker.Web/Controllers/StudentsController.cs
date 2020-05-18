@@ -25,8 +25,9 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var data = (await _studentService.All())
-                .Select(student => new StudentViewModel
+            var data = (_studentService.All());
+
+            var info = data.Select(student => new StudentViewModel
                 {
                     Id = student.Id,
                     Account = student.Account,
@@ -34,12 +35,12 @@ namespace HoursTracker.Web.Controllers
                     SecondName = student.SecondName,
                     FirstSurname = student.FirstSurname,
                     SecondSurname = student.SecondSurname,
-                    MajorCode = student.MajorCode,
-                    CampusCode = student.CampusCode,
-                    Settlement = student.Settlement.ToString()
+                    Settlement = student.Settlement.ToString(),
+                    CareerName = student.CareerName,
+                    CampusName = student.CampusName
                 });
 
-            return Ok(data);
+            return Ok(info);
         }
 
         public async Task<IActionResult> Get(int id)
@@ -64,8 +65,8 @@ namespace HoursTracker.Web.Controllers
                 SecondName = studentViewModel.SecondName,
                 FirstSurname = studentViewModel.FirstSurname,
                 SecondSurname = studentViewModel.SecondSurname,
-                MajorCode = studentViewModel.MajorCode,
-                CampusCode = studentViewModel.CampusCode,
+                //MajorCode = studentViewModel.MajorCode,
+                //CampusCode = studentViewModel.CampusCode,
                 Settlement = int.Parse(studentViewModel.Settlement)
             };
 
@@ -95,8 +96,8 @@ namespace HoursTracker.Web.Controllers
                 SecondName = studentViewModel.SecondName,
                 FirstSurname = studentViewModel.FirstSurname,
                 SecondSurname = studentViewModel.SecondSurname,
-                MajorCode = studentViewModel.MajorCode,
-                CampusCode = studentViewModel.CampusCode,
+                //MajorCode = studentViewModel.MajorCode,
+                //CampusCode = studentViewModel.CampusCode,
                 Settlement = int.Parse(studentViewModel.Settlement)
             };
             await _studentService.Update(id, student);

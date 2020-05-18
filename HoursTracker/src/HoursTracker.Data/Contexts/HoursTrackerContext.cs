@@ -75,6 +75,10 @@ namespace HoursTracker.Data.Contexts
                 .WithOne(c => c.Faculty);
 
 
+            modelBuilder.Entity<Student>()
+                .HasOne(entity => entity.Campus)
+                .WithMany(entity => entity.Students);
+
         }
     }
 }

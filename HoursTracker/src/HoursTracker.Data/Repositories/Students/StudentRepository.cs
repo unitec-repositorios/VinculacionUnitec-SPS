@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Data.Repositories.Students
 {
-    public class StudentsRepository : EfRepository<Student>, IStudentRepository
+    public class StudentRepository : EfRepository<Student>, IStudentRepository
     {
-        public StudentsRepository(DbContext context) : base(context)
+        public StudentRepository(DbContext context) : base(context)
         {
 
         }

@@ -10,7 +10,7 @@ namespace HoursTracker.Core.Students
 
         Task Create(Student student);
 
-        Task<IEnumerable<Student>> All();
+        IEnumerable<StudentDto> All();
 
         Task Remove(int id);
 
