@@ -21,9 +21,9 @@ namespace HoursTracker.Core.Students
             return await _studentRepository.FindById(id);
         }
 
-        public IEnumerable<StudentDto> All()
+        public async Task<IEnumerable<StudentDto>> All()
         {
-            return _studentRepository.
+            var data = await _studentRepository.
                 Filter(student => !student.Disabled)
                 .Include(students => students.StudentCareers)
                 .ThenInclude(c => c.Career)
@@ -40,8 +40,9 @@ namespace HoursTracker.Core.Students
                         SecondSurname = student.SecondSurname,
                         Settlement = student.Settlement
                     })
-                    .ToList()
-                    .GroupBy(
+                    .ToListAsync();
+                    
+                    return data.GroupBy(
                        student => student.Id,
                        (id, student) => new StudentDto
                        {
