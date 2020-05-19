@@ -57,14 +57,23 @@ namespace HoursTracker.Core.Classes
             await _classRepository.Disable(@class);
         }
 
-        public async Task Update(int id, Class @class)
+        public async Task Update(int id, CreateClassDto @class)
         {
+            var newCareers = _careerRepository.Filter(career => @class.Careers.Contains(career.Id));
             var existingClass = await _classRepository.FindById(id);
 
             existingClass.ClassCode = @class.ClassCode;
             existingClass.ClassName = @class.ClassName;
 
+            existingClass.ClassCareers.Clear();
+
+            foreach (var career in newCareers)
+            {
+                existingClass.ClassCareers.Add(new ClassCareer { Career = career });
+            }
+
             await _classRepository.Update(existingClass);
+            
         }
     }
 }

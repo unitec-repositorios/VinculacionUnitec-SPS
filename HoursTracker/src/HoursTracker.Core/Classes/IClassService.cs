@@ -17,6 +17,6 @@ namespace HoursTracker.Core.Classes
 
         Task Remove(int id);
 
-        Task Update(int id, Class classs);
+        Task Update(int id, CreateClassDto classs);
     }
 }
