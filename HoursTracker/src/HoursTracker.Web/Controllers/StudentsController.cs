@@ -25,9 +25,8 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var data = (_studentService.All());
-
-            var info = data.Select(student => new StudentViewModel
+            var data = (await _studentService.All())
+                .Select(student => new StudentViewModel
                 {
                     Id = student.Id,
                     Account = student.Account,
@@ -40,7 +39,7 @@ namespace HoursTracker.Web.Controllers
                     CampusName = student.CampusName
                 });
 
-            return Ok(info);
+            return Ok(data);
         }
 
         public async Task<IActionResult> Get(int id)
