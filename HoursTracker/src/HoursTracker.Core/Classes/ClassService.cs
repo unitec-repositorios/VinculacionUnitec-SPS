@@ -1,5 +1,4 @@
-﻿using HoursTracker.Domain.Aggregates.Campuses;
-using HoursTracker.Domain.Aggregates.Careers;
+﻿using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,7 @@ namespace HoursTracker.Core.Classes
     public class ClassService : IClassService
     {
         private readonly IClassRepository _classRepository;
-        public readonly ICareerRepository _careerRepository;
+        private readonly ICareerRepository _careerRepository;
 
         public ClassService(IClassRepository classRepository, ICareerRepository careerRepository)
         {
@@ -57,23 +56,19 @@ namespace HoursTracker.Core.Classes
             await _classRepository.Disable(@class);
         }
 
-        public async Task Update(int id, CreateClassDto @class)
+        public async Task Update(int id, UpdateClassDto @class)
         {
-            var newCareers = _careerRepository.Filter(career => @class.Careers.Contains(career.Id));
-            var existingClass = await _classRepository.FindById(id);
+            var subject = _classRepository
+                .All()
+                .Include(x => x.ClassCareers)
+                .FirstOrDefault(x => x.Id == id);
 
-            existingClass.ClassCode = @class.ClassCode;
-            existingClass.ClassName = @class.ClassName;
-
-            existingClass.ClassCareers.Clear();
-
-            foreach (var career in newCareers)
-            {
-                existingClass.ClassCareers.Add(new ClassCareer { Career = career });
-            }
-
-            await _classRepository.Update(existingClass);
-            
+            await _classRepository.Update(subject.ClassCareers, @class.Careers
+                .Select(x => new ClassCareer
+                {
+                    CareerId = x,
+                    ClassId = id
+                }), x => x.CareerId);
         }
     }
 }

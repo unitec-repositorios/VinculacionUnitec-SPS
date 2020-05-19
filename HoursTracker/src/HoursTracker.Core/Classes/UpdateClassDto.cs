@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HoursTracker.Core.Classes
 {
-    public class CreateClassDto
+    public class UpdateClassDto
     {
         public string ClassName { get; set; }
 

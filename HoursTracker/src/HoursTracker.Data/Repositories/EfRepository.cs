@@ -75,12 +75,11 @@ namespace HoursTracker.Data.Repositories
             return Context.Set<TEntity>().Count();
         }
 
-        public static void TryUpdateManyToMany<T, TKey>(this DbContext db, IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class
+        public async Task Update<T, TKey>(IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class
         {
-            db.Set<T>().RemoveRange(currentItems.Except(newItems, getKey));
-            db.Set<T>().AddRange(newItems.Except(currentItems, getKey));
-        }
+            Context.TryUpdateManyToMany(currentItems, newItems, getKey);
 
-       
+            await Context.SaveChangesAsync();
+        }
     }
 }

@@ -7,8 +7,6 @@ namespace HoursTracker.Core.Classes
 {
     public interface IClassService
     {
-
-
         Task<Class> FindById(int id);
 
         Task Create(CreateClassDto classs);
@@ -17,6 +15,6 @@ namespace HoursTracker.Core.Classes
 
         Task Remove(int id);
 
-        Task Update(int id, CreateClassDto classs);
+        Task Update(int id, UpdateClassDto classs);
     }
 }
