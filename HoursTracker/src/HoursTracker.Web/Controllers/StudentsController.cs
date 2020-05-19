@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Students;
+using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Students;
+using HoursTracker.Domain.Shared;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +60,14 @@ namespace HoursTracker.Web.Controllers
         [HttpPost]
         public async Task Create(StudentViewModel studentViewModel)
         {
+            var campusTmp = new Campus();
+            var studCar = new StudentCareer();
+            var careerTmp = new Career();
+            var list = new List<StudentCareer>();
+            careerTmp.Name = studentViewModel.CareerName;
+            campusTmp.Name = studentViewModel.CampusName;
+            studCar.Career = careerTmp;
+            list.Add(studCar);
             var student = new Student
             {
                 Id = studentViewModel.Id,
@@ -64,8 +76,8 @@ namespace HoursTracker.Web.Controllers
                 SecondName = studentViewModel.SecondName,
                 FirstSurname = studentViewModel.FirstSurname,
                 SecondSurname = studentViewModel.SecondSurname,
-                //MajorCode = studentViewModel.MajorCode,
-                //CampusCode = studentViewModel.CampusCode,
+                Campus = campusTmp,
+                StudentCareers = list,
                 Settlement = int.Parse(studentViewModel.Settlement)
             };
 
