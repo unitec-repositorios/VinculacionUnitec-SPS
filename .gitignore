@@ -9,3 +9,5 @@
 /HoursTracker/src/HoursTracker.Data/Migrations
 
 .vs/
+
+HoursTracker/src/HoursTracker.Web/appsettings.Development.json
