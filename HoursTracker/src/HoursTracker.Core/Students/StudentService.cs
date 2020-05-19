@@ -32,7 +32,7 @@ namespace HoursTracker.Core.Students
                     {
                         Id = student.Id,
                         Account = student.Account,
-                        CampusName = student.Campus.Code,
+                        CampusName = student.Campus.Name,
                         CareerName = career.Career.Name,
                         FirstName = student.FirstName,
                         FirstSurname = student.FirstSurname,
