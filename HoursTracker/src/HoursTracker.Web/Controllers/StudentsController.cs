@@ -30,7 +30,7 @@ namespace HoursTracker.Web.Controllers
         public async Task<IActionResult> All()
         {
             var data = (await _studentService.All())
-                .Select(student => new StudentViewModel
+                .Select(student => new SingleStudentViewModel
                 {
                     Id = student.Id,
                     Account = student.Account,
@@ -38,7 +38,7 @@ namespace HoursTracker.Web.Controllers
                     SecondName = student.SecondName,
                     FirstSurname = student.FirstSurname,
                     SecondSurname = student.SecondSurname,
-                    Settlement = student.Settlement.ToString(),
+                    Settlement = student.Settlement,
                     CareerName = student.CareerName,
                     CampusName = student.CampusName
                 });
@@ -58,30 +58,22 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(StudentViewModel studentViewModel)
+        public async Task Create(CreateStudentViewModel studentViewModel)
         {
-            var campusTmp = new Campus();
-            var studCar = new StudentCareer();
-            var careerTmp = new Career();
-            var list = new List<StudentCareer>();
-            careerTmp.Name = studentViewModel.CareerName;
-            campusTmp.Name = studentViewModel.CampusName;
-            studCar.Career = careerTmp;
-            list.Add(studCar);
-            var student = new Student
+            var student = new CreateStudentDto
             {
-                Id = studentViewModel.Id,
                 Account = studentViewModel.Account,
                 FirstName = studentViewModel.FirstName,
                 SecondName = studentViewModel.SecondName,
                 FirstSurname = studentViewModel.FirstSurname,
                 SecondSurname = studentViewModel.SecondSurname,
-                Campus = campusTmp,
-                StudentCareers = list,
-                Settlement = int.Parse(studentViewModel.Settlement)
+                Campus = studentViewModel.Campus,
+                Careers = studentViewModel.Careers,
+                Settlement = studentViewModel.Settlement
             };
 
             await _studentService.Create(student);
+
         }
 
         [HttpDelete]
@@ -97,7 +89,7 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, StudentViewModel studentViewModel)
+        public async Task Edit(int id, SingleStudentViewModel studentViewModel)
         {
             var student = new Student
             {
@@ -109,7 +101,7 @@ namespace HoursTracker.Web.Controllers
                 SecondSurname = studentViewModel.SecondSurname,
                 //MajorCode = studentViewModel.MajorCode,
                 //CampusCode = studentViewModel.CampusCode,
-                Settlement = int.Parse(studentViewModel.Settlement)
+                Settlement = studentViewModel.Settlement
             };
             await _studentService.Update(id, student);
         }

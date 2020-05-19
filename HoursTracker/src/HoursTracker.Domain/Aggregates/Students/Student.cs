@@ -17,7 +17,7 @@ namespace HoursTracker.Domain.Aggregates.Students
 
         public string SecondSurname { get; set; }
 
-        public int Settlement { get; set; }
+        public bool Settlement { get; set; }
 
         public Campus Campus { get; set; }
         

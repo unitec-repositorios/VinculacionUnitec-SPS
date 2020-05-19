@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace HoursTracker.Core.Students
 {
-    public class StudentDto
+    public class SingleStudentDto
     {
         public int Id { get; set; }
 
@@ -18,7 +17,7 @@ namespace HoursTracker.Core.Students
 
         public string SecondSurname { get; set; }
 
-        public int Settlement { get; set; }
+        public bool Settlement { get; set; }
 
         public string CampusName { get; set; }
 

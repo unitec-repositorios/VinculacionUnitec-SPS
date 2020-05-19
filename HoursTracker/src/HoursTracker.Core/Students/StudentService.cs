@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Students;
+using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Core.Students
@@ -10,10 +12,17 @@ namespace HoursTracker.Core.Students
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly ICareerRepository _careerRepository;
+        private readonly ICampusRepository _campusRepository;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(
+            IStudentRepository studentRepository,
+            ICareerRepository careerRepository,
+            ICampusRepository campusRepository)
         {
-            this._studentRepository = studentRepository;
+            _studentRepository = studentRepository;
+            _careerRepository = careerRepository;
+            _campusRepository = campusRepository;
         }
 
         public async Task<Student> FindById(int id)
@@ -21,14 +30,14 @@ namespace HoursTracker.Core.Students
             return await _studentRepository.FindById(id);
         }
 
-        public async Task<IEnumerable<StudentDto>> All()
+        public async Task<IEnumerable<SingleStudentDto>> All()
         {
             var data = await _studentRepository.
                 Filter(student => !student.Disabled)
                 .Include(students => students.StudentCareers)
                 .ThenInclude(c => c.Career)
                 .SelectMany(student => student.StudentCareers,
-                    (student, career) => new StudentDto
+                    (student, career) => new SingleStudentDto
                     {
                         Id = student.Id,
                         Account = student.Account,
@@ -44,7 +53,7 @@ namespace HoursTracker.Core.Students
                     
                     return data.GroupBy(
                        student => student.Id,
-                       (id, student) => new StudentDto
+                       (id, student) => new SingleStudentDto
                        {
                            Id = student.First().Id,
                            Account = student.First().Account,
@@ -80,9 +89,28 @@ namespace HoursTracker.Core.Students
             await _studentRepository.Update(existingStudent);
         }
 
-        public async Task Create(Student student)
+        public async Task Create(CreateStudentDto student)
         {
-            await _studentRepository.Add(student);
+            var careers = _careerRepository.Filter(career => student.Careers.Contains(career.Id));
+            var campus = await _campusRepository.FindById(student.Campus);
+
+            var studentInfo = new Student
+            {
+                Account = student.Account,
+                FirstName = student.FirstName,
+                SecondName = student.SecondName,
+                FirstSurname = student.FirstSurname,
+                SecondSurname = student.SecondSurname,
+                Campus = campus,
+                Settlement = student.Settlement,
+            };
+
+            foreach (var career in careers)
+            {
+                studentInfo.StudentCareers.Add(new StudentCareer { Career = career });
+            }
+
+            await _studentRepository.Add(studentInfo);
         }
     }
 }
