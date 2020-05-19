@@ -32,8 +32,9 @@ namespace HoursTracker.Web.Controllers
                 .Select(@class => new ClassViewModel
                 {
                     Id = @class.Id,
-                    ClassName = @class.ClassName,
-                    ClassCode = @class.ClassCode
+                    ClassCode = @class.ClassCode,
+                    ClassName = @class.ClassName
+                    
                 });
 
             return Ok(data);
@@ -53,10 +54,11 @@ namespace HoursTracker.Web.Controllers
         [HttpPost]
         public async Task Create(ClassViewModel classViewModel)
         {
-            var @class = new Class
+            var @class = new CreateClassDto
             {
+                ClassCode = classViewModel.ClassCode,
                 ClassName = classViewModel.ClassName,
-                ClassCode = classViewModel.ClassCode
+                Careers = classViewModel.Careers
             };
 
             await _classService.Create(@class);
@@ -79,8 +81,8 @@ namespace HoursTracker.Web.Controllers
         {
             var classs = new Class
             {
-                ClassName = classViewModel.ClassName,
-                ClassCode = classViewModel.ClassCode
+                ClassCode = classViewModel.ClassCode,
+                ClassName = classViewModel.ClassName
             };
             await _classService.Update(id, classs);
         }
