@@ -11,7 +11,7 @@ namespace HoursTracker.Core.Classes
 
         Task<Class> FindById(int id);
 
-        Task Create(Class classs);
+        Task Create(CreateClassDto classs);
 
         Task<IEnumerable<Class>> All();
 

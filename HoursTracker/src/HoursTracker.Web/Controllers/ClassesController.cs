@@ -53,10 +53,11 @@ namespace HoursTracker.Web.Controllers
         [HttpPost]
         public async Task Create(ClassViewModel classViewModel)
         {
-            var @class = new Class
+            var @class = new CreateClassDto
             {
                 ClassName = classViewModel.ClassName,
-                ClassCode = classViewModel.ClassCode
+                ClassCode = classViewModel.ClassCode,
+                Careers = classViewModel.Careers
             };
 
             await _classService.Create(@class);
