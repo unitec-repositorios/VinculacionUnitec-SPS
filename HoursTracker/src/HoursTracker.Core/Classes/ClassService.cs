@@ -1,8 +1,11 @@
-﻿using HoursTracker.Domain.Aggregates.Campuses;
+﻿using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Classes
@@ -10,27 +13,63 @@ namespace HoursTracker.Core.Classes
     public class ClassService : IClassService
     {
         private readonly IClassRepository _classRepository;
+        private readonly ICareerRepository _careerRepository;
 
-        public ClassService(IClassRepository classRepository)
+        public ClassService(IClassRepository classRepository, ICareerRepository careerRepository)
         {
             _classRepository = classRepository;
+            _careerRepository = careerRepository;
         }
 
-        public async Task<IEnumerable<Class>> All()
+        public async Task<IEnumerable<SingleClassDto>> All()
         {
             return await _classRepository
                 .Filter(@class => !@class.Disabled)
+                .Include(@class => @class.ClassCareers)
+                .ThenInclude(c => c.Career)
+                .Select(@class => new SingleClassDto { 
+                    Id = @class.Id,
+                    ClassCode = @class.ClassCode,
+                    ClassName = @class.ClassName,
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                })
                 .ToListAsync();
         }
 
-        public async Task Create(Class @class)
+        public async Task Create(CreateClassDto @class)
         {
-            await _classRepository.Add(@class);
+            var careers = _careerRepository.Filter(career => @class.Careers.Contains(career.Id));
+
+            var classInfo = new Class
+            {
+                ClassCode = @class.ClassCode,
+                ClassName = @class.ClassName
+            };
+
+            foreach (var career in careers)
+            {
+                classInfo.ClassCareers.Add(new ClassCareer { Career = career });
+            }
+
+            await _classRepository.Add(classInfo);
         }
 
-        public async Task<Class> FindById(int id)
+        public async Task<SingleClassDto> FindById(int id)
         {
-            return await _classRepository.FindById(id);
+
+
+            return await _classRepository
+                .Filter(@class => !@class.Disabled && @class.Id == id)
+                .Include(@class => @class.ClassCareers)
+                    .ThenInclude(c => c.Career)
+                .Select(@class => new SingleClassDto
+                {
+                    Id = @class.Id,
+                    ClassCode = @class.ClassCode,
+                    ClassName = @class.ClassName,
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                })
+                .FirstOrDefaultAsync();
         }
 
         public async Task Remove(int id)
@@ -39,14 +78,19 @@ namespace HoursTracker.Core.Classes
             await _classRepository.Disable(@class);
         }
 
-        public async Task Update(int id, Class @class)
+        public async Task Update(int id, UpdateClassDto @class)
         {
-            var existingClass = await _classRepository.FindById(id);
+            var subject = _classRepository
+                .All()
+                .Include(x => x.ClassCareers)
+                .FirstOrDefault(x => x.Id == id);
 
-            existingClass.ClassName = @class.ClassName;
-            existingClass.ClassCode = @class.ClassCode;
-
-            await _classRepository.Update(existingClass);
+            await _classRepository.Update(subject.ClassCareers, @class.Careers
+                .Select(x => new ClassCareer
+                {
+                    CareerId = x,
+                    ClassId = id
+                }), x => x.CareerId);
         }
     }
 }

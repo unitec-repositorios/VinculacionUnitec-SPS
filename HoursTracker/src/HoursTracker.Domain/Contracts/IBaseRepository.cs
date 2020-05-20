@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -79,6 +80,8 @@ namespace HoursTracker.Domain.Contracts
         ///     The entity with its state marked as modified.
         /// </returns>
         public Task Update(TEntity entity);
+
+        public Task Update<T, TKey>(IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class;
 
         /// <summary>
         ///     Marks the entity as deleted.

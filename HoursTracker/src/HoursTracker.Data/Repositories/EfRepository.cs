@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -72,6 +73,13 @@ namespace HoursTracker.Data.Repositories
         public int Count()
         {
             return Context.Set<TEntity>().Count();
+        }
+
+        public async Task Update<T, TKey>(IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class
+        {
+            Context.TryUpdateManyToMany(currentItems, newItems, getKey);
+
+            await Context.SaveChangesAsync();
         }
     }
 }
