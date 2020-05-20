@@ -196,6 +196,7 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
+      <Content Remove="appsettings.Development.json" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace HoursTracker.Web.Models
+namespace HoursTracker.Core.Classes
 {
-    public class ClassViewModel
+     public class SingleClassDto
     {
         public int Id { get; set; }
 
