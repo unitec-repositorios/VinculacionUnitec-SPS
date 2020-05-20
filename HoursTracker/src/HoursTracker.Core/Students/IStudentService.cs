@@ -8,9 +8,9 @@ namespace HoursTracker.Core.Students
     {
         Task<Student> FindById(int id);
 
-        Task Create(Student student);
+        Task Create(CreateStudentDto student);
 
-        Task<IEnumerable<StudentDto>> All();
+        Task<IEnumerable<SingleStudentDto>> All();
 
         Task Remove(int id);
 

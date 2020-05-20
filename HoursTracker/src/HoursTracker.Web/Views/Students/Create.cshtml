@@ -4,12 +4,23 @@
 
 @section Scripts { 
 
-<script>
+    <script>
     $(function () {
+        $.get('@Url.Action("All", "Careers")', function (data) {
+            for (const { id, name } of data) {
+                $('#selectCareers').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+            }
+        });
+
+        $.get('@Url.Action("All", "Campuses")', function (data) {
+            for (const { id, name } of data) {
+                $('#selectCampus').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+            }
+        });
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
-            
+
             $(this).ajaxSubmit({
                 url: '@Url.Action("Create", "Students")',
                 type: 'post',
@@ -23,11 +34,11 @@
                     `);
                 }
             })
-            
+
         })
 
     });
-</script>
+    </script>
 
 }
 
@@ -103,24 +114,26 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label for="majorCode">Codigo de carrera</label>
+                                <label for="ClassCode">Campus</label>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="majorCode" name="majorCode" class="form-control" autocomplete="off">
+                                        <select id="selectCampus" name="campus" class="form-control show-tick">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label for="campusCode">Codigo de campus</label>
+                                <label for="ClassCode">Carrera</label>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="campusCode" name="campusCode" class="form-control" autocomplete="off">
+                                        <select id="selectCareers" name="careers" class="form-control show-tick" multiple>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -132,11 +145,11 @@
                             <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input type="checkbox" value="1" class="form-check-input" id="settlement" name="settlement">
-                                        <label class="form-check-label" for="settlement"/>
+                                        <input type="checkbox" class="filled-in" value=true id="settlement" name="settlement">
+                                        <label for="settlement" />
                                     </div>
                                 </div>
-                             </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
