@@ -2,6 +2,7 @@
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,18 @@ namespace HoursTracker.Core.Classes
             _careerRepository = careerRepository;
         }
 
-        public async Task<IEnumerable<Class>> All()
+        public async Task<IEnumerable<SingleClassDto>> All()
         {
             return await _classRepository
                 .Filter(@class => !@class.Disabled)
+                .Include(@class => @class.ClassCareers)
+                .ThenInclude(c => c.Career)
+                .Select(@class => new SingleClassDto { 
+                    Id = @class.Id,
+                    ClassCode = @class.ClassCode,
+                    ClassName = @class.ClassName,
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                })
                 .ToListAsync();
         }
 
@@ -45,9 +54,23 @@ namespace HoursTracker.Core.Classes
             await _classRepository.Add(classInfo);
         }
 
-        public async Task<Class> FindById(int id)
+        public async Task<SingleClassDto> FindById(int id)
         {
-            return await _classRepository.FindById(id);
+
+
+            return await _classRepository
+                .Filter(@class => !@class.Disabled && @class.Id == id)
+                .Include(@class => @class.ClassCareers)
+                    .ThenInclude(c => c.Career)
+                .Select(@class => new SingleClassDto
+                {
+                    Id = @class.Id,
+                    ClassCode = @class.ClassCode,
+                    ClassName = @class.ClassName,
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                })
+                .FirstOrDefaultAsync();
+               // .ToListAsync();
         }
 
         public async Task Remove(int id)

@@ -22,7 +22,7 @@
 
          $.get('@Url.Action("All", "Careers")', function (data) {
                 for (const { id, name } of data) {
-                    $('#selectCareers').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+                    $('#selectCareers').append('<option value= ' + id + 'selected>' + name + '</option>').selectpicker('refresh');
                 }
             })
 

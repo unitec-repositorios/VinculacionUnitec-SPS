@@ -33,8 +33,8 @@ namespace HoursTracker.Web.Controllers
                 {
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
-                    ClassName = @class.ClassName
-                    
+                    ClassName = @class.ClassName,
+                    Careers = @class.Careers                   
                 });
 
             return Ok(data);
