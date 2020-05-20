@@ -89,18 +89,17 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, SingleStudentViewModel studentViewModel)
+        public async Task Edit(int id, CreateStudentViewModel studentViewModel)
         {
-            var student = new Student
+            var student = new UpdateSudentDto()
             {
-                Id = studentViewModel.Id,
                 Account = studentViewModel.Account,
                 FirstName = studentViewModel.FirstName,
                 SecondName = studentViewModel.SecondName,
                 FirstSurname = studentViewModel.FirstSurname,
                 SecondSurname = studentViewModel.SecondSurname,
-                //MajorCode = studentViewModel.MajorCode,
-                //CampusCode = studentViewModel.CampusCode,
+                Campus = studentViewModel.Campus,
+                Careers = studentViewModel.Careers,
                 Settlement = studentViewModel.Settlement
             };
             await _studentService.Update(id, student);
