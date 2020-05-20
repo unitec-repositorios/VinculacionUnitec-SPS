@@ -10,21 +10,25 @@
 
     function setFormValues(id) {
         $.get(`@Url.Action("Get", "Classes")/${id}`, data => {
-          for (var key in data) {
+            for (var key in data) {
             $('[name="'+key+'"]').val(data[key]);
-          }
+            }
+
+            $('#selectCareers').selectpicker('val', data.careers);
         });
     }
 
-    $(function () {
+        $(function () {
 
-        setFormValues(@Model);
+            $('#selectCareers').selectpicker();
 
-         $.get('@Url.Action("All", "Careers")', function (data) {
+            $.get('@Url.Action("All", "Careers")', function (data) {
                 for (const { id, name } of data) {
-                    $('#selectCareers').append('<option value= ' + id + 'selected>' + name + '</option>').selectpicker('refresh');
+                    $('#selectCareers').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
                 }
-            })
+
+                setFormValues(@Model);
+            });
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();

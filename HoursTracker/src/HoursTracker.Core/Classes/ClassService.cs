@@ -70,7 +70,6 @@ namespace HoursTracker.Core.Classes
                     Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
                 .FirstOrDefaultAsync();
-               // .ToListAsync();
         }
 
         public async Task Remove(int id)
