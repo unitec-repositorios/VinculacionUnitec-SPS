@@ -4,9 +4,9 @@
     "\\HoursTracker",
     "\\HoursTracker\\src",
     "\\HoursTracker\\src\\HoursTracker.Data",
-    "\\HoursTracker\\src\\HoursTracker.Data\\Repositories\\Careers",
-    "\\HoursTracker\\src\\HoursTracker.Data\\Repositories\\Faculties"
+    "\\HoursTracker\\src\\HoursTracker.Data\\Repositories",
+    "\\HoursTracker\\src\\HoursTracker.Data\\Repositories\\Careers"
   ],
-  "SelectedNode": "\\HoursTracker\\src\\HoursTracker.Data",
+  "SelectedNode": "\\HoursTracker\\src\\HoursTracker.Data\\Repositories\\Careers\\CareerRepository.cs",
   "PreviewInSolutionExplorer": false
 }
