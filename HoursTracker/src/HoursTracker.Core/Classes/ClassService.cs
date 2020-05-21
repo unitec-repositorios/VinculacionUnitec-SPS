@@ -85,6 +85,8 @@ namespace HoursTracker.Core.Classes
                 .Include(x => x.ClassCareers)
                 .FirstOrDefault(x => x.Id == id);
 
+            subject.ClassName = @class.ClassName;
+            subject.ClassCode = @class.ClassCode;
 
             await _classRepository.Update(subject.ClassCareers, @class.Careers
                 .Select(x => new ClassCareer

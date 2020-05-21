@@ -79,13 +79,13 @@ namespace HoursTracker.Web.Controllers
         [HttpPut]
         public async Task Edit(int id, ClassViewModel classViewModel)
         {
-            var updateClass = new UpdateClassDto
+            var updatedClass = new UpdateClassDto
             {
                 ClassCode = classViewModel.ClassCode,
                 ClassName = classViewModel.ClassName,
                 Careers = classViewModel.Careers
             };
-            await _classService.Update(id, updateClass);
+            await _classService.Update(id, updatedClass);
         }
     }
 }
