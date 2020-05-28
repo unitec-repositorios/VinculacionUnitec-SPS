@@ -36,7 +36,7 @@
             $(this).ajaxSubmit({
                 url: '@Url.Action("Edit", "Classes")',
                 type: 'put',
-                resetForm: true,
+                resetForm: false,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
@@ -48,8 +48,13 @@
             })
 
         })
+        });
 
-    });
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
     </script>
 
 }
@@ -104,6 +109,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button type="button" class="back-button btn btn-primary m-t-15 waves-effect">Atrás</button>
                             <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
                         </div>
                     </div>
