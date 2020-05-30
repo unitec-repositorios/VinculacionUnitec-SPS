@@ -29,6 +29,7 @@ namespace HoursTracker.Web.Controllers
                 .Select(professor => new ProfessorViewModel
                 {
                     Id = professor.Id,
+                    Code = professor.Code,
                     FirstName = professor.FirstName,
                     SecondName = professor.SecondName,
                     FirstLastName = professor.FirstLastName,
@@ -54,6 +55,7 @@ namespace HoursTracker.Web.Controllers
         {
             var professor = new Professor
             {
+                Code = professorViewModel.Code,
                 FirstName = professorViewModel.FirstName,
                 SecondName = professorViewModel.SecondName,
                 FirstLastName = professorViewModel.FirstLastName,
@@ -80,6 +82,7 @@ namespace HoursTracker.Web.Controllers
         {
             var professor = new Professor
             {
+                Code = professorViewModel.Code,
                 FirstName = professorViewModel.FirstName,
                 SecondName = professorViewModel.SecondName,
                 FirstLastName = professorViewModel.FirstLastName,
