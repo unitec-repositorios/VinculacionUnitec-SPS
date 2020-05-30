@@ -16,7 +16,7 @@
             $(this).ajaxSubmit({
                 url: '@Url.Action("Create", "Professors")',
                 type: 'post',
-                resetForm: false,
+                resetForm: true,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
