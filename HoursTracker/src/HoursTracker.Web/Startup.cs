@@ -6,16 +6,19 @@ using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
 using HoursTracker.Core.Classes;
 using HoursTracker.Core.Professors;
+using HoursTracker.Core.Students;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
 using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
+using HoursTracker.Data.Repositories.Students;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +67,8 @@ namespace HoursTracker.Web
             services.AddScoped<ICareerService, CareerService>();
             services.AddScoped<IClassRepository, ClassRepository>();
             services.AddScoped<IClassService, ClassService>();
+            services.AddScoped<IStudentRepository, StudentsRepository>();
+            services.AddScoped<IStudentService, StudentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
