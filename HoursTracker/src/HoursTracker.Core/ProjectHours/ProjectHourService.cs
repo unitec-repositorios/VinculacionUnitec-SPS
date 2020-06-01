@@ -25,12 +25,12 @@ namespace HoursTracker.Core.ProjectHours
         {
             return await _projecthourRepository
                 .Filter(projecthour => !projecthour.Disabled)
-                /*.Select(projecthour => new SingleProjectHourDto
+                /*.Select(projecthour => new SingleProjectHourDto  //Error implicit convertion
                 {
                     Id = projecthour.Id,
                     Hours = projecthour.Hours,
                     StudentAccount = projecthour.Student.Account
-                })*/
+                })*/ 
                 .ToListAsync();
         }
 
