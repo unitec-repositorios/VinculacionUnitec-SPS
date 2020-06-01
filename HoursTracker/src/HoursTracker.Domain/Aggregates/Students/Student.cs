@@ -17,5 +17,6 @@ namespace HoursTracker.Domain.Aggregates.Students
         public int Settlement { get; set; }
 
         public ICollection<StudentCareer> StudentCareers { get; set; } = new HashSet<StudentCareer>();
+        public ICollection<SectionStudent> SectionStudents { get; set; } = new HashSet<SectionStudent>();
     }
 }

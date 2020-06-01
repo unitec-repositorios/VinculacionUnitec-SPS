@@ -3,6 +3,7 @@ using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ namespace HoursTracker.Data.Contexts
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Faculty> Faculties { get; set; }
+
+        public DbSet<Section> Sections { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -69,6 +72,19 @@ namespace HoursTracker.Data.Contexts
                .HasOne(campusCareer => campusCareer.Career)
                .WithMany(career => career.CampusCareer)
                .HasForeignKey(campusCareer => campusCareer.CareerId);
+
+            modelBuilder.Entity<SectionStudent>()
+                .HasKey(sectionStudents => new { sectionStudents.SectionId, sectionStudents.StudentId });
+
+            modelBuilder.Entity<SectionStudent>()
+                .HasOne(sectionStudents => sectionStudents.Section)
+                .WithMany(section => section.SectionStudents)
+                .HasForeignKey(sectionStudents => sectionStudents.SectionId);
+
+            modelBuilder.Entity<SectionStudent>()
+                .HasOne(sectionStudents => sectionStudents.Student)
+                .WithMany(@student => @student.SectionStudents)
+                .HasForeignKey(sectionStudents => sectionStudents.StudentId);
 
             modelBuilder.Entity<Faculty>()
                 .HasMany(f => f.Career)
