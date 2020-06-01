@@ -8,13 +8,15 @@ namespace HoursTracker.Core.ProjectHours
 {
     public interface IProjectHourService
     {
-        Task<ProjectHour> FindById(int id);
+        Task<SingleProjectHourDto> FindById(int id);
 
-        Task Create(CreateProjectHourDto projecthour);
+        Task Create(ProjectHour projecthour);
 
-        Task<IEnumerable<ProjectHour>> All();
+        Task<IEnumerable<SingleProjectHourDto>> All();
 
         Task Remove(int id);
+
+        Task Update(int id, ProjectHour projectHour);
 
         //Task Update(int id, updateProjectHourDto projecthour);
     }

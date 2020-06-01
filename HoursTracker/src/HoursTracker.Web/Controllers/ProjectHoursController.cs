@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.ProjectHours;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,31 @@ namespace HoursTracker.Web.Controllers
             _projectHourService = projectHourService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var data = (await _projectHourService.All())
+                .Select(projecthour => new ProjectHourViewModel
+                {
+                    Id = projecthour.Id,
+                    Hours = projecthour.Hours,
+                    StudentAccount = projecthour.StudentAccount
+                    //SectionCode = projecthour.SectionCode
+                    //ProjectName = projecthour.ProjectName
+                });
+
+            return Ok(data);
+        }
+
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _projectHourService.FindById(id));
         }
 
         [HttpGet]
@@ -29,18 +52,14 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CreateProjectHourViewModel projecthourViewModel)
+        public async Task Create(ProjectHourViewModel projectviewViewModel)
         {
-            var projecthour = new CreateProjectHourDto
+            var projecthour = new ProjectHour
             {
-                Student = projecthourViewModel.Student,
-                HoursWork = projecthourViewModel.HoursWork
-                //Section = projecthourViewModel.Section,
-                //Project = projecthourViewModel.Project
+                Hours = projectviewViewModel.Hours
             };
 
             await _projectHourService.Create(projecthour);
-
         }
 
         [HttpDelete]
@@ -54,5 +73,18 @@ namespace HoursTracker.Web.Controllers
         {
             return View(id);
         }
+
+        [HttpPut]
+        public async Task Edit(int id, ProjectHourViewModel projectviewViewModel)
+        {
+            var career = new ProjectHour
+            {
+                Hours = projectviewViewModel.Hours
+                //StudentId = projectviewViewModel.StudentId
+                //StudentName = projectviewViewModel.StudentName
+            };
+            await _projectHourService.Update(id, career);
+        }
+
     }
 }

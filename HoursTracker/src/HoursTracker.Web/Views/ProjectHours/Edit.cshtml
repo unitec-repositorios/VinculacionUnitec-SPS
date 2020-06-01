@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Editar Horas de Vinculacion";
+}
+
+@section Scripts {
+
+    <script>
+
+
+    function setFormValues(id) {
+        $.get(`@Url.Action("Get", "ProjectHours")/${id}`, data => {
+            for (var key in data) {
+            $('[name="'+key+'"]').val(data[key]);
+            }
+
+            $('#selectStudents').selectpicker('val', data.students);
+        });
+    }
+
+        $(function () {
+
+            $('#selectStudents').selectpicker();
+
+            $.get('@Url.Action("All", "Students")', function (data) {
+                for (const { id, name } of data) {
+                    $('#selectStudents').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
+                }
+
+                setFormValues(@Model);
+            });
+
+        $(".form-horizontal").submit(function (event){
+            event.preventDefault();
+
+            $(this).ajaxSubmit({
+                url: '@Url.Action("Edit", "ProjectHours")',
+                type: 'put',
+                resetForm: true,
+                success: () => {
+                    $(this).prepend(`
+                        <div id="alert" class="alert bg-green alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡La asignatura ha sido editada exitosamente!
+                        </div>
+                    `);
+                }
+            })
+
+        })
+
+    });
+    </script>
+
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Editar Horas de Vinculacion
+                </h2>
+            </div>
+            <div class="body form-center">
+                <form class="form-horizontal">
+                   
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="hours">Horas</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="ClassCode">Estudiante</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectStudents" name="students" class="form-control show-tick" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

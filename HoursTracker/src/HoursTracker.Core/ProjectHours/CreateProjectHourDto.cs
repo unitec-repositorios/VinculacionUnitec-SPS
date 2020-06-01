@@ -6,12 +6,12 @@ namespace HoursTracker.Core.ProjectHours
 {
     public class CreateProjectHourDto
     {
-        public int Student { get; set; }
+        public int StudentAccount { get; set; }
 
-        public int Section { get; set; }
+        public int SectionCode { get; set; }
 
-        public int Project { get; set; }
+        public string ProjectName { get; set; }
 
-        public int HoursWork { get; set; }
+        public int Hours { get; set; }
     }
 }

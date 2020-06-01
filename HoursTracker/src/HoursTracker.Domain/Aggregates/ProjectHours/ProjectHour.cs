@@ -9,7 +9,7 @@ namespace HoursTracker.Domain.Aggregates.ProjectHours
 {
     public class ProjectHour : BaseEntity, IAggregateRoot
     {
-        public int HoursWork {get; set;}
+        public int Hours {get; set;}
         public Student Student { get; set; }
         
         //public Section Section { get; set; }

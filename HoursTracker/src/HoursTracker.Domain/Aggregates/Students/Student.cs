@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 
@@ -15,7 +16,8 @@ namespace HoursTracker.Domain.Aggregates.Students
         public string MajorCode { get; set; }
         public string CampusCode { get; set; }
         public int Settlement { get; set; }
-
         public ICollection<StudentCareer> StudentCareers { get; set; } = new HashSet<StudentCareer>();
+
+        public ICollection<ProjectHour> ProjectHours { get; set; } = new HashSet<ProjectHour>();
     }
 }

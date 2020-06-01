@@ -1,62 +1,76 @@
 ﻿using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Aggregates.Students;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HoursTracker.Core.ProjectHours
 {
-    public class ProjectHourService : IProjectHourService
+    public class ProjectHourService
     {
-        private readonly IProjectHourRepository _projectHourRepository;
+        private readonly IProjectHourRepository _projecthourRepository;
         private readonly IStudentRepository _studentRepository;
-        //private readonly ISectionRepository _sectionRepository;
-        //private readonly IProjectRepository _projectRepository;
 
-        public ProjectHourService
-            (IProjectHourRepository projectHourRepository,
-             IStudentRepository studentRepository)
-            //ISectionRepository sectionRepository,
-            //IProjectRepository projectRepository)
+        public ProjectHourService(IProjectHourRepository projecthourRepository, IStudentRepository studentRepository)
         {
-            _projectHourRepository = projectHourRepository;
+            _projecthourRepository = projecthourRepository;
             _studentRepository = studentRepository;
-            //_sectionRepository = sectionRepository;
-            //_projectRepository = projectRepository;
         }
 
         public async Task<IEnumerable<ProjectHour>> All()
         {
-            throw new NotImplementedException();
+            return await _projecthourRepository
+                .Filter(projecthour => !projecthour.Disabled)
+                /*.Select(projecthour => new SingleProjectHourDto
+                {
+                    Id = projecthour.Id,
+                    Hours = projecthour.Hours,
+                    StudentAccount = projecthour.Student.Account
+                })*/
+                .ToListAsync();
         }
 
         public async Task Create(CreateProjectHourDto projecthour)
         {
-            var student = await _studentRepository.FindById(projecthour.Student);
-            //var section = await _sectionRepository.FindById(projecthour.Section);
-            //var project = await _projectRepository.FindById(projecthour.Project);
+            //var student = await _studentRepository.FindById(projecthour.StudentAccount);
 
             var projecthourInfo = new ProjectHour
             {
-                HoursWork = projecthour.HoursWork,
-                Student = student
-                //Section = section,
-                //Project = project
+                Hours = projecthour.Hours
             };
-
-            await _projectHourRepository.Add(projecthourInfo);
-
+            await _projecthourRepository.Add(projecthourInfo);
         }
 
         public async Task<ProjectHour> FindById(int id)
         {
-            return await _projectHourRepository.FindById(id);
+            return await _projecthourRepository
+               .Filter(projecthour => !projecthour.Disabled && projecthour.Id == id)
+               /*.Select(projecthour => new SingleProjectHourDto
+               {
+                   Id = projecthour.Id,
+                   Hours = projecthour.Hours,
+                   StudentAccount = projecthour.Student.Account
+               })*/
+               .FirstOrDefaultAsync();
         }
 
         public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var faculty = await _projecthourRepository.FindById(id);
+            await _projecthourRepository.Disable(faculty);
+        }
+
+        public async Task Update(int id, ProjectHour projecthour)
+        {
+            var existingprojecthour = await _projecthourRepository.FindById(id);
+
+            existingprojecthour.Hours = projecthour.Hours;
+
+            await _projecthourRepository.Update(existingprojecthour);
         }
     }
 }
