@@ -81,6 +81,13 @@ namespace HoursTracker.Core.Students
                 .Include(x => x.StudentCareers)
                 .FirstOrDefault(x => x.Id == id);
 
+            stud.Account = student.Account;
+            stud.FirstName = student.FirstName;
+            stud.SecondName = student.SecondName;
+            stud.FirstSurname = student.FirstSurname;
+            stud.SecondSurname = student.SecondSurname;
+            stud.Settlement = student.Settlement;
+
             await _studentRepository.Update(stud.StudentCareers, @student.Careers
                 .Select(x => new StudentCareer()
                 {

@@ -17,6 +17,17 @@
 
         setFormValues(@Model);
 
+        $.get('@Url.Action("All", "Careers")', function (data) {
+            for (const { id, name } of data) {
+                $('#selectCareers').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+            }
+        });
+        $.get('@Url.Action("All", "Campuses")', function (data) {
+            for (const { id, name } of data) {
+                $('#selectCampus').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+            }
+        });
+
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
 
