@@ -31,8 +31,14 @@
               { data: "email" },
               { data: "careerName" },
               { data: "campusName" },
-              { data: "settlement" },
-              { data: "isInBot" },
+              { data: "settlement",
+                      render: function (data, type, row) {
+                          return (data == true) ? 'Si' : 'No';}},
+              { data: "isInBot",
+                render: function (data, type, row) {
+                    return (data == true) ? 'Si' : 'No';
+                }
+              },
               { data: null },
             ],
             columnDefs: [
