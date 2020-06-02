@@ -40,8 +40,9 @@ namespace HoursTracker.Web.Controllers
                     SecondSurname = student.SecondSurname,
                     Settlement = student.Settlement,
                     CareerName = student.CareerName,
-                    CampusName = student.CampusName
-                });
+                    CampusName = student.CampusName,
+                    isInBot = student.isInBot
+                }); ;
 
             return Ok(data);
         }

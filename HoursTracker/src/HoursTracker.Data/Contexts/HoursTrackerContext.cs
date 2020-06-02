@@ -1,6 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+using HoursTracker.Domain.Aggregates.DataBot;
 using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.Students;
@@ -26,6 +27,8 @@ namespace HoursTracker.Data.Contexts
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Faculty> Faculties { get; set; }
+
+        public DbSet<DataBotS> DataBot { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,7 +77,10 @@ namespace HoursTracker.Data.Contexts
                 .HasMany(f => f.Career)
                 .WithOne(c => c.Faculty);
 
-
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Data)
+                .WithOne(d => d.Student)
+                .HasForeignKey<DataBotS>(b => b.StudentRef);
         }
     }
 }

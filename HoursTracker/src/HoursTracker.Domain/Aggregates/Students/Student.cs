@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Aggregates.DataBot;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 
@@ -20,6 +21,8 @@ namespace HoursTracker.Domain.Aggregates.Students
         public bool Settlement { get; set; }
 
         public Campus Campus { get; set; }
+
+        public DataBotS Data { get; set; }
 
         public ICollection<StudentCareer> StudentCareers { get; set; } = new HashSet<StudentCareer>();
     }

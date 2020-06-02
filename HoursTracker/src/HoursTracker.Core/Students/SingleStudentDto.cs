@@ -23,5 +23,7 @@ namespace HoursTracker.Core.Students
 
         public string CareerName { get; set; }
 
+        public bool isInBot { get; set; }
+
     }
 }

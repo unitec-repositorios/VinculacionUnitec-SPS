@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.DataBot;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace HoursTracker.Core.Students
         private readonly IStudentRepository _studentRepository;
         private readonly ICareerRepository _careerRepository;
         private readonly ICampusRepository _campusRepository;
+        private readonly IDataBotRepository _dataBotRepository;
 
         public StudentService(
             IStudentRepository studentRepository,
@@ -47,7 +49,8 @@ namespace HoursTracker.Core.Students
                         FirstSurname = student.FirstSurname,
                         SecondName = student.SecondName,
                         SecondSurname = student.SecondSurname,
-                        Settlement = student.Settlement
+                        Settlement = student.Settlement,
+                        isInBot = student.Data.Verified == 1
                     })
                     .ToListAsync();
 
@@ -64,6 +67,7 @@ namespace HoursTracker.Core.Students
                    SecondName = student.First().SecondName,
                    SecondSurname = student.First().SecondSurname,
                    Settlement = student.First().Settlement,
+                   isInBot = student.First().isInBot
                }
             );
         }
