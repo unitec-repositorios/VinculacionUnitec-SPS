@@ -19,5 +19,7 @@ namespace HoursTracker.Core.Students
         public int Campus { get; set; }
 
         public bool Settlement { get; set; }
+
+        public string Email { get; set; }
     }
 }

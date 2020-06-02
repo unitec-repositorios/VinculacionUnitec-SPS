@@ -19,6 +19,8 @@ namespace HoursTracker.Core.Students
 
         public bool Settlement { get; set; }
 
+        public string Email { get; set; }
+
         public string CampusName { get; set; }
 
         public string CareerName { get; set; }

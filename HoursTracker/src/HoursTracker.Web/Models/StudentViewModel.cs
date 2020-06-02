@@ -11,6 +11,7 @@
         public string CareerName { get; set; }
         public string CampusName { get; set; }
         public bool Settlement { get; set; }
+        public string Email { get; set; }
         public bool isInBot { get; set; }
     }
 }

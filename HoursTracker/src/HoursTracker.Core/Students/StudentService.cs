@@ -50,6 +50,7 @@ namespace HoursTracker.Core.Students
                         SecondName = student.SecondName,
                         SecondSurname = student.SecondSurname,
                         Settlement = student.Settlement,
+                        Email = student.Email,
                         isInBot = student.Data.Verified == 1
                     })
                     .ToListAsync();
@@ -67,6 +68,7 @@ namespace HoursTracker.Core.Students
                    SecondName = student.First().SecondName,
                    SecondSurname = student.First().SecondSurname,
                    Settlement = student.First().Settlement,
+                   Email = student.First().Email,
                    isInBot = student.First().isInBot
                }
             );
@@ -91,6 +93,7 @@ namespace HoursTracker.Core.Students
             stud.FirstSurname = student.FirstSurname;
             stud.SecondSurname = student.SecondSurname;
             stud.Settlement = student.Settlement;
+            stud.Email = student.Email;
 
             await _studentRepository.Update(stud.StudentCareers, @student.Careers
                 .Select(x => new StudentCareer()
@@ -114,6 +117,7 @@ namespace HoursTracker.Core.Students
                 SecondSurname = student.SecondSurname,
                 Campus = campus,
                 Settlement = student.Settlement,
+                Email = student.Email
             };
 
             foreach (var career in careers)

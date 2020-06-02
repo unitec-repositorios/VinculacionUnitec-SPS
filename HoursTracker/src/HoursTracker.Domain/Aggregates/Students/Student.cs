@@ -20,6 +20,8 @@ namespace HoursTracker.Domain.Aggregates.Students
 
         public bool Settlement { get; set; }
 
+        public string Email { get; set; }
+
         public Campus Campus { get; set; }
 
         public DataBotS Data { get; set; }

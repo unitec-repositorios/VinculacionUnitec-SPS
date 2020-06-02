@@ -41,6 +41,7 @@ namespace HoursTracker.Web.Controllers
                     Settlement = student.Settlement,
                     CareerName = student.CareerName,
                     CampusName = student.CampusName,
+                    Email = student.Email,
                     isInBot = student.isInBot
                 }); ;
 
@@ -70,7 +71,8 @@ namespace HoursTracker.Web.Controllers
                 SecondSurname = studentViewModel.SecondSurname,
                 Campus = studentViewModel.Campus,
                 Careers = studentViewModel.Careers,
-                Settlement = studentViewModel.Settlement
+                Settlement = studentViewModel.Settlement,
+                Email = studentViewModel.Email
             };
 
             await _studentService.Create(student);
@@ -101,7 +103,8 @@ namespace HoursTracker.Web.Controllers
                 SecondSurname = studentViewModel.SecondSurname,
                 Campus = studentViewModel.Campus,
                 Careers = studentViewModel.Careers,
-                Settlement = studentViewModel.Settlement
+                Settlement = studentViewModel.Settlement,
+                Email = studentViewModel.Email
             };
             await _studentService.Update(id, student);
         }

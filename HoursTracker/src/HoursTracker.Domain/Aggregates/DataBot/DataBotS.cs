@@ -10,7 +10,6 @@ namespace HoursTracker.Domain.Aggregates.DataBot
     public class DataBotS : BaseEntity, IAggregateRoot
     {
         public string Telegramid { get; set; }
-        public string Correo { get; set; }
         public string Token { get; set; }
         public int Verified { get; set; }
         public DateTime Fecha_confirmacion { get; set; }
