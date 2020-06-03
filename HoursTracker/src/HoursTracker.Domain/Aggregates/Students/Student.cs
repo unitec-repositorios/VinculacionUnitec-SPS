@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Principal;
 using HoursTracker.Domain.Aggregates.Campuses;
-using HoursTracker.Domain.Aggregates.DataBot;
+using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 
 namespace HoursTracker.Domain.Aggregates.Students
 {
@@ -31,10 +33,15 @@ namespace HoursTracker.Domain.Aggregates.Students
         [Column("correo_electronico")]
         public string Email { get; set; }
 
+        [Column("id_campus")]
         public Campus Campus { get; set; }
 
-        public DataBotS Data { get; set; }
+        public DataBot Data { get; set; }
 
         public ICollection<StudentCareer> StudentCareers { get; set; } = new HashSet<StudentCareer>();
+
+        public ICollection<StudentSection> StudentSections { get; set; } = new HashSet<StudentSection>();
+
+        public ICollection<ProjectHour> ProjectHours { get; set; } = new HashSet<ProjectHour>();
     }
 }
