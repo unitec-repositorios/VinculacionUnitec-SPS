@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Nueva Asignatura";
+    ViewData["Title"] = "Nueva asignatura";
 }
 
 
@@ -34,7 +34,13 @@
 
         })
 
-    });
+        });
+
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
     </script>
 
 }
@@ -44,6 +50,7 @@
         <div class="card">
             <div class="header">
                 <h2>
+                    <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
                     Agregar asignatura
                 </h2>
             </div>
@@ -51,7 +58,7 @@
                 <form class="form-horizontal">
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="className">Codigo Asignatura</label>
+                            <label for="className">Código</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
@@ -63,7 +70,7 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ClassCode">Nombre Asignatura</label>
+                            <label for="ClassCode">Nombre</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">

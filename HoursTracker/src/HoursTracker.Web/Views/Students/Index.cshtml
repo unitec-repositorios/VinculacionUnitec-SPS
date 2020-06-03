@@ -1,17 +1,16 @@
-﻿
-@{
-    ViewData["Title"] = "Asignaturas";
+﻿@{
+    ViewData["Title"] = "Alumnos";
 }
 
 @section Scripts {
     <script>
         $(function () {
 
-          const table = $("#classesTable").DataTable({
+          const table = $("#studentsTable").DataTable({
             language,
             dom: "Bfrtip",
             ajax: {
-                url: "@Url.Action("All", "Classes")",
+                url: "@Url.Action("All", "Students")",
                 dataSrc: ""
             },
             buttons: [
@@ -19,14 +18,27 @@
                 text: "Agregar",
                 className: "btn btn-primary waves-effect",
                 action: function () {
-                  window.location.href = "@Url.Action("Create", "Classes")";
+                  window.location.href = "@Url.Action("Create", "Students")";
                 },
               },
             ],
-              columns: [
-                { data: "classCode" },
-                { data: "className" },
-                
+            columns: [
+              { data: "account" },
+              { data: "firstName" },
+              { data: "secondName" },
+              { data: "firstSurname" },
+              { data: "secondSurname" },
+              { data: "email" },
+              { data: "careerName" },
+              { data: "campusName" },
+              { data: "settlement",
+                      render: function (data, type, row) {
+                          return (data == true) ? 'Si' : 'No';}},
+              { data: "isInBot",
+                render: function (data, type, row) {
+                    return (data == true) ? 'Si' : 'No';
+                }
+              },
               { data: null },
             ],
             columnDefs: [
@@ -52,12 +64,12 @@
 
           $(document).on('click', '.edit-action', function () {
 
-              window.location.href = `@Url.Action("Edit", "Classes")/${this.dataset.id}`;
+              window.location.href = `@Url.Action("Edit", "Students")/${this.dataset.id}`;
           });
 
           $(document).on('click', '.delete-action', function () {
               bootbox.confirm({
-                  message: "¿Está seguro que desea eliminar el registro?",
+                  message: "¿Está seguro que desea elimiar el registro?",
                       buttons: {
                           confirm: {
                               label: 'Si',
@@ -72,7 +84,7 @@
                           if (!result) return;
 
                           $.ajax({
-                              url: `@Url.Action("Delete", "Classes")/${this.dataset.id}`,
+                              url: `@Url.Action("Delete", "Students")/${this.dataset.id}`,
                               type: 'DELETE',
                               success: function() {
                                   table.ajax.reload();
@@ -90,17 +102,25 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    <span>Asignaturas</span>
+                    <span>Alumnos</span>
                 </h2>
             </div>
             <div class="body">
                 <div class="table-responsive">
 
-                    <table id="classesTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <table id="studentsTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
+                                <th>Cuenta</th>
+                                <th>Primer nombre</th>
+                                <th>Segundo nombre</th>
+                                <th>Primer apellido</th>
+                                <th>Segundo apellido</th>
+                                <th>Correo</th>
+                                <th>Carrera</th>
+                                <th>Campus</th>
+                                <th>Finiquito</th>
+                                <th>Registrado Bot</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -110,6 +130,3 @@
         </div>
     </div>
 </div>
-
-
-

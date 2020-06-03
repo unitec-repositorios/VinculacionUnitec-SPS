@@ -41,6 +41,7 @@ namespace HoursTracker.Core.Professors
         {
             var existingProfessor = await _professorRepository.FindById(id);
 
+            existingProfessor.Code = professor.Code;
             existingProfessor.FirstName = professor.FirstName;
             existingProfessor.SecondName = professor.SecondName;
             existingProfessor.FirstLastName = professor.FirstLastName;
