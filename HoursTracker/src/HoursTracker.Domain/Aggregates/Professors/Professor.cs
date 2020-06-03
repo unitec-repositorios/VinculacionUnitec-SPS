@@ -1,4 +1,5 @@
-﻿using HoursTracker.Domain.Contracts;
+﻿using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Contracts;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HoursTracker.Domain.Aggregates.Professors
@@ -20,5 +21,10 @@ namespace HoursTracker.Domain.Aggregates.Professors
 
         [Column("segundo_apellido")]
         public string SecondLastName { get; set; }
+
+        [Column("id_campus")]
+        public Campus Campus { get; set; }
+
+
     }
 }

@@ -12,11 +12,11 @@ namespace HoursTracker.Domain.Aggregates.Careers
     [Table("carreras")]
     public class Career : BaseEntity, IAggregateRoot
     {
-        [Column("nombre_carrera")]
-        public string Name { get; set; }
-
         [Column("codigo_carrera")]
         public string Code { get; set; }
+
+        [Column("nombre_carrera")]
+        public string Name { get; set; }
 
         public ICollection<ClassCareer> ClassCareers { get; set; } = new HashSet<ClassCareer>();
 

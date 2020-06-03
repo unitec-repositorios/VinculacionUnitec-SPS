@@ -1,9 +1,14 @@
 ﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+using HoursTracker.Domain.Aggregates.ExternalOrganizations;
 using HoursTracker.Domain.Aggregates.Faculties;
+using HoursTracker.Domain.Aggregates.Periods;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.Projects;
+using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Aggregates.Students;
+using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +31,17 @@ namespace HoursTracker.Data.Contexts
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Faculty> Faculties { get; set; }
+
+        public DbSet<Period> Periods { get; set; }
+
+        public DbSet<Section> Sections { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<VinculationType> VinculationTypes { get; set; }
+
+        public DbSet<ExternalOrganization> ExternalOrganizations { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -73,6 +89,53 @@ namespace HoursTracker.Data.Contexts
             modelBuilder.Entity<Faculty>()
                 .HasMany(f => f.Career)
                 .WithOne(c => c.Faculty);
+
+            modelBuilder.Entity<StudentSection>()
+               .HasKey(studentSection => new { studentSection.StudentId, studentSection.SectionId });
+
+            modelBuilder.Entity<StudentSection>()
+                .HasOne(studentSection => studentSection.Student)
+                .WithMany(student => student.StudentSections)
+                .HasForeignKey(StudentSection => StudentSection.StudentId);
+
+            modelBuilder.Entity<StudentSection>()
+                .HasOne(studentSection => studentSection.Section)
+                .WithMany(section => section.StudentSections)
+                .HasForeignKey(StudentSection => StudentSection.SectionId);
+
+            modelBuilder.Entity<VinculationType>()
+                .HasMany(v => v.Project)
+                .WithOne(c => c.VinculationType);
+
+            modelBuilder.Entity<SectionProject>()
+               .HasKey(sectionProject => new { sectionProject.SectionId, sectionProject.ProjectId });
+
+            modelBuilder.Entity<SectionProject>()
+                .HasOne(sectionProject => sectionProject.Section)
+                .WithMany(section => section.SectionProjects)
+                .HasForeignKey(SectionProject => SectionProject.SectionId);
+
+            modelBuilder.Entity<SectionProject>()
+                .HasOne(sectionProject => sectionProject.Project)
+                .WithMany(project => project.SectionProjects)
+                .HasForeignKey(SectionProject => SectionProject.ProjectId);
+
+            modelBuilder.Entity<ProjectOrganization>()
+               .HasKey(projectOrganization => new { projectOrganization.ProjectId, projectOrganization.OrganizationId });
+
+            modelBuilder.Entity<ProjectOrganization>()
+                .HasOne(projectOrganization => projectOrganization.Project)
+                .WithMany(project => project.ProjectOrganizations)
+                .HasForeignKey(ProjectOrganization => ProjectOrganization.ProjectId);
+
+            modelBuilder.Entity<ProjectOrganization>()
+                .HasOne(projectOrganization => projectOrganization.ExternalOrganization)
+                .WithMany(project => project.ProjectOrganizations)
+                .HasForeignKey(ProjectOrganizations => ProjectOrganizations.OrganizationId);
+
+            modelBuilder.Entity<Campus>()
+                .HasMany(f => f.Professor)
+                .WithOne(c => c.Campus);
 
 
         }
