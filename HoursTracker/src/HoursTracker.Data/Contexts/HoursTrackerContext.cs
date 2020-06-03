@@ -12,6 +12,7 @@ using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 
 namespace HoursTracker.Data.Contexts
 {
@@ -45,7 +46,7 @@ namespace HoursTracker.Data.Contexts
 
         public DbSet<DataBot> DataBot { get; set; }
 
-
+        public DbSet<ProjectHour> Projecthours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -156,6 +157,21 @@ namespace HoursTracker.Data.Contexts
                 .HasOne(s => s.Data)
                 .WithOne(d => d.Student)
                 .HasForeignKey<DataBot>(b => b.StudentRef);
+
+            modelBuilder.Entity<Project>()
+               .HasMany(f => f.ProjectHours)
+               .WithOne(c => c.Project);
+
+            modelBuilder.Entity<Section>()
+               .HasMany(f => f.ProjectHours)
+               .WithOne(c => c.Section);
+
+            modelBuilder.Entity<Student>()
+              .HasMany(f => f.ProjectHours)
+              .WithOne(c => c.Student);
+
+
+
 
 
         }

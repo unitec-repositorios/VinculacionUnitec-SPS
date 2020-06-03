@@ -1,4 +1,5 @@
-﻿using HoursTracker.Domain.Aggregates.VinculationTypes;
+﻿using HoursTracker.Domain.Aggregates.ProjectHours;
+using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 using System;
@@ -27,5 +28,7 @@ namespace HoursTracker.Domain.Aggregates.Projects
         public ICollection<SectionProject> SectionProjects { get; set; } = new HashSet<SectionProject>();
 
         public ICollection<ProjectOrganization> ProjectOrganizations { get; set; } = new HashSet<ProjectOrganization>();
+
+        public ICollection<ProjectHour> ProjectHours { get; set; } = new HashSet<ProjectHour>();
     }
 }

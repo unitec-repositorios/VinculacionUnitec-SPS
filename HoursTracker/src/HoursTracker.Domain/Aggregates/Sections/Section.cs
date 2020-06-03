@@ -1,6 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Periods;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 using System;
@@ -32,6 +33,8 @@ namespace HoursTracker.Domain.Aggregates.Sections
         public ICollection<StudentSection> StudentSections { get; set; } = new HashSet<StudentSection>();
 
         public ICollection<SectionProject> SectionProjects { get; set; } = new HashSet<SectionProject>();
+
+        public ICollection<ProjectHour> ProjectHours { get; set; } = new HashSet<ProjectHour>();
     }
 
     
