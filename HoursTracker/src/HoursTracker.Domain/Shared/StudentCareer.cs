@@ -2,10 +2,12 @@
 using HoursTracker.Domain.Aggregates.Students;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace HoursTracker.Domain.Shared
 {
+    [Table("alumnos_x_carreras")]
     public class StudentCareer
     {
         public int CareerId { get; set; }
