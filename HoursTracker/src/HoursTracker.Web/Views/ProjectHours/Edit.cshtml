@@ -1,47 +1,39 @@
-﻿
+﻿@model int
+
 @{
-    ViewData["Title"] = "Editar Horas de Vinculacion";
+    ViewData["Title"] = "Editar Horas";
 }
+
 
 @section Scripts {
 
     <script>
 
-
     function setFormValues(id) {
-        $.get(`@Url.Action("Get", "ProjectHours")/${id}`, data => {
-            for (var key in data) {
+        $.get(`@Url.Action("Get", "Projecthours")/${id}`, data => {
+          for (var key in data) {
             $('[name="'+key+'"]').val(data[key]);
-            }
-
-            $('#selectStudents').selectpicker('val', data.students);
+          }
         });
-    }
+        }
 
-        $(function () {
 
-            $('#selectStudents').selectpicker();
+    $(function () {
 
-            $.get('@Url.Action("All", "Students")', function (data) {
-                for (const { id, name } of data) {
-                    $('#selectStudents').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
-                }
-
-                setFormValues(@Model);
-            });
+        setFormValues(@Model);
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
 
             $(this).ajaxSubmit({
-                url: '@Url.Action("Edit", "ProjectHours")',
+                url: '@Url.Action("Edit", "Projecthours")',
                 type: 'put',
-                resetForm: true,
+                resetForm: false,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡La asignatura ha sido editada exitosamente!
+                            ¡La carrera ha sido editada exitosamente!
                         </div>
                     `);
                 }
@@ -50,6 +42,12 @@
         })
 
     });
+
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
     </script>
 
 }
@@ -59,15 +57,51 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    Editar Horas de Vinculacion
+                    <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
+                    Editar Horas
                 </h2>
             </div>
             <div class="body form-center">
                 <form class="form-horizontal">
-                   
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="hours">Horas</label>
+                            <label for="Account">Numero de cuenta</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="SeccionCode">Seccion</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="seccionCode" name="seccionCode" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="ProjectName">Nombre del Proyecto</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="projectName" name="projectName" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="Hours">Horas</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
@@ -75,26 +109,6 @@
                                     <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ClassCode">Estudiante</label>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <select id="selectStudents" name="students" class="form-control show-tick" multiple>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
                         </div>
                     </div>
                 </form>

@@ -1,14 +1,14 @@
-﻿using HoursTracker.Domain.Aggregates.ProjectHours;
+﻿using HoursTracker.Domain.Aggregates.Projecthours;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HoursTracker.Data.Repositories.ProjectHours
+namespace HoursTracker.Data.Repositories.Projecthours
 {
-    public class ProjectHourRepository : EfRepository<ProjectHour>, IProjectHourRepository
+    public class ProjecthourRepository : EfRepository<Projecthour>, IProjecthourRepository
     {
-        public ProjectHourRepository(DbContext context) : base(context)
+        public ProjecthourRepository(DbContext context) : base(context)
         {
         }
     }

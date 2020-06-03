@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HoursTracker.Core.ProjectHours;
-using HoursTracker.Domain.Aggregates.ProjectHours;
+using HoursTracker.Core.Projecthours;
+using HoursTracker.Domain.Aggregates.Projecthours;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
 {
-    public class ProjectHoursController : Controller
+    public class ProjecthoursController : Controller
     {
-        private readonly IProjectHourService _projectHourService;
+        private readonly IProjecthourService _projecthourService;
 
-        public ProjectHoursController(IProjectHourService projectHourService)
+        public ProjecthoursController(IProjecthourService projecthourService)
         {
-            _projectHourService = projectHourService;
+            _projecthourService = projecthourService;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,14 +26,18 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var data = (await _projectHourService.All())
-                .Select(projecthour => new ProjectHourViewModel
+            var data = (await _projecthourService.All())
+                .Select(projecthour => new ProjecthourViewModel
                 {
                     Id = projecthour.Id,
-                    Hours = projecthour.Hours,
-                    StudentAccount = projecthour.StudentAccount
-                    //SectionCode = projecthour.SectionCode
-                    //ProjectName = projecthour.ProjectName
+                    Account = projecthour.Account,
+                    StudentFirstName = projecthour.StudentFirstName,
+                    StudentLastName = projecthour.StudentLastName,
+                    SeccionCode = projecthour.SeccionCode,
+                    SeccionName = projecthour.SeccionName,
+                    ProjectName = projecthour.ProjectName,
+                    TableState = projecthour.TableState,
+                    Hours = projecthour.Hours
                 });
 
             return Ok(data);
@@ -42,7 +45,7 @@ namespace HoursTracker.Web.Controllers
 
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _projectHourService.FindById(id));
+            return Ok(await _projecthourService.FindById(id));
         }
 
         [HttpGet]
@@ -52,20 +55,27 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(ProjectHourViewModel projectviewViewModel)
+        public async Task Create(ProjecthourViewModel projecthourViewModel)
         {
-            var projecthour = new ProjectHour
+            var projecthour = new Projecthour
             {
-                Hours = projectviewViewModel.Hours
+                Account = projecthourViewModel.Account,
+                StudentFirstName = projecthourViewModel.StudentFirstName,
+                StudentLastName = projecthourViewModel.StudentLastName,
+                SeccionCode = projecthourViewModel.SeccionCode,
+                SeccionName = projecthourViewModel.SeccionName,
+                ProjectName = projecthourViewModel.ProjectName,
+                TableState = projecthourViewModel.TableState,
+                Hours = projecthourViewModel.Hours
             };
 
-            await _projectHourService.Create(projecthour);
+            await _projecthourService.Create(projecthour);
         }
 
         [HttpDelete]
         public async Task Delete(int id)
         {
-            await _projectHourService.Remove(id);
+            await _projecthourService.Remove(id);
         }
 
         [HttpGet]
@@ -75,16 +85,20 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, ProjectHourViewModel projectviewViewModel)
+        public async Task Edit(int id, ProjecthourViewModel projecthourViewModel)
         {
-            var career = new ProjectHour
+            var updatedProjecthour = new Projecthour
             {
-                Hours = projectviewViewModel.Hours
-                //StudentId = projectviewViewModel.StudentId
-                //StudentName = projectviewViewModel.StudentName
+                Account = projecthourViewModel.Account,
+                StudentFirstName = projecthourViewModel.StudentFirstName,
+                StudentLastName = projecthourViewModel.StudentLastName,
+                SeccionCode = projecthourViewModel.SeccionCode,
+                SeccionName = projecthourViewModel.SeccionName,
+                ProjectName = projecthourViewModel.ProjectName,
+                TableState = projecthourViewModel.TableState,
+                Hours = projecthourViewModel.Hours
             };
-            await _projectHourService.Update(id, career);
+            await _projecthourService.Update(id, updatedProjecthour);
         }
-
     }
 }

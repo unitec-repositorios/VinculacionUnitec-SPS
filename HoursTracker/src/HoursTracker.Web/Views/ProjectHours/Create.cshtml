@@ -1,101 +1,221 @@
-﻿@{
-    ViewData["Title"] = "Horas Vinculativas";
+﻿
+@{
+    ViewData["Title"] = "Create";
 }
 
 @section Scripts {
 
     <script>
     $(function () {
-        $.get('@Url.Action("All", "Students")', function (data) {
-            for (const { id, name } of data) {
-                $('#selectStudents').append('<option data-tokens=' + id + '>' + name + '</option>').selectpicker('refresh');
-            }
-        });
-
-        
-        /* $.get('Url.Action("All", "Sections")', function (data) {
-            for (const { id, name } of data) {
-                $('#selectSections').append('<option data-tokens=' + id + '>' + name + '</option>').selectpicker('refresh');
-            }
-        });*/
-
-    /* $.get('Url.Action("All", "Projects")', function (data) {
-        for (const { id, name } of data) {
-            $('#selectProjects').append('<option data-tokens=' + id + '>' + name + '</option>').selectpicker('refresh');
-        }
-    });*/
-       
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
+
             $(this).ajaxSubmit({
-                url: '@Url.Action("Create", "ProjectHours")',
+                url: '@Url.Action("Create", "Projecthours")',
                 type: 'post',
                 resetForm: true,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El estudiante ha si creado exitosamente!
+                            ¡Horas vinculativas han sido agregadas exitosamente!
                         </div>
                     `);
                 }
             })
+
         })
+
     });
+
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
+
     </script>
 
 }
+
+<select class="selectpicker" data-live-search="true" data-width="fit">
+    <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+    <option data-tokens="mustard">Burger, Shake and a Smile</option>
+    <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+</select>
 
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
                 <h2>
-                    Agregar Horas Vinculativas
+                    <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
+                    Agregar Horas
                 </h2>
             </div>
             <div class="body form-center">
                 <form class="form-horizontal">
-
-                    <select class="selectpicker" data-live-search="true">
-                        <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                    </select>
-
-
-                    <!--
-                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                        <label for="selectSection">Seccion</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                        <div class="form-group">
-                            <div class="form-line">
-                                <select id="selectSections" name="sections" class="form-control show-tick">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                        <label for="selectProjects">Proyecto</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                        <div class="form-group">
-                            <div class="form-line">
-                                <select id="selectProjects" name="projects" class="form-control show-tick">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    -->
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="hours">Horas</label>
+                            <label for="ClassCode">Cuenta del Estudiante</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
+                                    <select class="form-control show-tick" data-live-search="true" data-live-search-style="startsWith" style='position:fixed;'>
+                                        <option value="21651487">21651487</option>
+                                        <option value="21651489">21651489</option>
+                                        <option value="21651426">21651426</option>
+                                        <option value="21653426">21653426</option>
+                                        <option value="21651581">21651581</option>
+                                        <option value="21656846">21656846</option>
+                                        <option value="21652460">21652460</option>
+                                        <option value="21651324">21651324</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="ClassCode">Sección</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectCareers" name="careers" class="form-control show-tick">
+                                        <option data-tokens="SectionCode">166</option>
+                                        <option data-tokens="SectionCode">275</option>
+                                        <option data-tokens="SectionCode">600</option>
+                                        <option data-tokens="SectionCode">863</option>
+                                        <option data-tokens="SectionCode">868</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="ClassCode">Projecto</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectCareers" name="careers" class="form-control show-tick">
+                                        <option data-tokens="ProjectName">TELETON</option>
+                                        <option data-tokens="ProjectName">SOCIOLOGIA</option>
+                                        <option data-tokens="ProjectName">VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO</option>
+                                        <option data-tokens="ProjectName">TUTORÍAS</option>
+                                        <option data-tokens="ProjectName">Campañas de Divulgacion para Microempresarios</option>
+                                        <option data-tokens="ProjectName">INVESTIGACION DE MERCADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="Account">Numero de cuenta</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="studentFirstName">Nombre</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="studentFirstName" name="studentFirstName" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="studentLastName">Apellido</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="studentLastName" name="studentLastName" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="SeccionCode">Seccion</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="seccionCode" name="seccionCode" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="SeccionName">Nombre</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="SeccionName" name="SeccionName" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="ProjectName">Nombre del Proyecto</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="projectName" name="projectName" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="tableState">Estado</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="tableState" name="tableState" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="Hours">Horas</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="Hours" name="Hours" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -111,3 +231,4 @@
         </div>
     </div>
 </div>
+

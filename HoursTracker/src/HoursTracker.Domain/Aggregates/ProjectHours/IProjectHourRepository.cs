@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HoursTracker.Domain.Aggregates.ProjectHours
+namespace HoursTracker.Domain.Aggregates.Projecthours
 {
-    public interface IProjectHourRepository : IBaseRepository<ProjectHour>
+    public interface IProjecthourRepository : IBaseRepository<Projecthour>
     {
-
     }
 }

@@ -3,7 +3,7 @@ using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Professors;
-using HoursTracker.Domain.Aggregates.ProjectHours;
+using HoursTracker.Domain.Aggregates.Projecthours;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +28,7 @@ namespace HoursTracker.Data.Contexts
 
         public DbSet<Faculty> Faculties { get; set; }
 
-        public DbSet<ProjectHour> ProjectHours { get; set; }
+        public DbSet<Projecthour> Projecthours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,10 +76,9 @@ namespace HoursTracker.Data.Contexts
                 .HasMany(f => f.Career)
                 .WithOne(c => c.Faculty);
 
-            modelBuilder.Entity<Student>()
+            /*modelBuilder.Entity<Student>()
                 .HasMany(s => s.ProjectHours)
-                .WithOne(p => p.Student);
-
+                .WithOne(p => p.Student);*/
         }
     }
 }

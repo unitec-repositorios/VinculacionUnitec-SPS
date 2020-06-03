@@ -1,13 +1,14 @@
-﻿using HoursTracker.Domain.Aggregates.ProjectHours;
+﻿using HoursTracker.Domain.Aggregates.Projecthours;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HoursTracker.Core.ProjectHours
+namespace HoursTracker.Core.Projecthours
 {
-    public interface IProjectHourService
+    public interface IProjecthourService
     {
+        /*
         Task<SingleProjectHourDto> FindById(int id);
 
         Task Create(ProjectHour projecthour);
@@ -17,7 +18,20 @@ namespace HoursTracker.Core.ProjectHours
         Task Remove(int id);
 
         Task Update(int id, ProjectHour projectHour);
+        */
 
         //Task Update(int id, updateProjectHourDto projecthour);
+
+
+        //Code for Demostration purpose
+        Task<Projecthour> FindById(int id);
+
+        Task Create(Projecthour projecthour);
+
+        Task<IEnumerable<Projecthour>> All();
+
+        Task Remove(int id);
+
+        Task Update(int id, Projecthour projecthour);
     }
 }

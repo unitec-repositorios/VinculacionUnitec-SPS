@@ -1,17 +1,16 @@
 ﻿
 @{
-    ViewData["Title"] = "Horas Vinculativas";
+    ViewData["Title"] = "Horas de Vinculacion";
 }
 
 @section Scripts {
     <script>
         $(function () {
-
           const table = $("#projecthoursTable").DataTable({
             language,
             dom: "Bfrtip",
             ajax: {
-                url: "@Url.Action("All", "ProjectHours")",
+                url: "@Url.Action("All", "Projecthours")",
                 dataSrc: ""
             },
             buttons: [
@@ -19,31 +18,41 @@
                 text: "Agregar",
                 className: "btn btn-primary waves-effect",
                 action: function () {
-                  window.location.href = "@Url.Action("Create", "ProjectHours")";
+                  window.location.href = "@Url.Action("Create", "Projecthours")";
                 },
               },
             ],
               columns: [
-                  { data: "StudentAccount" },
-                  // { data: "SeccionCode" },
-                  // { data: "ProjectName" },
-                { data: "Hours" },
+                  { data: "account" },
+                  { data: "studentFirstName" },
+                  { data: "studentLastName" },
+                  { data: "seccionCode" },
+                  { data: "seccionName" },
+                  { data: "projectName" },
+                  { data: "hours" },
+                  { data: "tableState" },
+
               { data: null },
             ],
             columnDefs: [
               {
                 targets: [-1],
-                width: 80,
+                width: 10,
                 render: function (data, type, row) {
                   const {id} = row;
                   return (
-                    `<div class="text-center">
+                    `
+                    <div class="text-center">
                         <button type="button" class="btn bg-light-blue waves-effect edit-action" data-id=${id}>
                             <i class="material-icons">create</i>
                         </button>
                         <button type="button" class="btn bg-red waves-effect delete-action" data-id=${id}>
                             <i class="material-icons">delete</i>
                         </button>
+                        <button type="button" class="btn bg-green waves-effect approve-action" data-id=${id}>
+                            <i class="fas fa-check"></i>
+                        </button>
+
                     </div>`
                   );
                 },
@@ -53,7 +62,7 @@
 
           $(document).on('click', '.edit-action', function () {
 
-              window.location.href = `@Url.Action("Edit", "ProjectHours")/${this.dataset.id}`;
+              window.location.href = `@Url.Action("Edit", "Projecthours")/${this.dataset.id}`;
           });
 
           $(document).on('click', '.delete-action', function () {
@@ -73,7 +82,7 @@
                           if (!result) return;
 
                           $.ajax({
-                              url: `@Url.Action("Delete", "ProjectHours")/${this.dataset.id}`,
+                              url: `@Url.Action("Delete", "Projecthours")/${this.dataset.id}`,
                               type: 'DELETE',
                               success: function() {
                                   table.ajax.reload();
@@ -83,6 +92,23 @@
                 });
           });
         });
+
+        $('#projecthoursTable thead tr').clone(true).appendTo('#projecthoursTable thead');
+        $('#projecthoursTable thead tr:eq(1) th').each(function (i) {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
     </script>
 }
 
@@ -91,20 +117,42 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    <span>Vinculacion</span>
+                    <span>Horas de Vinculacion</span>
                 </h2>
             </div>
             <div class="body">
+                <div class="row clearfix">
+                    <div class="col-md-4">
+                        <p>
+                            <b>Filtros</b>
+                        </p>
+                        <select class="form-control show-tick">
+                            <option>Todas</option>
+                            <option>Nombre del Estudiante</option>
+                            <option>Nombre de Seccion</option>
+                            <option>Codigo de Seccion</option>
+                            <option>Nombre del Proyecto</option>
+                            <option>Estado del Registro</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <input type="checkbox" id="md_checkbox_30" class="filled-in chk-col-green" />
+                    <label for="md_checkbox_30">Aprovadas</label>
+                </div>
+                <br />
                 <div class="table-responsive">
-
                     <table id="projecthoursTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
-                                <th>Numero de Cuneta</th>
-                                <!--
-                                    <th>Codigo de Seccion</th>
-                                    <th>Nombre del proyecto</th>
-                                -->
+                                <th>Numero de Cuenta</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Codigo de Seccion</th>
+                                <th>Nombre de Seccion</th>
+                                <th>Nombre del Proyecto</th>
+                                <th>Horas</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -114,6 +162,4 @@
         </div>
     </div>
 </div>
-
-
 
