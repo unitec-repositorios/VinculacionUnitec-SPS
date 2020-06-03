@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HoursTracker.Web.Models
 {
-    public class CreateProjecthoursViewModel
+    public class CreateProjectHourViewModel
     {
         public int Hours { get; set; }
         public int Account { get; set; }

@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HoursTracker.Core.Projecthours;
-using HoursTracker.Domain.Aggregates.Projecthours;
+using HoursTracker.Core.ProjectHours;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
 {
-    public class ProjecthoursController : Controller
+    public class ProjectHoursController : Controller
     {
-        private readonly IProjecthourService _projecthourService;
+        private readonly IProjectHourService _projecthourService;
 
-        public ProjecthoursController(IProjecthourService projecthourService)
+        public ProjectHoursController(IProjectHourService projecthourService)
         {
             _projecthourService = projecthourService;
         }
@@ -23,11 +23,10 @@ namespace HoursTracker.Web.Controllers
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> All()
         {
             var data = (await _projecthourService.All())
-                .Select(projecthour => new ProjecthourViewModel
+                .Select(projecthour => new ProjectHourViewModel
                 {
                     Id = projecthour.Id,
                     Account = projecthour.Account,
@@ -55,9 +54,9 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CreateProjecthoursViewModel projecthourViewModel)
+        public async Task Create(ProjectHourViewModel projecthourViewModel)
         {
-            var projecthour = new Projecthour
+            var projecthour = new ProjectHour
             {
                 Account = projecthourViewModel.Account,
                 SeccionCode = projecthourViewModel.SeccionCode,
@@ -82,9 +81,9 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, ProjecthourViewModel projecthourViewModel)
+        public async Task Edit(int id, ProjectHourViewModel projecthourViewModel)
         {
-            var updatedProjecthour = new Projecthour
+            var updatedProjecthour = new ProjectHour
             {
                 Account = projecthourViewModel.Account,
                 StudentFirstName = projecthourViewModel.StudentFirstName,

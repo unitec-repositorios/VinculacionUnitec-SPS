@@ -6,7 +6,7 @@ using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
 using HoursTracker.Core.Classes;
 using HoursTracker.Core.Professors;
-using HoursTracker.Core.Projecthours;
+using HoursTracker.Core.ProjectHours;
 using HoursTracker.Core.Students;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
@@ -14,13 +14,13 @@ using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
-using HoursTracker.Data.Repositories.Projecthours;
+using HoursTracker.Data.Repositories.ProjectHours;
 using HoursTracker.Data.Repositories.Students;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
-using HoursTracker.Domain.Aggregates.Projecthours;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -73,8 +73,9 @@ namespace HoursTracker.Web
             services.AddScoped<IClassRepository, ClassRepository>();
             services.AddScoped<IClassService, ClassService>();
 
-            services.AddScoped<IProjecthourRepository, ProjecthourRepository>();
-            services.AddScoped<IProjecthourService, ProjecthourService>();
+            services.AddScoped<IProjectHourRepository, ProjectHourRepository>();
+            services.AddScoped<IProjectHourService, ProjectHourService>();
+
             services.AddScoped<IStudentRepository, StudentsRepository>();
             services.AddScoped<IStudentService, StudentService>();
         }

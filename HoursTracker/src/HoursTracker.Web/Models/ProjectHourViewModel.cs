@@ -5,17 +5,11 @@ using System.Threading.Tasks;
 
 namespace HoursTracker.Web.Models
 {
-    public class ProjecthourViewModel
+    public class ProjectHourViewModel
     {
         public int Id { get; set; }
 
         public int Hours { get; set; }
-
-        //public int SectionCode { get; set; }
-
-        //public string ProjectName { get; set; }
-
-        //public int StudentAccount { get; set; }
 
         //Code for Demostration purpose
         public int Account { get; set; }

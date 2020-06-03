@@ -1,14 +1,12 @@
-﻿using HoursTracker.Domain.Aggregates.Students;
-using HoursTracker.Domain.Contracts;
+﻿using HoursTracker.Domain.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HoursTracker.Domain.Aggregates.Projecthours
+namespace HoursTracker.Domain.Aggregates.ProjectHours
 {
-    public class Projecthour : BaseEntity, IAggregateRoot
+    public class ProjectHour : BaseEntity, IAggregateRoot
     {
-
         public int Account { get; set; }
         public string StudentFirstName { get; set; }
         public string StudentLastName { get; set; }
@@ -18,6 +16,5 @@ namespace HoursTracker.Domain.Aggregates.Projecthours
         public int Hours { get; set; }
         public string TableState { get; set; }
         //public Student Student { get; set; }
-
     }
 }

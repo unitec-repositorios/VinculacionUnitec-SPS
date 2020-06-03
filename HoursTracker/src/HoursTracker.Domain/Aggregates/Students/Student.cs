@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
-using HoursTracker.Domain.Aggregates.Projecthours;
 using System.ComponentModel.DataAnnotations.Schema;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.DataBot;
@@ -37,7 +36,6 @@ namespace HoursTracker.Domain.Aggregates.Students
 
         public DataBotS Data { get; set; }
 
-        //public Projecthour Projecthour { get; set; }
         public ICollection<StudentCareer> StudentCareers { get; set; } = new HashSet<StudentCareer>();
     }
 }

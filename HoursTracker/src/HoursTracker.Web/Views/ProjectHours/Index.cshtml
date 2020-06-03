@@ -10,7 +10,7 @@
             language,
             dom: "Bfrtip",
             ajax: {
-                url: "@Url.Action("All", "Projecthours")",
+                url: "@Url.Action("All", "ProjectHours")",
                 dataSrc: ""
             },
             buttons: [
@@ -18,7 +18,7 @@
                 text: "Agregar",
                 className: "btn btn-primary waves-effect",
                 action: function () {
-                  window.location.href = "@Url.Action("Create", "Projecthours")";
+                  window.location.href = "@Url.Action("Create", "ProjectHours")";
                 },
               },
             ],
@@ -62,7 +62,7 @@
 
           $(document).on('click', '.edit-action', function () {
 
-              window.location.href = `@Url.Action("Edit", "Projecthours")/${this.dataset.id}`;
+              window.location.href = `@Url.Action("Edit", "ProjectHours")/${this.dataset.id}`;
           });
 
           $(document).on('click', '.delete-action', function () {
@@ -82,7 +82,7 @@
                           if (!result) return;
 
                           $.ajax({
-                              url: `@Url.Action("Delete", "Projecthours")/${this.dataset.id}`,
+                              url: `@Url.Action("Delete", "ProjectHours")/${this.dataset.id}`,
                               type: 'DELETE',
                               success: function() {
                                   table.ajax.reload();
