@@ -18,12 +18,15 @@ namespace HoursTracker.Domain.Aggregates.Sections
         public string Code { get; set; }
 
         [Column("id_periodo")]
+        public int PeriodId { get; set; }
         public Period Period { get; set; }
 
         [Column("id_asignatura")]
+        public int ClassId { get; set; }
         public Class Class { get; set; }
 
         [Column("id_docente")]
+        public int ProfessorId { get; set; }
         public Professor Professor { get; set; }
 
         public ICollection<StudentSection> StudentSections { get; set; } = new HashSet<StudentSection>();

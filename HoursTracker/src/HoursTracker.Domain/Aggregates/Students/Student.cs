@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Principal;
 using HoursTracker.Domain.Aggregates.Campuses;
-using HoursTracker.Domain.Aggregates.DataBotS;
+using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 

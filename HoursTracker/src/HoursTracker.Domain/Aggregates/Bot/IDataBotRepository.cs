@@ -1,4 +1,4 @@
-﻿using HoursTracker.Domain.Aggregates.DataBotS;
+﻿using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Contracts;
 
 

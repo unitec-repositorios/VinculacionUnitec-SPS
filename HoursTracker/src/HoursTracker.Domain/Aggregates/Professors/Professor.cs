@@ -23,6 +23,7 @@ namespace HoursTracker.Domain.Aggregates.Professors
         public string SecondLastName { get; set; }
 
         [Column("id_campus")]
+        public int CampusId { get; set; }
         public Campus Campus { get; set; }
 
 

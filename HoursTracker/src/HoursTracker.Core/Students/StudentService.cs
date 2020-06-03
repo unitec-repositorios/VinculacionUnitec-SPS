@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
-using HoursTracker.Domain.Aggregates.DataBot;
+using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;

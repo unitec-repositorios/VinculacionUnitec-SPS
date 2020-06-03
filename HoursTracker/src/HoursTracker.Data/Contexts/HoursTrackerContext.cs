@@ -1,7 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
-using HoursTracker.Domain.Aggregates.DataBot;
+using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Aggregates.ExternalOrganizations;
 using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Periods;
@@ -12,7 +12,6 @@ using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
-using HoursTracker.Domain.Aggregates.DataBotS;
 
 namespace HoursTracker.Data.Contexts
 {

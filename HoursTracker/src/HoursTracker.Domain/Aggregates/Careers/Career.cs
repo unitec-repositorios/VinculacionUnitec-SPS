@@ -25,6 +25,7 @@ namespace HoursTracker.Domain.Aggregates.Careers
         public ICollection<CampusCareer> CampusCareer { get; set; } = new HashSet<CampusCareer>();
 
         [Column("id_facultad")]
+        public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
     }
 }
