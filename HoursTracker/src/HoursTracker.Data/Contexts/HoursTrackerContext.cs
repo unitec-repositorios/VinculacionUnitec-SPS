@@ -1,6 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+using HoursTracker.Domain.Aggregates.DataBot;
 using HoursTracker.Domain.Aggregates.ExternalOrganizations;
 using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Periods;
