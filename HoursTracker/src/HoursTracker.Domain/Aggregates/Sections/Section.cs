@@ -13,6 +13,7 @@ namespace HoursTracker.Domain.Aggregates.Sections
     [Table("secciones")]
     public class Section : BaseEntity, IAggregateRoot
     {
+        
         [Column("codigo_seccion")]
         public string Code { get; set; }
 

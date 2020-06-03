@@ -38,8 +38,8 @@ namespace HoursTracker.Core.Students
 
             existingStudent.Account = student.Account;
             existingStudent.Settlement = student.Settlement;
-            existingStudent.CampusCode = student.CampusCode;
-            existingStudent.MajorCode = student.MajorCode;
+           // existingStudent.CampusCode = student.CampusCode;
+           // existingStudent.MajorCode = student.MajorCode;
             existingStudent.FirstName = student.FirstName;
             existingStudent.SecondName = student.SecondName;
             existingStudent.FirstSurname = student.FirstSurname;

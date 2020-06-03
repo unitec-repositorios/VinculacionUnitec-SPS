@@ -11,6 +11,7 @@ using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using HoursTracker.Domain.Aggregates.DataBotS;
 
 namespace HoursTracker.Data.Contexts
 {
@@ -42,6 +43,8 @@ namespace HoursTracker.Data.Contexts
 
         public DbSet<ExternalOrganization> ExternalOrganizations { get; set; }
 
+        public DbSet<DataBot> DataBot { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -59,6 +62,18 @@ namespace HoursTracker.Data.Contexts
                 .WithMany(career => career.ClassCareers)
                 .HasForeignKey(classCareer => classCareer.CareerId);
 
+            modelBuilder.Entity<StudentCareer>()
+                .HasKey(studentCareer => new { studentCareer.StudentId, studentCareer.CareerId });
+
+            modelBuilder.Entity<StudentCareer>()
+                .HasOne(studentCareer => studentCareer.Student)
+                .WithMany(@student => @student.StudentCareers)
+                .HasForeignKey(studentCareer => studentCareer.StudentId);
+
+            modelBuilder.Entity<StudentCareer>()
+               .HasOne(studentCareer => studentCareer.Career)
+               .WithMany(career => career.StudentCareers)
+               .HasForeignKey(studentCareer => studentCareer.CareerId);
 
             modelBuilder.Entity<StudentCareer>()
                 .HasKey(studentCareer => new { studentCareer.StudentId, studentCareer.CareerId });
@@ -136,6 +151,11 @@ namespace HoursTracker.Data.Contexts
             modelBuilder.Entity<Campus>()
                 .HasMany(f => f.Professor)
                 .WithOne(c => c.Campus);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Data)
+                .WithOne(d => d.Student)
+                .HasForeignKey<DataBot>(b => b.StudentRef);
 
 
         }
