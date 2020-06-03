@@ -55,15 +55,12 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(ProjecthourViewModel projecthourViewModel)
+        public async Task Create(CreateProjecthoursViewModel projecthourViewModel)
         {
             var projecthour = new Projecthour
             {
                 Account = projecthourViewModel.Account,
-                StudentFirstName = projecthourViewModel.StudentFirstName,
-                StudentLastName = projecthourViewModel.StudentLastName,
                 SeccionCode = projecthourViewModel.SeccionCode,
-                SeccionName = projecthourViewModel.SeccionName,
                 ProjectName = projecthourViewModel.ProjectName,
                 TableState = projecthourViewModel.TableState,
                 Hours = projecthourViewModel.Hours

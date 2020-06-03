@@ -39,6 +39,7 @@
 
 }
 
+
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -52,20 +53,16 @@
                 <form class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ClassCode">Cuenta del Estudiante</label>
+                            <label for="account">Cuenta del Estudiante</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select class="form-control show-tick" data-live-search="true" data-live-search-style="startsWith" style="position:fixed;">
-                                        <option value="21651487">21651487</option>
-                                        <option value="21651489">21651489</option>
-                                        <option value="21651426">21651426</option>
-                                        <option value="21653426">21653426</option>
-                                        <option value="21651581">21651581</option>
-                                        <option value="21656846">21656846</option>
-                                        <option value="21652460">21652460</option>
-                                        <option value="21651324">21651324</option>
+                                    <select id="account" class="form-control show-tick" data-live-search="true" data-live-search-style="startsWith">
+                                        <option value="21651487" style="margin-left:25px;">21651487 - Juan Romero</option>
+                                        <option value="21651489" style="margin-left:25px;">21651489 - Luis Herrera</option>
+                                        <option value="21651426" style="margin-left:25px;">21651426 - Marlon Escoto</option>
+                                        <option value="21653426" style="margin-left:25px;">21653426 - Emil Canales</option>
                                     </select>
 
                                 </div>
@@ -74,17 +71,17 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ClassCode">Sección</label>
+                            <label for="seccionCode">Sección</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCareers" name="careers" class="form-control show-tick">
-                                        <option data-tokens="SectionCode">166</option>
-                                        <option data-tokens="SectionCode">275</option>
-                                        <option data-tokens="SectionCode">600</option>
-                                        <option data-tokens="SectionCode">863</option>
-                                        <option data-tokens="SectionCode">868</option>
+                                    <select id="seccionCode" data-live-search="true" data-live-search-style="startsWith" name="careers" class="form-control show-tick">
+                                        <option value="166" style="margin-left:25px;">166</option>
+                                        <option value="275" style="margin-left:25px;">275</option>
+                                        <option value="600" style="margin-left:25px;">600</option>
+                                        <option value="863" style="margin-left:25px;">863</option>
+                                        <option value="868" style="margin-left:25px;">866</option>
                                     </select>
                                 </div>
                             </div>
@@ -92,26 +89,24 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ClassCode">Projecto</label>
+                            <label for="projectName">Projecto</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCareers" name="careers" class="form-control show-tick">
-                                        <option data-tokens="ProjectName">TELETON</option>
-                                        <option data-tokens="ProjectName">SOCIOLOGIA</option>
-                                        <option data-tokens="ProjectName">VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO</option>
-                                        <option data-tokens="ProjectName">TUTORÍAS</option>
-                                        <option data-tokens="ProjectName">Campañas de Divulgacion para Microempresarios</option>
-                                        <option data-tokens="ProjectName">INVESTIGACION DE MERCADO</option>
+                                    <select id="projectName" data-live-search="true" data-live-search-style="startsWith" name="careers" class="form-control show-tick">
+                                        <option value="TELETON" style="margin-left:25px;">TELETON</option>
+                                        <option value="SOCIOLOGIA" style="margin-left:25px;">SOCIOLOGIA</option>
+                                        <option value="VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO" style="margin-left:25px;">VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO</option>
+                                        <option value="TUTORÍAS">TUTORÍAS</option>
+                                        <option value="Campañas de Divulgacion para Microempresarios" style="margin-left:25px;">Campañas de Divulgacion para Microempresarios</option>
+                                        <option value="INVESTIGACION DE MERCADO" style="margin-left:25px;">INVESTIGACION DE MERCADO</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    
 
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -128,12 +123,12 @@
 
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="Hours">Horas</label>
+                            <label for="hours">Horas</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="Hours" name="Hours" class="form-control" autocomplete="off">
+                                    <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
