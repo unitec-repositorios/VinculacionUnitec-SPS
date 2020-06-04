@@ -34,6 +34,7 @@ namespace HoursTracker.Domain.Aggregates.Students
         public string Email { get; set; }
 
         [Column("id_campus")]
+        public int CampusId { get; set; }
         public Campus Campus { get; set; }
 
         public DataBot Data { get; set; }
