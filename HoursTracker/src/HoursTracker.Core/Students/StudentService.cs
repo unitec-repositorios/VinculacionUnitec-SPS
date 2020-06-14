@@ -37,7 +37,9 @@ namespace HoursTracker.Core.Students
             var data = await _studentRepository.
                 Filter(student => !student.Disabled)
                 .Include(students => students.StudentCareers)
+                
                 .ThenInclude(c => c.Career)
+                .Include(students => students.Data)
                 .SelectMany(student => student.StudentCareers,
                     (student, career) => new SingleStudentDto
                     {
@@ -51,7 +53,8 @@ namespace HoursTracker.Core.Students
                         SecondSurname = student.SecondSurname,
                         Settlement = student.Settlement,
                         Email = student.Email,
-                        isInBot = student.Data.Verified == 1
+                        isInBot = student.Data.Verified == 1,
+                        TelegramAccount = student.Data.Telegramid
                     })
                     .ToListAsync();
 
@@ -61,7 +64,7 @@ namespace HoursTracker.Core.Students
                {
                    Id = student.First().Id,
                    Account = student.First().Account,
-                   CampusName = student.First().CampusName,
+                   CampusName = string.Join(", ", student.Select(s => s.CampusName)),
                    CareerName = string.Join(", ", student.Select(s => s.CareerName)),
                    FirstName = student.First().FirstName,
                    FirstSurname = student.First().FirstSurname,
@@ -69,7 +72,8 @@ namespace HoursTracker.Core.Students
                    SecondSurname = student.First().SecondSurname,
                    Settlement = student.First().Settlement,
                    Email = student.First().Email,
-                   isInBot = student.First().isInBot
+                   isInBot = student.First().isInBot,
+                   TelegramAccount = student.First().TelegramAccount
                }
             );
         }

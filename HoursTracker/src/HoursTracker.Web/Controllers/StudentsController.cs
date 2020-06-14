@@ -42,7 +42,8 @@ namespace HoursTracker.Web.Controllers
                     CareerName = student.CareerName,
                     CampusName = student.CampusName,
                     Email = student.Email,
-                    isInBot = student.isInBot
+                    isInBot = student.isInBot,
+                    TelegramAccount = student.TelegramAccount
                 }); ;
 
             return Ok(data);

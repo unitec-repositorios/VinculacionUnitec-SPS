@@ -27,5 +27,6 @@ namespace HoursTracker.Core.Students
 
         public bool isInBot { get; set; }
 
+        public string TelegramAccount { get; set; }
     }
 }
