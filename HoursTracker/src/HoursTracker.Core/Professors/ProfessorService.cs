@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Domain.Aggregates.Professors;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,19 @@ namespace HoursTracker.Core.Professors
             _professorRepository = professorRepository;
         }
 
-        public async Task<Professor> FindById(int id)
+        public async Task<SingleProfessorDto> FindById(int id)
         {
-            return await _professorRepository.FindById(id);
+            var data = _professorRepository.All().First(x => x.Id == id);
+
+            return new SingleProfessorDto
+            {
+                Code = data.Code,
+                Id = data.Id,
+                SecondName = data.SecondName,
+                FirstLastName = data.FirstLastName,
+                FirstName = data.FirstName,
+                SecondLastName = data.SecondLastName
+            };
         }
 
         public async Task Create(Professor professor)
@@ -24,10 +35,19 @@ namespace HoursTracker.Core.Professors
             await _professorRepository.Add(professor);
         }
 
-        public async Task<IEnumerable<Professor>> All()
+        public async Task<IEnumerable<SingleProfessorDto>> All()
         {
             return await _professorRepository
                 .Filter(professor => !professor.Disabled)
+                .Select(x => new SingleProfessorDto
+                {
+                    Id = x.Id,
+                    Code = x.Code,
+                    FirstLastName = x.FirstLastName,
+                    FirstName = x.FirstName,
+                    SecondLastName = x.SecondLastName,
+                    SecondName = x.SecondName
+                })
                 .ToListAsync();
         }
 
@@ -41,6 +61,7 @@ namespace HoursTracker.Core.Professors
         {
             var existingProfessor = await _professorRepository.FindById(id);
 
+            existingProfessor.Code = professor.Code;
             existingProfessor.FirstName = professor.FirstName;
             existingProfessor.SecondName = professor.SecondName;
             existingProfessor.FirstLastName = professor.FirstLastName;

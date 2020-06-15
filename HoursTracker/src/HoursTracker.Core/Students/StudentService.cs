@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Aggregates.Students;
+using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Core.Students
@@ -8,10 +13,18 @@ namespace HoursTracker.Core.Students
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly ICareerRepository _careerRepository;
+        private readonly ICampusRepository _campusRepository;
+        private readonly IDataBotRepository _dataBotRepository;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(
+            IStudentRepository studentRepository,
+            ICareerRepository careerRepository,
+            ICampusRepository campusRepository)
         {
-            this._studentRepository = studentRepository;
+            _studentRepository = studentRepository;
+            _careerRepository = careerRepository;
+            _campusRepository = campusRepository;
         }
 
         public async Task<Student> FindById(int id)
@@ -19,11 +32,46 @@ namespace HoursTracker.Core.Students
             return await _studentRepository.FindById(id);
         }
 
-        public async Task<IEnumerable<Student>> All()
+        public async Task<IEnumerable<SingleStudentDto>> All()
         {
-            return await _studentRepository.
+            var data = await _studentRepository.
                 Filter(student => !student.Disabled)
-                .ToListAsync();
+                .Include(students => students.StudentCareers)
+                .ThenInclude(c => c.Career)
+                .SelectMany(student => student.StudentCareers,
+                    (student, career) => new SingleStudentDto
+                    {
+                        Id = student.Id,
+                        Account = student.Account,
+                        CampusName = student.Campus.Name,
+                        CareerName = career.Career.Name,
+                        FirstName = student.FirstName,
+                        FirstSurname = student.FirstSurname,
+                        SecondName = student.SecondName,
+                        SecondSurname = student.SecondSurname,
+                        Settlement = student.Settlement,
+                        Email = student.Email,
+                        isInBot = student.Data.Verified == 1
+                    })
+                    .ToListAsync();
+
+            return data.GroupBy(
+               student => student.Id,
+               (id, student) => new SingleStudentDto
+               {
+                   Id = student.First().Id,
+                   Account = student.First().Account,
+                   CampusName = student.First().CampusName,
+                   CareerName = string.Join(", ", student.Select(s => s.CareerName)),
+                   FirstName = student.First().FirstName,
+                   FirstSurname = student.First().FirstSurname,
+                   SecondName = student.First().SecondName,
+                   SecondSurname = student.First().SecondSurname,
+                   Settlement = student.First().Settlement,
+                   Email = student.First().Email,
+                   isInBot = student.First().isInBot
+               }
+            );
         }
 
         public async Task Remove(int id)
@@ -32,24 +80,52 @@ namespace HoursTracker.Core.Students
             await _studentRepository.Disable(student);
         }
 
-        public async Task Update(int id, Student student)
+        public async Task Update(int id, UpdateSudentDto student)
         {
-            var existingStudent = await _studentRepository.FindById(id);
+            var stud = _studentRepository
+                .All()
+                .Include(x => x.StudentCareers)
+                .FirstOrDefault(x => x.Id == id);
 
-            existingStudent.Account = student.Account;
-            existingStudent.Settlement = student.Settlement;
-            existingStudent.CampusCode = student.CampusCode;
-            existingStudent.MajorCode = student.MajorCode;
-            existingStudent.FirstName = student.FirstName;
-            existingStudent.SecondName = student.SecondName;
-            existingStudent.FirstSurname = student.FirstSurname;
-            existingStudent.SecondSurname = student.SecondSurname;
-            await _studentRepository.Update(existingStudent);
+            stud.Account = student.Account;
+            stud.FirstName = student.FirstName;
+            stud.SecondName = student.SecondName;
+            stud.FirstSurname = student.FirstSurname;
+            stud.SecondSurname = student.SecondSurname;
+            stud.Settlement = student.Settlement;
+            stud.Email = student.Email;
+
+            await _studentRepository.Update(stud.StudentCareers, @student.Careers
+                .Select(x => new StudentCareer()
+                {
+                    CareerId = x,
+                    StudentId = id
+                }), x => x.CareerId);
         }
 
-        public async Task Create(Student student)
+        public async Task Create(CreateStudentDto student)
         {
-            await _studentRepository.Add(student);
+            var careers = _careerRepository.Filter(career => student.Careers.Contains(career.Id));
+            var campus = await _campusRepository.FindById(student.Campus);
+
+            var studentInfo = new Student
+            {
+                Account = student.Account,
+                FirstName = student.FirstName,
+                SecondName = student.SecondName,
+                FirstSurname = student.FirstSurname,
+                SecondSurname = student.SecondSurname,
+                Campus = campus,
+                Settlement = student.Settlement,
+                Email = student.Email
+            };
+
+            foreach (var career in careers)
+            {
+                studentInfo.StudentCareers.Add(new StudentCareer { Career = career });
+            }
+
+            await _studentRepository.Add(studentInfo);
         }
     }
 }

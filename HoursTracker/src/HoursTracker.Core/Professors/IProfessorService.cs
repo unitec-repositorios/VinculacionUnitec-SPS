@@ -6,11 +6,11 @@ namespace HoursTracker.Core.Professors
 {
     public interface IProfessorService
     {
-        Task<Professor> FindById(int id);
+        Task<SingleProfessorDto> FindById(int id);
         
         Task Create(Professor professor);
 
-        Task<IEnumerable<Professor>> All();
+        Task<IEnumerable<SingleProfessorDto>> All();
 
         Task Remove(int id);
 
