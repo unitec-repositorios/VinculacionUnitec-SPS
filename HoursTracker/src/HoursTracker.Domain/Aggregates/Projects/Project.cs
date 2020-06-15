@@ -18,7 +18,7 @@ namespace HoursTracker.Domain.Aggregates.Projects
         public string Code { get; set; }
 
         [Column("nombre_proyecto")]
-        [StringLength(50)]
+        [StringLength(250)]
         public string Name { get; set; }
 
         [Column("costo_proyecto")]
