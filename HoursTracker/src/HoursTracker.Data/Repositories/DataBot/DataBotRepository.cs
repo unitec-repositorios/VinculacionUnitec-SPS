@@ -1,9 +1,9 @@
-﻿using HoursTracker.Domain.Aggregates.DataBot;
+﻿using HoursTracker.Domain.Aggregates.Bot;
 using Microsoft.EntityFrameworkCore;
 
-namespace HoursTracker.Data.Repositories.DataBot
+namespace HoursTracker.Data.Repositories.Bot
 {
-    public class DataBotRepository : EfRepository<DataBotS>, IDataBotRepository
+    public class DataBotRepository : EfRepository<DataBot>, IDataBotRepository
     {
         public DataBotRepository(DbContext context) : base(context)
         {

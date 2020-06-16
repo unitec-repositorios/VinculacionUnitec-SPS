@@ -3,13 +3,12 @@ using HoursTracker.Domain.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Principal;
 using System.Text;
 
-namespace HoursTracker.Domain.Aggregates.DataBot
+namespace HoursTracker.Domain.Aggregates.Bot
 {
     [Table("alumnos_bot")]
-    public class DataBotS : BaseEntity, IAggregateRoot
+    public class DataBot : BaseEntity, IAggregateRoot
     {
         [Column("cuenta_telegram")]
         public string Telegramid { get; set; }

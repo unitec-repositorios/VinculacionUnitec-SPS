@@ -8,7 +8,7 @@
 
     function setFormValues(id) {
         $.get(`@Url.Action("Get", "Students")/${id}`, data => {
-          for (var key in data) {
+            for (var key in data) {
             $('[name="'+key+'"]').val(data[key]);
           }
         });
@@ -46,6 +46,11 @@
 
         })
     });
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
     </script>
 
 }
@@ -55,6 +60,7 @@
         <div class="card">
             <div class="header">
                 <h2>
+                    <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
                     Editar alumno
                 </h2>
             </div>

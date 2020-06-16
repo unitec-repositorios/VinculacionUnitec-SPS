@@ -6,6 +6,7 @@
 @section Scripts {
     <script>
         $(function () {
+
           const table = $("#projecthoursTable").DataTable({
             language,
             dom: "Bfrtip",
@@ -23,14 +24,17 @@
               },
             ],
               columns: [
-                  { data: "account" },
+                  { data: "studentAccount" },
                   { data: "studentFirstName" },
                   { data: "studentLastName" },
-                  { data: "seccionCode" },
-                  { data: "seccionName" },
+                  { data: "sectionCode" },
                   { data: "projectName" },
                   { data: "hours" },
-                  { data: "tableState" },
+                  { data: "tableState",
+                  render: function (data, type, row) {
+                      return (data == true) ? 'Aprobado' : 'Ingresado';
+                      }
+                  },
 
               { data: null },
             ],
@@ -65,6 +69,40 @@
               window.location.href = `@Url.Action("Edit", "ProjectHours")/${this.dataset.id}`;
           });
 
+
+          $(document).on('click', '.approve-action', function () {
+              bootbox.confirm({
+                  message: "¿Está seguro que desea aprovar el registro?",
+                      buttons: {
+                          confirm: {
+                              label: 'Si',
+                              className: 'btn-default'
+                          },
+                          cancel: {
+                              label: 'No',
+                              className: 'btn-primary'
+                          }
+                      },
+                      callback: result => {
+                          if (!result) return;
+
+                          $.ajax({
+                              url: `@Url.Action("Approve", "ProjectHours")/${this.dataset.id}`,
+                              type: 'DELETE',
+                              success: function () {
+                                  table.ajax.reload();                                
+                                  $("#showerrormessage").html(`
+                                <div id="alert" class="alert bg-green alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    ¡Registro aprovado exitosamente!
+                                </div>
+                            `);
+                              }
+                          });
+                      }
+                });
+          });
+
           $(document).on('click', '.delete-action', function () {
               bootbox.confirm({
                   message: "¿Está seguro que desea eliminar el registro?",
@@ -91,21 +129,25 @@
                       }
                 });
           });
-        });
 
-        $('#projecthoursTable thead tr').clone(true).appendTo('#projecthoursTable thead');
-        $('#projecthoursTable thead tr:eq(1) th').each(function (i) {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+            $('#projecthoursTable thead tr').clone(true).appendTo('#projecthoursTable thead');
 
-            $('input', this).on('keyup change', function () {
-                if (table.column(i).search() !== this.value) {
-                    table
-                        .column(i)
-                        .search(this.value)
-                        .draw();
-                }
+            $('#projecthoursTable thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                })
+
+
             });
+
         });
 
 
@@ -114,6 +156,9 @@
 
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h6 id="showerrormessage"></h6>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
                 <h2>
@@ -121,25 +166,7 @@
                 </h2>
             </div>
             <div class="body">
-                <div class="row clearfix">
-                    <div class="col-md-4">
-                        <p>
-                            <b>Filtros</b>
-                        </p>
-                        <select class="form-control show-tick">
-                            <option>Todas</option>
-                            <option>Nombre del Estudiante</option>
-                            <option>Nombre de Seccion</option>
-                            <option>Codigo de Seccion</option>
-                            <option>Nombre del Proyecto</option>
-                            <option>Estado del Registro</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <input type="checkbox" id="md_checkbox_30" class="filled-in chk-col-green" />
-                    <label for="md_checkbox_30">Aprovadas</label>
-                </div>
+                
                 <br />
                 <div class="table-responsive">
                     <table id="projecthoursTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -148,9 +175,8 @@
                                 <th>Numero de Cuenta</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Codigo de Seccion</th>
-                                <th>Nombre de Seccion</th>
-                                <th>Nombre del Proyecto</th>
+                                <th>Seccion</th>
+                                <th>Proyecto</th>
                                 <th>Horas</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>

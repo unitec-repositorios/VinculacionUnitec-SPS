@@ -1,26 +1,89 @@
-﻿@model int
-
-@{
-    ViewData["Title"] = "Editar Horas";
+﻿@{
+    ViewData["Title"] = "Editar Horas de Vinculacion";
 }
-
 
 @section Scripts {
 
     <script>
+        var sId = 0, secId = 0, proId = 0, tableId = 0;
 
-    function setFormValues(id) {
-        $.get(`@Url.Action("Get", "Projecthours")/${id}`, data => {
-          for (var key in data) {
-            $('[name="'+key+'"]').val(data[key]);
-          }
-        });
+        function setFormValues(id) {
+            $.get(`@Url.Action("Get", "ProjectHours")/${id}`, data => {
+                for (var key in data)
+                {
+                    if (key == "studentId") {
+                        sId = data[key]
+                    }
+                    if (key == "sectionId") {
+                        secId = data[key]
+                    }
+                    if (key == "projectId") {
+                        proId = data[key]
+                    }
+                    if (key == "tableState") {
+                        tableId = data[key]
+                        if (tableId == 0) {
+                            var nameS = 'Ingresado'
+                            $('#tableState').append('<option selected=' + 1 + '>' + nameS + '</option>').selectpicker('refresh');
+                        }
+                        else {
+                            var nameS = 'Aprovado'
+                            $('#tableState').append('<option selected=' + tableId + '>' + nameS + '</option>').selectpicker('refresh');
+                            nameS = 'Ingresado'
+                            $('#tableState').append('<option value=' + 0 + '>' + nameS + '</option>').selectpicker('refresh');
+                            
+                        }
+                    }
+                $('[name="'+key+'"]').val(data[key]);
+                }
+            });
+
+            $.get('@Url.Action("All", "Students")', function (data) {
+                    for (const { id, account, firstName, firstSurname } of data) {
+                        if (id == sId) {
+                            $("#student").val(account);
+                            $("#studentFirstName").val(firstName);
+                            $("#studentLastName").val(firstSurname);
+                            checkExist = 1;
+                            break;
+                        }
+                    }
+            })
+
+           $.get('@Url.Action("All", "Sections")', function (data) {
+               for (const { id, code } of data) {
+                   if (id == secId) {
+                       $('#section').append('<option selected=' + id + '>' + code + '</option>').selectpicker('refresh');
+                   }
+                   else {
+                       $('#section').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
+                   }
+                }
+            })
+
+            $.get('@Url.Action("All", "Projects")', function (data) {
+                var count = 0;
+                for (const { id, name } of data) {
+                    if (count == 500)
+                        break;
+                     if (id == proId) {
+                         $('#project').append('<option selected=' + id + '>' + name + '</option>').selectpicker('refresh');
+                    }
+                     $('#project').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+                     count++
+                    }
+             })
+
+            
+           
+
+
         }
-
-
     $(function () {
 
         setFormValues(@Model);
+
+
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -28,21 +91,18 @@
             $(this).ajaxSubmit({
                 url: '@Url.Action("Edit", "Projecthours")',
                 type: 'put',
-                resetForm: false,
                 success: () => {
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡La carrera ha sido editada exitosamente!
+                            ¡El alumno ha si editado exitosamente!
                         </div>
                     `);
                 }
             })
 
         })
-
     });
-
         jQuery(function ($) {
             $('.back-button').click(function (e) {
                 history.back();
@@ -65,43 +125,74 @@
                 <form class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="Account">Numero de cuenta</label>
+                            <label for="student">Numero de cuenta</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off" disabled>
+                                    <input type="text" id="student" name="student" class="form-control" autocomplete="off" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="SeccionCode">Seccion</label>
+                            <label for="studentFirstName">Nombre</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="seccionCode" name="seccionCode" class="form-control" autocomplete="off">
+                                    <input type="text" id="studentFirstName" name="studentFirstName" class="form-control" autocomplete="off" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row clearfix">
+
+                    <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="ProjectName">Nombre del Proyecto</label>
+                            <label for="studentLastName">Apellido</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="projectName" name="projectName" class="form-control" autocomplete="off">
+                                    <input type="text" id="studentLastName" name="studentLastName" class="form-control" autocomplete="off" disabled>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row clearfix">
+
+                    <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="Hours">Horas</label>
+                            <label for="section">Seccion</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="section" name="section" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="project">Proyectos</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="project" name="project" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="hours">Horas</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
@@ -109,6 +200,27 @@
                                     <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="tableState">Estado demo</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="tableState" name="tableState" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
                         </div>
                     </div>
                 </form>

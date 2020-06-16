@@ -7,5 +7,6 @@ namespace HoursTracker.Domain.Aggregates.ProjectHours
 {
     public interface IProjectHourRepository : IBaseRepository<ProjectHour>
     {
+
     }
 }

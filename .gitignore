@@ -8,3 +8,4 @@
 /HoursTracker/.idea/.idea.HoursTracker/.idea
 /HoursTracker/src/HoursTracker.Data/Migrations
 /.vs
+/HoursTracker/src/HoursTracker.Web/Migrations

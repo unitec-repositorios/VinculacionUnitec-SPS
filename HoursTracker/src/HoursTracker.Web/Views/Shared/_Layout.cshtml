@@ -290,7 +290,11 @@
                             <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li class="nav-item">
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -549,34 +553,34 @@
     <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
-    <script src="~/lib/theme/plugins/bootstrap-select/js//bootstrap-select.min.js"></script>
+
     <!-- Demo Js -->
     <script src="~/lib/theme/js/demo.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         const language = {
-            decimal: "",
-            emptyTable: "No hay información",
-            info: "Mostrando _START_ al _END_ de _TOTAL_ registros",
-            infoEmpty: "Mostrando 0 al 0 de 0 registros",
-            infoFiltered: "(Filtrado de _MAX_ total entradas)",
-            infoPostFix: "",
-            thousands: ",",
-            lengthMenu: "Mostrar _MENU_ Entradas",
-            loadingRecords: "Cargando...",
-            processing: "Procesando...",
-            search: "Buscar:",
-            zeroRecords: "Sin resultados encontrados",
-            paginate: {
-                first: "Primero",
-                last: "Ultimo",
-                next: "Siguiente",
-                previous: "Anterior",
-            },
-        }
+                decimal: "",
+                emptyTable: "No hay información",
+                info: "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                infoEmpty: "Mostrando 0 al 0 de 0 registros",
+                infoFiltered: "(Filtrado de _MAX_ total entradas)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Mostrar _MENU_ Entradas",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                search: "Buscar:",
+                zeroRecords: "Sin resultados encontrados",
+                paginate: {
+                  first: "Primero",
+                  last: "Ultimo",
+                  next: "Siguiente",
+                  previous: "Anterior",
+                },
+              }
     </script>
-
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,12 +1,58 @@
 ﻿
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Horas de Vinculacion";
 }
+
 
 @section Scripts {
 
     <script>
-    $(function () {
+        $(function () {
+            var globalId = 0;
+            $("#searchButton").click(function () {
+                $.get('@Url.Action("All", "Students")', function (data) {
+                    var inputSearchAccount = document.getElementById("student").value;
+                    var checkExist = 0;
+                    for (const { id, account, firstName, firstSurname } of data) {
+                        if (account == inputSearchAccount) {
+                            $("#studentName").val(firstName);
+                            $("#studentLastName").val(firstSurname);
+                            checkExist = 1;
+                            break;
+                        }
+                    }
+
+                    if (checkExist == 0)
+                    {
+                        $("#showerrormessage").html(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡Numero de cuenta es invalido!
+                        </div>
+                    `);
+                    }
+
+                 })
+
+            });
+
+            $.get('@Url.Action("All", "Sections")', function (data) {
+                for (const { id, code } of data) {
+                    $('#section').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
+                }
+            })
+
+            $.get('@Url.Action("All", "Projects")', function (data) {
+                    var count = 0;
+                    for (const { id, name } of data) {
+                        if (count == 500)
+                            break;
+                        $('#project').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
+                        count++
+                    }
+                })
+
+
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -19,7 +65,7 @@
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡Horas vinculativas han sido agregadas exitosamente!
+                            ¡Horas han sido agregadas exitosamente!
                         </div>
                     `);
                 }
@@ -27,20 +73,21 @@
 
         })
 
-    });
+        });
 
         jQuery(function ($) {
             $('.back-button').click(function (e) {
                 history.back();
             });
         });
-
     </script>
 
 }
 
-
 <div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <h6 id="showerrormessage"></h6>
+    </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
@@ -51,71 +98,92 @@
             </div>
             <div class="body form-center">
                 <form class="form-horizontal">
-                    <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="account">Cuenta del Estudiante</label>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <select id="account" class="form-control show-tick" data-live-search="true" data-live-search-style="startsWith">
-                                        <option value="21651487" style="margin-left:25px;">21651487 - Juan Romero</option>
-                                        <option value="21651489" style="margin-left:25px;">21651489 - Luis Herrera</option>
-                                        <option value="21651426" style="margin-left:25px;">21651426 - Marlon Escoto</option>
-                                        <option value="21653426" style="margin-left:25px;">21653426 - Emil Canales</option>
-                                    </select>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
+                    <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="seccionCode">Sección</label>
+                            <label for="student">Numero de cuenta</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="seccionCode" data-live-search="true" data-live-search-style="startsWith" name="careers" class="form-control show-tick">
-                                        <option value="166" style="margin-left:25px;">166</option>
-                                        <option value="275" style="margin-left:25px;">275</option>
-                                        <option value="600" style="margin-left:25px;">600</option>
-                                        <option value="863" style="margin-left:25px;">863</option>
-                                        <option value="868" style="margin-left:25px;">866</option>
-                                    </select>
+                                    <input type="text" id="student" name="student" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="projectName">Projecto</label>
+
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="searchButton" type="button" class="btn btn-primary m-t-15 waves-effect">Buscar</button>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <select id="projectName" data-live-search="true" data-live-search-style="startsWith" name="careers" class="form-control show-tick">
-                                        <option value="TELETON" style="margin-left:25px;">TELETON</option>
-                                        <option value="SOCIOLOGIA" style="margin-left:25px;">SOCIOLOGIA</option>
-                                        <option value="VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO" style="margin-left:25px;">VALORES HUMANOS, FUNDAMENTOS DE NUESTRO FUTURO</option>
-                                        <option value="TUTORÍAS">TUTORÍAS</option>
-                                        <option value="Campañas de Divulgacion para Microempresarios" style="margin-left:25px;">Campañas de Divulgacion para Microempresarios</option>
-                                        <option value="INVESTIGACION DE MERCADO" style="margin-left:25px;">INVESTIGACION DE MERCADO</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
 
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="tableState">Estado</label>
+                            <label for="studentName">Nombre</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="studentName" name="studentName" class="form-control" autocomplete="off" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="studentLastName">Apellido</label>
+                        </div>
+                        <div class="col-lg-3 col-md-2 col-sm-4 col-xs-5">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="studentLastName" name="studentLastName" class="form-control" autocomplete="off" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="section">Seccion</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="tableState" name="tableState" class="form-control" autocomplete="off">
+                                    <select id="section" name="section" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="project">Proyectos</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="project" name="project" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="tableState">Estado del registro</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="tableState" name="tableState" class="form-control show-tick">
+                                        <option value="0">Ingresado</option>
+                                        <option value="1">Aprovado</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -144,4 +212,3 @@
         </div>
     </div>
 </div>
-

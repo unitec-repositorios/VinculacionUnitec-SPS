@@ -8,9 +8,9 @@ namespace HoursTracker.Web.Models
     public class CreateProjectHourViewModel
     {
         public int Hours { get; set; }
-        public int Account { get; set; }
-        public int SeccionCode { get; set; }
-        public string ProjectName { get; set; }
-        public string TableState { get; set; }
+        public int TableState { get; set; }
+        public int Student { get; set; }
+        public int Section { get; set; }
+        public int Project { get; set; }
     }
 }
