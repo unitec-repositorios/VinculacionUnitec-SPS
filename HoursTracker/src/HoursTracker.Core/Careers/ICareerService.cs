@@ -7,6 +7,7 @@ namespace HoursTracker.Core.Careers
 {
     public interface ICareerService
     {
+        Task<Career> FindByCode(string code);
         Task<Career> FindById(int id);
 
         Task Create(Career career);

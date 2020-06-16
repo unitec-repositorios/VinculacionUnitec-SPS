@@ -19,9 +19,21 @@
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El campus ha si creado exitosamente!
+                            ¡El campus ha sido creado exitosamente!
                         </div>
                     `);
+                },
+                error: (error) => {
+                    if (error.responseText === "Ya existe un campus con este codigo") {
+                        $(this).prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡Ya existe un campus con ese codigo!
+                        </div>
+                    `);
+                    }
+                      console.log(error);
+                    //some stuff on failure
                 }
             })
 

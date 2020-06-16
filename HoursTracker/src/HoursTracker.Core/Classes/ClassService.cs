@@ -36,6 +36,10 @@ namespace HoursTracker.Core.Classes
                 .ToListAsync();
         }
 
+        public async Task<Class> FindByCode(string code)
+        {
+            return await _classRepository.FirstOrDefault(c => c.ClassCode == code);
+        }
         public async Task Create(CreateClassDto @class)
         {
             var careers = _careerRepository.Filter(career => @class.Careers.Contains(career.Id));

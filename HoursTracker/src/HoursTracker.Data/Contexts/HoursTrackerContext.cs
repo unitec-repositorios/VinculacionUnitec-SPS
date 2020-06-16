@@ -50,6 +50,9 @@ namespace HoursTracker.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Campus>().HasIndex(c=> c.Code).IsUnique();
+            modelBuilder.Entity<Career>().HasIndex(c=> c.Code).IsUnique();
+            modelBuilder.Entity<Class>().HasIndex(c => c.ClassCode).IsUnique();
             modelBuilder.Entity<ClassCareer>()
                 .HasKey(classCareer => new { classCareer.ClassId, classCareer.CareerId });
 

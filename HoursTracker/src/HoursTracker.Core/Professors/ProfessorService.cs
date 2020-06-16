@@ -29,7 +29,10 @@ namespace HoursTracker.Core.Professors
                 SecondLastName = data.SecondLastName
             };
         }
-
+        public async Task<Professor> FindByCode(string code)
+        {
+            return await _professorRepository.FirstOrDefault(c => c.Code == code);
+        }
         public async Task Create(Professor professor)
         {
             await _professorRepository.Add(professor);

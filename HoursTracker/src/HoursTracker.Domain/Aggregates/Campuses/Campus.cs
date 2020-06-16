@@ -15,9 +15,9 @@ namespace HoursTracker.Domain.Aggregates.Campuses
     [Table("campuses")]
     public class Campus : BaseEntity, IAggregateRoot
     {
-        
 
-        [Column("codigo_campus")]
+
+        [Column("codigo_campus") ] 
         public string Code { get; set; }
 
 

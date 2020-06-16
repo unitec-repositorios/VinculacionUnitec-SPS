@@ -7,6 +7,8 @@ namespace HoursTracker.Core.Campuses
 {
     public interface ICampusService
     {
+        Task<Campus> FindByCode(string code);
+
         Task<Campus> FindById(int id);
 
         Task Create(Campus campus);

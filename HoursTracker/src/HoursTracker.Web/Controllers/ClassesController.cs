@@ -52,16 +52,26 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(ClassViewModel classViewModel)
+        public async Task<ActionResult> Create(ClassViewModel classViewModel)
         {
-            var @class = new CreateClassDto
+            var existingCode = await _classService.FindByCode(classViewModel.ClassCode);
+            if (existingCode == null)
             {
-                ClassCode = classViewModel.ClassCode,
-                ClassName = classViewModel.ClassName,
-                Careers = classViewModel.Careers
-            };
+                var @class = new CreateClassDto
+                {
+                    ClassCode = classViewModel.ClassCode,
+                    ClassName = classViewModel.ClassName,
+                    Careers = classViewModel.Careers
+                };
 
-            await _classService.Create(@class);
+                await _classService.Create(@class);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una clase con este codigo");
+            }
+           
         }
 
         [HttpDelete]
@@ -77,15 +87,24 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, ClassViewModel classViewModel)
+        public async Task<ActionResult> Edit(int id, ClassViewModel classViewModel)
         {
-            var updatedClass = new UpdateClassDto
+            var existingCode = await _classService.FindByCode(classViewModel.ClassCode);
+            if (existingCode == null ) {
+                var updatedClass = new UpdateClassDto
+                {
+                    ClassCode = classViewModel.ClassCode,
+                    ClassName = classViewModel.ClassName,
+                    Careers = classViewModel.Careers
+                };
+                await _classService.Update(id, updatedClass);
+                return Ok();
+            }
+            else
             {
-                ClassCode = classViewModel.ClassCode,
-                ClassName = classViewModel.ClassName,
-                Careers = classViewModel.Careers
-            };
-            await _classService.Update(id, updatedClass);
+                return BadRequest("Ya existe una clase con este codigo");
+            }
+            
         }
     }
 }

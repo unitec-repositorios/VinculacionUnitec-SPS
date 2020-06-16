@@ -21,7 +21,10 @@ namespace HoursTracker.Core.Careers
                 .Filter(career => !career.Disabled)
                 .ToListAsync();
         }
-
+        public async Task<Career> FindByCode(string code)
+        {
+            return await _careerRepository.FirstOrDefault(c => c.Code == code);
+        }
         public async Task Create(Career career)
         {
             await _careerRepository.Add(career);

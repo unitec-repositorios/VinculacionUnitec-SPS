@@ -7,6 +7,7 @@ using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace HoursTracker.Core.Students
 {
@@ -86,6 +87,8 @@ namespace HoursTracker.Core.Students
 
         public async Task Update(int id, UpdateSudentDto student)
         {
+            
+
             var stud = _studentRepository
                 .All()
                 .Include(x => x.StudentCareers)
@@ -99,19 +102,35 @@ namespace HoursTracker.Core.Students
             stud.Settlement = student.Settlement;
             stud.Email = student.Email;
 
-            await _studentRepository.Update(stud.StudentCareers, @student.Careers
-                .Select(x => new StudentCareer()
-                {
-                    CareerId = x,
-                    StudentId = id
-                }), x => x.CareerId);
+            var search = _studentRepository
+                .All()
+                .Include(x => x.StudentCareers)
+                .FirstOrDefault(x => x.Account == stud.Account);
+
+            if (search == null)
+            {
+                await _studentRepository.Update(stud.StudentCareers, @student.Careers
+                    .Select(x => new StudentCareer()
+                    {
+                        CareerId = x,
+                        StudentId = id
+                    }), x => x.CareerId);
+            }
+            else
+            {
+                await _studentRepository.Update(null);
+            }
         }
 
+        public async Task<Student> FindByCode(int code)
+        {
+            return await _studentRepository.FirstOrDefault(c => c.Account == code);
+        }
         public async Task Create(CreateStudentDto student)
         {
             var careers = _careerRepository.Filter(career => student.Careers.Contains(career.Id));
             var campus = await _campusRepository.FindById(student.Campus);
-
+            
             var studentInfo = new Student
             {
                 Account = student.Account,
@@ -128,8 +147,22 @@ namespace HoursTracker.Core.Students
             {
                 studentInfo.StudentCareers.Add(new StudentCareer { Career = career });
             }
+            var stud = _studentRepository
+                .All()
+                .Include(x => x.StudentCareers)
+                .FirstOrDefault(x => x.Account == studentInfo.Account);
 
-            await _studentRepository.Add(studentInfo);
+            if (stud == null)
+             {
+                await _studentRepository.Add(studentInfo);
+            }
+            else
+            {
+                await _studentRepository.Add(null);
+            }
+            
+
+            
         }
     }
 }
