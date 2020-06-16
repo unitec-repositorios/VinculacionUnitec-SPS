@@ -32,6 +32,7 @@ using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Aggregates.Students;
+using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Web.Areas.Identity.Data;
 using HoursTracker.Web.Data;

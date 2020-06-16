@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HoursTracker.Core.Projects;
-using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using HoursTracker.Core.Projects;
+using HoursTracker.Domain.Aggregates.Projects;
+using HoursTracker.Web.Models;
 
 namespace HoursTracker.Web.Controllers
 {
@@ -29,11 +30,10 @@ namespace HoursTracker.Web.Controllers
             var data = (await _projectService.All())
                 .Select(project => new ProjectViewModel
                 {
-                    Id = project.Id,
-                    Code = project.Code,
+                   Id=project.Id,
                     Name = project.Name,
-                    Budget = project.Budget,
-                    VinculationTypeId = project.VinculationTypeId
+                    Code = project.Code,
+                    Budget = project.Budget
                 });
 
             return Ok(data);
@@ -43,5 +43,50 @@ namespace HoursTracker.Web.Controllers
         {
             return Ok(await _projectService.FindById(id));
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task Create(ProjectViewModel projectViewModel)
+        {
+            var project = new Project
+            {
+                Name = projectViewModel.Name,
+                Code = projectViewModel.Code,
+                Budget = projectViewModel.Budget
+            };
+
+            await _projectService.Create(project);
+        }
+
+        [HttpDelete]
+        public async Task Delete(int id)
+        {
+            await _projectService.Remove(id);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(id);
+        }
+
+        [HttpPut]
+        public async Task Edit(int id, ProjectViewModel projectViewModel)
+        {
+            var project = new Project
+            {
+                Name = projectViewModel.Name,
+                Code = projectViewModel.Code,
+                Budget = projectViewModel.Budget
+
+            };
+            await _projectService.Update(id, project);
+        }
+
     }
 }

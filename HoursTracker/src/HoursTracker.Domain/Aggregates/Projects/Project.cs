@@ -22,10 +22,9 @@ namespace HoursTracker.Domain.Aggregates.Projects
         public string Name { get; set; }
 
         [Column("costo_proyecto")]
-        public double Budget { get; set; }
+        public float Budget { get; set; }
 
-        [Column("id_vinculacion")]
-        public int VinculationTypeId { get; set; }
+
         public VinculationType VinculationType { get; set; }
 
         public ICollection<SectionProject> SectionProjects { get; set; } = new HashSet<SectionProject>();

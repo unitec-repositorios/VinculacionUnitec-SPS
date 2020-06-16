@@ -1,13 +1,12 @@
-﻿using HoursTracker.Domain.Aggregates.Projects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using HoursTracker.Domain.Aggregates.Projects;
+using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Core.Projects
 {
-    public class ProjectService : IProjectService
+     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
 
@@ -15,17 +14,16 @@ namespace HoursTracker.Core.Projects
         {
             _projectRepository = projectRepository;
         }
-
         public async Task<IEnumerable<Project>> All()
         {
             return await _projectRepository
-               .Filter(project => !project.Disabled)
-               .ToListAsync();
+                .Filter(project => !project.Disabled)
+                .ToListAsync();
         }
 
-        public async Task Create(Project career)
+        public async Task Create(Project project)
         {
-            throw new NotImplementedException();
+            await _projectRepository.Add(project);
         }
 
         public async Task<Project> FindById(int id)
@@ -35,12 +33,20 @@ namespace HoursTracker.Core.Projects
 
         public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var project = await _projectRepository.FindById(id);
+            await _projectRepository.Disable(project);
         }
 
-        public async Task Update(int id, Project section)
+       public async Task Update(int id, Project professor)
         {
-            throw new NotImplementedException();
+            var existingProject = await _projectRepository.FindById(id);
+
+            existingProject.Code = professor.Code;
+            existingProject.Name = professor.Name;
+            existingProject.Budget = professor.Budget;
+           
+
+            await _projectRepository.Update(existingProject);
         }
     }
 }
