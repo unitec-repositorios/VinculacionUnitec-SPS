@@ -92,7 +92,7 @@ namespace HoursTracker.Core.ProjectHours
         {
             var existingProjectHour = await _projecthourRepository.FindById(id);
             var student = await _studentRepository.FirstOrDefault(student => student.Id == existingProjectHour.StudentId); 
-            var section = await _sectionRepository.FirstOrDefault(section => section.Id == existingProjectHour.SectionId);
+            var section = await _sectionRepository.FirstOrDefault(section => section.Id == projecthour.Section);
             var project = await _projectRepository.FirstOrDefault(project => project.Id == projecthour.Project);
 
 
