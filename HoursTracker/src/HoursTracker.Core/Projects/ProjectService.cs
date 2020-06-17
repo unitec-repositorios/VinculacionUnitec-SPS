@@ -17,9 +17,12 @@ namespace HoursTracker.Core.Projects
         }
         public async Task<IEnumerable<Project>> All()
         {
-            return await _projectRepository
+            
+                return await _projectRepository
                 .Filter(project => !project.Disabled)
+                .Include(x => x.VinculationType)
                 .ToListAsync();
+           
         }
 
         public async Task Create(CreateProjectDto project)
