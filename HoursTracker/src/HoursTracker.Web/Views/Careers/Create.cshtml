@@ -7,7 +7,13 @@
 
     <script>
     $(function () {
+               $.get('@Url.Action("All", "Faculties")', function (data) {
+                for (const { id, name } of data) {
+                    $('#selectFaculty').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
+                }
 
+               // setFormValues(@Model);
+            });
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
 
@@ -82,6 +88,19 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <input type="text" id="Name" name="Name" class="form-control" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="selectFaculty">Facultad</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectFaculty" name="facultyId" class="form-control show-tick" multiple required>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -12,7 +12,7 @@ namespace HoursTracker.Core.Careers
 
         Task Create(Career career);
 
-        Task<IEnumerable<Career>> All();
+        Task<IEnumerable<CareerDto>> All();
 
         Task Remove(int id);
 

@@ -1,7 +1,9 @@
 ﻿using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.Faculties;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Careers
@@ -9,16 +11,18 @@ namespace HoursTracker.Core.Careers
     public class CareerService : ICareerService
     {
         private readonly ICareerRepository _careerRepository;
+        private readonly IFacultyRepository _facultyRepository;
 
-        public CareerService(ICareerRepository careerRepository)
+        public CareerService(ICareerRepository careerRepository, IFacultyRepository facultyRepository)
         {
             _careerRepository = careerRepository;
+            _facultyRepository = facultyRepository;
         }
 
-        public async Task<IEnumerable<Career>> All()
+        public async Task<IEnumerable<CareerDto>> All()
         {
             return await _careerRepository
-                .Filter(career => !career.Disabled)
+                .Filter(career => !career.Disabled).Select(career => new CareerDto { Code = career.Code, Name = career.Name, Faculty = career.Faculty.Name, Id = career.Id })
                 .ToListAsync();
         }
         public async Task<Career> FindByCode(string code)
@@ -27,7 +31,14 @@ namespace HoursTracker.Core.Careers
         }
         public async Task Create(Career career)
         {
-            await _careerRepository.Add(career);
+            var faculty = await _facultyRepository.FindById(career.FacultyId);
+            var newCareer = new Career
+            {
+                Name = career.Name,
+                Code = career.Code,
+                Faculty = faculty
+            };
+            await _careerRepository.Add(newCareer);
         }
 
         public async Task<Career> FindById(int id)
@@ -47,7 +58,7 @@ namespace HoursTracker.Core.Careers
 
             existingCareer.Code = career.Code;
             existingCareer.Name = career.Name;
-
+            existingCareer.FacultyId = career.FacultyId;
             await _careerRepository.Update(existingCareer);
         }
     }

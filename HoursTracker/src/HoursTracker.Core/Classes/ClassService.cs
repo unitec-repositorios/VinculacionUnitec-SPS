@@ -23,17 +23,30 @@ namespace HoursTracker.Core.Classes
 
         public async Task<IEnumerable<SingleClassDto>> All()
         {
-            return await _classRepository
+            var data =  await _classRepository
                 .Filter(@class => !@class.Disabled)
                 .Include(@class => @class.ClassCareers)
                 .ThenInclude(c => c.Career)
-                .Select(@class => new SingleClassDto { 
+                .SelectMany(@class => @class.ClassCareers.DefaultIfEmpty(),
+                (@class, career) => new SingleClassDto
+                {
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
-                    ClassName = @class.ClassName,
-                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                    CareerName = career.Career.Name,
+                    ClassName = @class.ClassName
                 })
-                .ToListAsync();
+                 .ToListAsync();
+
+            return data.GroupBy(
+                @class => @class.Id,
+                (Id, @class) => new SingleClassDto
+                {
+                    Id = @class.First().Id,
+                    ClassCode = @class.First().ClassCode,
+                    CareerName = string.Join(", ",@class.Select(c => c.CareerName)),
+                    ClassName = @class.First().ClassName
+                }
+                );
         }
 
         public async Task<Class> FindByCode(string code)
@@ -71,7 +84,7 @@ namespace HoursTracker.Core.Classes
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
                     ClassName = @class.ClassName,
-                    Careers = @class.ClassCareers.Select(x => x.CareerId)
+                   // Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
                 .FirstOrDefaultAsync();
         }

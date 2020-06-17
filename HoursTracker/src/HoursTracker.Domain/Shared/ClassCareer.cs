@@ -10,6 +10,8 @@ namespace HoursTracker.Domain.Shared
     [Table("asignaturas_x_carreras")]
     public class ClassCareer
     {
+        public int CareerName;
+
         [Column("id_carrera")]
         public int CareerId { get; set; }
 

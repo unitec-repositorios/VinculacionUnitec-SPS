@@ -9,6 +9,8 @@ namespace HoursTracker.Domain
         public int Id { get; set; }
 
         [Column("deshabilitado")]
+
         public bool Disabled { get; set; }
+
     }
 }

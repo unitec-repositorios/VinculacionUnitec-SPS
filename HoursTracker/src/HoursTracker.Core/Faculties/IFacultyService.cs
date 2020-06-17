@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Faculties
 {
-    interface IFacultyService
+    public interface IFacultyService
     {
+        Task<Faculty> FindByCode(string code);
         Task<Faculty> FindById(int id);
 
         Task Create(Faculty faculty);

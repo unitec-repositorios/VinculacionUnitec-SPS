@@ -22,6 +22,10 @@ namespace HoursTracker.Core.Faculties
                 .ToListAsync();
         }
 
+        public async Task<Faculty> FindByCode(string code)
+        {
+            return await _facultyRepository.FirstOrDefault(c => c.Code == code);
+        }
         public async Task Create(Faculty faculty)
         {
             await _facultyRepository.Add(faculty);

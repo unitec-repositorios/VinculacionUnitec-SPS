@@ -106,8 +106,11 @@ namespace HoursTracker.Web.Controllers
         [HttpPut]
         public async Task<ActionResult> Edit(int id, CreateStudentViewModel studentViewModel)
         {
+            var temp = await _studentService.FindById(id);
             var existingCode = await _studentService.FindByCode(studentViewModel.Account);
-            if (existingCode == null) {
+
+            if (existingCode == null || existingCode.Account == temp.Account)
+            {
                 var student = new UpdateSudentDto()
                 {
                     Account = studentViewModel.Account,
@@ -123,7 +126,7 @@ namespace HoursTracker.Web.Controllers
                 await _studentService.Update(id, student);
                 return Ok();
             }
-            else
+            else 
             {
                 return BadRequest("Ya existe un Estudiante con este numero de Cuenta");
             }

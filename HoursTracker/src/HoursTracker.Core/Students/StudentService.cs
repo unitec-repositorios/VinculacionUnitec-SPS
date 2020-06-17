@@ -21,11 +21,13 @@ namespace HoursTracker.Core.Students
         public StudentService(
             IStudentRepository studentRepository,
             ICareerRepository careerRepository,
-            ICampusRepository campusRepository)
+            ICampusRepository campusRepository, 
+            IDataBotRepository dataBotRepository)
         {
             _studentRepository = studentRepository;
             _careerRepository = careerRepository;
             _campusRepository = campusRepository;
+            _dataBotRepository = dataBotRepository;
         }
 
         public async Task<Student> FindById(int id)
@@ -87,13 +89,19 @@ namespace HoursTracker.Core.Students
 
         public async Task Update(int id, UpdateSudentDto student)
         {
-            
+
 
             var stud = _studentRepository
                 .All()
                 .Include(x => x.StudentCareers)
                 .FirstOrDefault(x => x.Id == id);
 
+            if (stud.Email != student.Email)
+            {
+
+                var studentBot = await _dataBotRepository.FirstOrDefault(x => x.Student.Id == id);
+                await _dataBotRepository.Delete(studentBot);
+            } 
             stud.Account = student.Account;
             stud.FirstName = student.FirstName;
             stud.SecondName = student.SecondName;
@@ -102,24 +110,18 @@ namespace HoursTracker.Core.Students
             stud.Settlement = student.Settlement;
             stud.Email = student.Email;
 
-            var search = _studentRepository
-                .All()
-                .Include(x => x.StudentCareers)
-                .FirstOrDefault(x => x.Account == stud.Account);
 
-            if (search == null)
-            {
-                await _studentRepository.Update(stud.StudentCareers, @student.Careers
+
+
+
+            await _studentRepository.Update(stud.StudentCareers, @student.Careers
                     .Select(x => new StudentCareer()
                     {
                         CareerId = x,
                         StudentId = id
                     }), x => x.CareerId);
-            }
-            else
-            {
-                await _studentRepository.Update(null);
-            }
+            
+
         }
 
         public async Task<Student> FindByCode(int code)
@@ -152,14 +154,9 @@ namespace HoursTracker.Core.Students
                 .Include(x => x.StudentCareers)
                 .FirstOrDefault(x => x.Account == studentInfo.Account);
 
-            if (stud == null)
-             {
                 await _studentRepository.Add(studentInfo);
-            }
-            else
-            {
-                await _studentRepository.Add(null);
-            }
+            
+
             
 
             

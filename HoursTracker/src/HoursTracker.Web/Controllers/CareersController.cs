@@ -27,13 +27,15 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            
             var data = (await _careerService.All())
                 .Select(career => new CareerViewModel
                 {
                     Id = career.Id,
                     Name = career.Name,
                     Code = career.Code,
-                });
+                    FacultyName = career.Faculty,
+                });;
 
             return Ok(data);
         }
@@ -58,7 +60,8 @@ namespace HoursTracker.Web.Controllers
                 var career = new Career
                 {
                     Name = careerViewModel.Name,
-                    Code = careerViewModel.Code
+                    Code = careerViewModel.Code,
+                    FacultyId = careerViewModel.FacultyId,
                 };
 
                 await _careerService.Create(career);
@@ -93,7 +96,8 @@ namespace HoursTracker.Web.Controllers
                 var career = new Career
                 {
                     Name = careerViewModel.Name,
-                    Code = careerViewModel.Code
+                    Code = careerViewModel.Code,
+                    FacultyId = careerViewModel.FacultyId
                 };
                 await _careerService.Update(id, career);
                 return Ok();
