@@ -4,7 +4,7 @@ namespace HoursTracker.Web.Models
 {
     public class CreateStudentViewModel
     {
-        public int Account { get; set; }
+        public string Account { get; set; }
 
         public string FirstName { get; set; }
 
