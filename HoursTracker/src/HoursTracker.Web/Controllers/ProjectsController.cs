@@ -32,7 +32,8 @@ namespace HoursTracker.Web.Controllers
                     Name = project.Name,
                     Code = project.Code,
                     Budget = project.Budget,
-                    VinculationId = project.VinculationTypeId
+                    VinculationId = project.VinculationTypeId,
+                    VinculationType = project.VinculationType.Type
         }) ;
 
             return Ok(data);

@@ -4,7 +4,7 @@ namespace HoursTracker.Core.Students
 {
     public class UpdateSudentDto
     {
-        public int Account { get; set; }
+        public string Account { get; set; }
 
         public string FirstName { get; set; }
 

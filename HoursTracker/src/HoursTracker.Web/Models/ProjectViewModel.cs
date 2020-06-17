@@ -10,6 +10,8 @@
 
         public double Budget { get; set; }
 
+        public string VinculationType { get; set; }
+
         public int VinculationId { get; set; }
     }
 }
