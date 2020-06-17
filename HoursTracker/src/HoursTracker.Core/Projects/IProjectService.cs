@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using HoursTracker.Domain.Aggregates.Projects;
-using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Core.Projects
 {
@@ -11,7 +9,7 @@ namespace HoursTracker.Core.Projects
         
         Task<Project> FindById(int id);
 
-        Task Create(Project proyect);
+        Task Create(CreateProjectDto proyect);
 
         Task<IEnumerable<Project>> All();
 

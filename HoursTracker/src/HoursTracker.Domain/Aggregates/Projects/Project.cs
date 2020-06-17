@@ -2,11 +2,9 @@
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace HoursTracker.Domain.Aggregates.Projects
 {
@@ -22,8 +20,10 @@ namespace HoursTracker.Domain.Aggregates.Projects
         public string Name { get; set; }
 
         [Column("costo_proyecto")]
-        public float Budget { get; set; }
+        public double Budget { get; set; }
 
+        [Column("id_vinculacion")]
+        public int VinculationTypeId { get; set; }
 
         public VinculationType VinculationType { get; set; }
 

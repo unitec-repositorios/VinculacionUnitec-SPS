@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
 using HoursTracker.Core.Classes;
 using HoursTracker.Core.Professors;
+using HoursTracker.Core.VinculationTypes;
 using HoursTracker.Core.Projects;
 using HoursTracker.Core.Students;
 using HoursTracker.Data.Contexts;
@@ -17,22 +14,20 @@ using HoursTracker.Data.Repositories.Professors;
 using HoursTracker.Data.Repositories.Students;
 using HoursTracker.Data.Repositories.Projects;
 using HoursTracker.Domain.Aggregates.Campuses;
+using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Contracts;
-using HoursTracker.Web.Areas.Identity.Data;
-using HoursTracker.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HoursTracker.Data.Repositories.VinculationTypes;
 
 namespace HoursTracker.Web
 {
@@ -84,6 +79,10 @@ namespace HoursTracker.Web
 
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectService, ProjectService>();
+
+            services.AddScoped<IVinculationTypeRepository, VinculationTypesRepository>();
+            services.AddScoped<IVinculationTypeService, VinculationTypeService>();
+
 
         }
 

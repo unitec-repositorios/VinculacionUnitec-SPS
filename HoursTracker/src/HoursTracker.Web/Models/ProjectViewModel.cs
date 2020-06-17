@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HoursTracker.Web.Models
+﻿namespace HoursTracker.Web.Models
 {
     public class ProjectViewModel
     {
@@ -13,6 +8,8 @@ namespace HoursTracker.Web.Models
 
         public string Name { get; set; }
 
-        public float Budget { get; set; }
+        public double Budget { get; set; }
+
+        public int VinculationId { get; set; }
     }
 }

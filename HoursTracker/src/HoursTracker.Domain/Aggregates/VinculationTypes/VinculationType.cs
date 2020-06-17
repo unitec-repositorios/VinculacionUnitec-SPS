@@ -1,10 +1,8 @@
 ﻿using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Contracts;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace HoursTracker.Domain.Aggregates.VinculationTypes
 {
