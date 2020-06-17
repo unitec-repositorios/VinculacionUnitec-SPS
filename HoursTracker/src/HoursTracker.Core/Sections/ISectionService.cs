@@ -1,7 +1,5 @@
 ﻿using HoursTracker.Domain.Aggregates.Sections;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Sections
@@ -10,12 +8,12 @@ namespace HoursTracker.Core.Sections
     {
         Task<Section> FindById(int id);
 
-        Task Create(Section section);
+        Task Create(CreateSectionDto section);
 
-        Task<IEnumerable<Section>> All();
+        Task<IEnumerable<SingleSectionDto>> All();
 
         Task Remove(int id);
 
-        Task Update(int id, Section section);
+        Task Update(int id, UpdateSectionDto section);
     }
 }

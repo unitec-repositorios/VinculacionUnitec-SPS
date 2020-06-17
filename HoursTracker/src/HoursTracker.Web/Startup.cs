@@ -10,9 +10,11 @@ using HoursTracker.Core.ProjectHours;
 using HoursTracker.Core.Projects;
 using HoursTracker.Core.Sections;
 using HoursTracker.Core.Students;
+using HoursTracker.Core.Periods;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
 using HoursTracker.Data.Repositories.Campuses;
+using HoursTracker.Data.Repositories.Periods;
 using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
@@ -20,8 +22,10 @@ using HoursTracker.Data.Repositories.ProjectHours;
 using HoursTracker.Data.Repositories.Projects;
 using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Data.Repositories.Students;
+using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.Periods;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.ProjectHours;
@@ -39,6 +43,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HoursTracker.Data.Repositories.Periods;
+using HoursTracker.Core.Periods;
 
 namespace HoursTracker.Web
 {
@@ -87,15 +93,14 @@ namespace HoursTracker.Web
 
             services.AddScoped<IStudentRepository, StudentsRepository>();
             services.AddScoped<IStudentService, StudentService>();
-
             services.AddScoped<IProjectHourRepository, ProjectHourRepository>();
             services.AddScoped<IProjectHourService, ProjectHourService>();
-
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<ISectionService, SectionService>();
-
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IPeriodRepository, PeriodRepository>();
+            services.AddScoped<IPeriodService, PeriodService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

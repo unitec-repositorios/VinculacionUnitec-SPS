@@ -6,6 +6,7 @@ using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 using HoursTracker.Domain.Aggregates.ProjectHours;
+using System.ComponentModel.DataAnnotations;
 
 namespace HoursTracker.Domain.Aggregates.Students
 {
@@ -13,24 +14,30 @@ namespace HoursTracker.Domain.Aggregates.Students
     public class Student : BaseEntity, IAggregateRoot
     {
         [Column("codigo_alumno")]
-        public int Account { get; set; }
+        [StringLength(20)]
+        public string Account { get; set; }
 
         [Column("primer_nombre")]
+        [StringLength(50)]
         public string FirstName { get; set; }
 
         [Column("segundo_nombre")]
+        [StringLength(50)]
         public string SecondName { get; set; }
 
         [Column("primer_apellido")]
+        [StringLength(50)]
         public string FirstSurname { get; set; }
 
         [Column("segundo_apellido")]
+        [StringLength(50)]
         public string SecondSurname { get; set; }
 
         [Column("finiquito")]
         public bool Settlement { get; set; }
 
         [Column("correo_electronico")]
+        [StringLength(50)]
         public string Email { get; set; }
 
         [Column("id_campus")]
