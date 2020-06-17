@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HoursTracker.Core.Projects;
@@ -30,11 +28,12 @@ namespace HoursTracker.Web.Controllers
             var data = (await _projectService.All())
                 .Select(project => new ProjectViewModel
                 {
-                   Id=project.Id,
+                    Id = project.Id,
                     Name = project.Name,
                     Code = project.Code,
-                    Budget = project.Budget
-                });
+                    Budget = project.Budget,
+                    VinculationId = project.VinculationTypeId
+        }) ;
 
             return Ok(data);
         }
@@ -53,11 +52,12 @@ namespace HoursTracker.Web.Controllers
         [HttpPost]
         public async Task Create(ProjectViewModel projectViewModel)
         {
-            var project = new Project
+            var project = new CreateProjectDto
             {
                 Name = projectViewModel.Name,
                 Code = projectViewModel.Code,
-                Budget = projectViewModel.Budget
+                Budget = projectViewModel.Budget,
+                VinculationTypeId = projectViewModel.VinculationId
             };
 
             await _projectService.Create(project);
@@ -82,7 +82,8 @@ namespace HoursTracker.Web.Controllers
             {
                 Name = projectViewModel.Name,
                 Code = projectViewModel.Code,
-                Budget = projectViewModel.Budget
+                Budget = projectViewModel.Budget,
+                VinculationTypeId = projectViewModel.VinculationId
 
             };
             await _projectService.Update(id, project);

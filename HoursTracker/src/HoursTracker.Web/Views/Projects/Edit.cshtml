@@ -14,7 +14,7 @@
             $('[name="'+key+'"]').val(data[key]);
             }
 
-            $('#selectCareers').selectpicker('val', data.Projects);
+            $('#select').selectpicker('val', data.Projects);
         });
     }
 
@@ -28,7 +28,13 @@
                 }
 
                 setFormValues(@Model);
+
             });
+             $.get('@Url.Action("All", "VinculationTypes")', function (data) {
+            for (const { id, type } of data) {
+                $('#selectVinculation').append('<option value=' + id + '>' + type + '</option>').selectpicker('refresh');
+            }
+        });
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -41,7 +47,7 @@
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡La asignatura ha sido editada exitosamente!
+                            ¡El Proyecto ah sido editado exitosamente!
                         </div>
                     `);
                 }
@@ -65,51 +71,63 @@
             <div class="header">
                 <h2>
                     <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
-                    Editar asignatura
+                    Editar Proyecto
                 </h2>
             </div>
             <div class="body form-center">
                 <form class="form-horizontal">
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="className">Código</label>
+                            <label for="code">Código</label>
                         </div>
 
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="classCode" name="classCode" class="form-control" autocomplete="off">
+                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="classCode">Nombre</label>
+                            <label for="name">Nombre</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="className" name="className" class="form-control" autocomplete="off">
+                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="classCode">Nombre</label>
+                            <label for="budget">Costo</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="className" name="className" class="form-control" autocomplete="off">
+                                    <input type="text" id="budget" name="budget" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="selectCampus">Tipo de Vinculacion</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectVinculation" name="vinculationId" class="form-control show-tick">
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-
                             <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
                         </div>
                     </div>
