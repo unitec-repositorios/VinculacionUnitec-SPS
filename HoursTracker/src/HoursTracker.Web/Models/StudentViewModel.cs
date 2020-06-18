@@ -3,7 +3,7 @@
     public class SingleStudentViewModel
     {
         public int Id { get; set; }
-        public int Account { get; set; }
+        public string Account { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string FirstSurname { get; set; }

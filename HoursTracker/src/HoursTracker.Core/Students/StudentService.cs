@@ -102,7 +102,7 @@ namespace HoursTracker.Core.Students
             await _studentRepository.Disable(student);
         }
 
-        public async Task Update(int id, UpdateSudentDto student)
+        public async Task Update(int id, UpdateStudentDto student)
         {
 
 
