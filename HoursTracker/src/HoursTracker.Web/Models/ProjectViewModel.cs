@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public double Budget { get; set; }
 
-        public int VinculationTypeId { get; set; }
+        public int VinculationId { get; set; }
 
         public string VinculationType { get; set; }
     }
