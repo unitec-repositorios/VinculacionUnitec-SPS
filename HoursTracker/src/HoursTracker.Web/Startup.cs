@@ -130,15 +130,15 @@ namespace HoursTracker.Web
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}")
-                .RequireAuthorization();
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //.RequireAuthorization();
                 endpoints.MapRazorPages();
             });
         }

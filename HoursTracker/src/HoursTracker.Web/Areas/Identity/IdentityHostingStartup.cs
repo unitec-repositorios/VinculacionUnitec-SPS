@@ -15,14 +15,14 @@ namespace HoursTracker.Web.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<IdentityContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("DefaultConnection")));
+            //builder.ConfigureServices((context, services) => {
+            //    services.AddDbContext<IdentityContext>(options =>
+            //        options.UseSqlServer(
+            //            context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<User>()
-                    .AddEntityFrameworkStores<IdentityContext>();
-            });
+            //    services.AddDefaultIdentity<User>()
+            //        .AddEntityFrameworkStores<IdentityContext>();
+            //});
         }
     }
 }
