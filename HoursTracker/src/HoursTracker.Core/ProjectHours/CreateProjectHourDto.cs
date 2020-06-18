@@ -8,7 +8,7 @@ namespace HoursTracker.Core.ProjectHours
     {
         public int Hours { get; set; }
         public int TableState { get; set; }
-        public int Student { get; set; }
+        public string Student { get; set; }
         public int Section { get; set; }
         public int Project { get; set; }
     }
