@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HoursTracker.Domain.Aggregates.Campuses;
+﻿using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.Careers;
-using HoursTracker.Domain.Aggregates.Bot;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Students
 {
@@ -21,7 +19,7 @@ namespace HoursTracker.Core.Students
         public StudentService(
             IStudentRepository studentRepository,
             ICareerRepository careerRepository,
-            ICampusRepository campusRepository, 
+            ICampusRepository campusRepository,
             IDataBotRepository dataBotRepository)
         {
             _studentRepository = studentRepository;
@@ -30,9 +28,26 @@ namespace HoursTracker.Core.Students
             _dataBotRepository = dataBotRepository;
         }
 
-        public async Task<Student> FindById(int id)
+        public async Task<SingleStudentDto> FindById(int id)
         {
-            return await _studentRepository.FindById(id);
+            var student = _studentRepository
+                .Filter(x => x.Id == id)
+                .Select(student => new SingleStudentDto
+                {
+                    Account = student.Account,
+                    Email = student.Email,
+                    Campus = student.CampusId,
+                    FirstName = student.FirstName,
+                    SecondName = student.SecondName,
+                    FirstSurname = student.FirstSurname,
+                    SecondSurname = student.SecondSurname,
+                    Careers = student.StudentCareers.Select(x => x.CareerId),
+                    Settlement = student.Settlement,
+                    Id = student.Id
+
+                }).FirstOrDefault();
+
+            return student;
         }
 
         public async Task<IEnumerable<SingleStudentDto>> All()
@@ -40,7 +55,7 @@ namespace HoursTracker.Core.Students
             var data = await _studentRepository.
                 Filter(student => !student.Disabled)
                 .Include(students => students.StudentCareers)
-                
+
                 .ThenInclude(c => c.Career)
                 .Include(students => students.Data)
                 .SelectMany(student => student.StudentCareers,
@@ -101,7 +116,7 @@ namespace HoursTracker.Core.Students
 
                 var studentBot = await _dataBotRepository.FirstOrDefault(x => x.Student.Id == id);
                 await _dataBotRepository.Delete(studentBot);
-            } 
+            }
             stud.Account = student.Account;
             stud.FirstName = student.FirstName;
             stud.SecondName = student.SecondName;
@@ -110,17 +125,12 @@ namespace HoursTracker.Core.Students
             stud.Settlement = student.Settlement;
             stud.Email = student.Email;
 
-
-
-
-
             await _studentRepository.Update(stud.StudentCareers, @student.Careers
                     .Select(x => new StudentCareer()
                     {
                         CareerId = x,
                         StudentId = id
                     }), x => x.CareerId);
-            
 
         }
 
@@ -132,7 +142,7 @@ namespace HoursTracker.Core.Students
         {
             var careers = _careerRepository.Filter(career => student.Careers.Contains(career.Id));
             var campus = await _campusRepository.FindById(student.Campus);
-            
+
             var studentInfo = new Student
             {
                 Account = student.Account,
@@ -154,12 +164,12 @@ namespace HoursTracker.Core.Students
                 .Include(x => x.StudentCareers)
                 .FirstOrDefault(x => x.Account == studentInfo.Account);
 
-                await _studentRepository.Add(studentInfo);
-            
+            await _studentRepository.Add(studentInfo);
 
-            
 
-            
+
+
+
         }
     }
 }

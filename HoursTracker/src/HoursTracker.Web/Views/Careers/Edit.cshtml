@@ -11,24 +11,25 @@
 
     function setFormValues(id) {
         $.get(`@Url.Action("Get", "Careers")/${id}`, data => {
-          for (var key in data) {
+            for (var key in data) {
+                
             $('[name="'+key+'"]').val(data[key]);
             }
-          //  $('#selectFaculty').selectpicker('val', data.facultyId);
+            $('#selectFaculty').selectpicker('val', data.facultyId);
         });
     }
 
     $(function () {
 
         setFormValues(@Model);
-       // $('#selectFaculty').selectpicker();
+        $('#selectFaculty').selectpicker();
 
             $.get('@Url.Action("All", "Faculties")', function (data) {
                 for (const { id, name } of data) {
                     $('#selectFaculty').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
                 }
 
-               // setFormValues(@Model);
+               setFormValues(@Model);
             });
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -114,7 +115,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectFaculty" name="faculty" class="form-control show-tick" multiple required>
+                                    <select id="selectFaculty" name="facultyId" class="form-control show-tick" multiple required>
                                     </select>
                                 </div>
                             </div>

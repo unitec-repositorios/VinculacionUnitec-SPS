@@ -28,16 +28,18 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var data = (await _classService.All())
+            var data = (await _classService.All());
+                var data2 = data
                 .Select(@class => new ClassViewModel
                 {
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
                     ClassName = @class.ClassName,
-                    CareerName = @class.CareerName                 
+                    CareerNames = @class.CareerNames,
+                    Careers = @class.Careers               
                 });
 
-            return Ok(data);
+            return Ok(data2);
         }
 
         public async Task<IActionResult> Get(int id)
@@ -89,8 +91,9 @@ namespace HoursTracker.Web.Controllers
         [HttpPut]
         public async Task<ActionResult> Edit(int id, ClassViewModel classViewModel)
         {
+            var temp = await _classService.FindById(id);
             var existingCode = await _classService.FindByCode(classViewModel.ClassCode);
-            if (existingCode == null ) {
+            if (existingCode == null || existingCode.ClassCode == temp.ClassCode) {
                 var updatedClass = new UpdateClassDto
                 {
                     ClassCode = classViewModel.ClassCode,

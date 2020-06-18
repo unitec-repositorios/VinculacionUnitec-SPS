@@ -8,12 +8,22 @@
 
     function setFormValues(id) {
         $.get(`@Url.Action("Get", "Students")/${id}`, data => {
-          for (var key in data) {
-            $('[name="'+key+'"]').val(data[key]);
-          }
+            for (var key in data) {
+              $('[name="' + key + '"]').val(data[key]);
+
+            }
+
+            debugger
+
+            $('#selectCareers').selectpicker('val', data.careers);
+            $('#selectCampus').selectpicker('val', data.campus);
+
         });
     }
-    $(function () {
+        $(function () {
+
+            $('#selectCareers').selectpicker();
+            $('#selectCampus').selectpicker();
 
         setFormValues(@Model);
 
@@ -22,11 +32,13 @@
                 $('#selectCareers').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
             }
         });
-        $.get('@Url.Action("All", "Campuses")', function (data) {
+
+         $.get('@Url.Action("All", "Campuses")', function (data) {
             for (const { id, name } of data) {
                 $('#selectCampus').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
             }
         });
+
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -157,7 +169,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCampus" name="campus" class="form-control show-tick" required>
+                                    <select id="selectCampus" name="campusName" class="form-control show-tick" required>
                                     </select>
                                 </div>
                             </div>
@@ -170,7 +182,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCareers" name="careers" class="form-control show-tick" multiple required>
+                                    <select id="selectCareers" name="careerName" class="form-control show-tick" data-live-search="true" multiple required>
                                     </select>
                                 </div>
                             </div>

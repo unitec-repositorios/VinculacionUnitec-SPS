@@ -89,9 +89,9 @@ namespace HoursTracker.Web.Controllers
         [HttpPut]
         public async Task<ActionResult> Edit(int id, CareerViewModel careerViewModel)
         {
-
+            var temp = await _careerService.FindById(id);
             var existingCode = await _careerService.FindByCode(careerViewModel.Code);
-            if (existingCode == null)
+            if (existingCode == null || existingCode.Code == temp.Code)
             {
                 var career = new Career
                 {

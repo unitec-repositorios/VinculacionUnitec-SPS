@@ -114,14 +114,15 @@ namespace HoursTracker.Web.Controllers
                 var student = new UpdateSudentDto()
                 {
                     Account = studentViewModel.Account,
+                    Email = studentViewModel.Email,
+                    Campus = studentViewModel.Campus,
                     FirstName = studentViewModel.FirstName,
                     SecondName = studentViewModel.SecondName,
                     FirstSurname = studentViewModel.FirstSurname,
                     SecondSurname = studentViewModel.SecondSurname,
-                    Campus = studentViewModel.Campus,
                     Careers = studentViewModel.Careers,
                     Settlement = studentViewModel.Settlement,
-                    Email = studentViewModel.Email
+                    Id = id
                 };
                 await _studentService.Update(id, student);
                 return Ok();

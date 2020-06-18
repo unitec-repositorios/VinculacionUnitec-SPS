@@ -32,8 +32,9 @@ namespace HoursTracker.Core.Classes
                 {
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
-                    CareerName = career.Career.Name,
-                    ClassName = @class.ClassName
+                    CareerNames = career.Career.Name,
+                    ClassName = @class.ClassName,
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
                  .ToListAsync();
 
@@ -43,8 +44,9 @@ namespace HoursTracker.Core.Classes
                 {
                     Id = @class.First().Id,
                     ClassCode = @class.First().ClassCode,
-                    CareerName = string.Join(", ",@class.Select(c => c.CareerName)),
-                    ClassName = @class.First().ClassName
+                    CareerNames = string.Join(", ", @class.Select(c => c.CareerNames)),
+                    ClassName = @class.First().ClassName,
+                    Careers = @class.First().Careers
                 }
                 );
         }
@@ -84,7 +86,7 @@ namespace HoursTracker.Core.Classes
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
                     ClassName = @class.ClassName,
-                   // Careers = @class.ClassCareers.Select(x => x.CareerId)
+                    Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
                 .FirstOrDefaultAsync();
         }

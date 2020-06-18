@@ -89,8 +89,9 @@ namespace HoursTracker.Web.Controllers
         [HttpPut]
         public async Task<ActionResult> Edit(int id, ProfessorViewModel professorViewModel)
         {
+            var temp = await _professorService.FindById(id);
             var existingCode = await _professorService.FindByCode(professorViewModel.Code);
-            if (existingCode == null) {
+            if (existingCode == null || temp.Code == existingCode.Code) {
                 var professor = new Professor
                 {
                     Code = professorViewModel.Code,

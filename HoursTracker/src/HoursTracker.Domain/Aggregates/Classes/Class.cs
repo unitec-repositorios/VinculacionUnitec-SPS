@@ -18,7 +18,7 @@ namespace HoursTracker.Domain.Aggregates.Classes
         [Column("codigo_asignatura")]
         public string ClassCode { get; set; }
 
-        public string CareerName { get; set; }
+        
 
         
         public ICollection<ClassCareer> ClassCareers { get; set; } = new HashSet<ClassCareer>();

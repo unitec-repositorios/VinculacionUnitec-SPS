@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace HoursTracker.Core.Students
@@ -28,5 +29,10 @@ namespace HoursTracker.Core.Students
         public bool isInBot { get; set; }
 
         public string TelegramAccount { get; set; }
+
+
+        public int Campus { get; set; }
+
+        public IEnumerable<int> Careers { get; set; }
     }
 }

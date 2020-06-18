@@ -13,8 +13,8 @@ namespace HoursTracker.Web.Models
 
         public string ClassCode { get; set; }
 
-        public string CareerName { get; set; }
 
+        public string CareerNames { get; set; }
         public IEnumerable<int> Careers { get; set; }
     }
 }
