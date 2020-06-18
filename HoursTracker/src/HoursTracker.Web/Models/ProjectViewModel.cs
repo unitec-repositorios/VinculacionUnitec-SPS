@@ -6,6 +6,9 @@
         public string Code { get; set; }
         public string Name { get; set; }
         public double Budget { get; set; }
+
         public int VinculationTypeId { get; set; }
+
+        public string VinculationType { get; set; }
     }
 }

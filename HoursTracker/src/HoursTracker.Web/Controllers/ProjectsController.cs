@@ -32,7 +32,6 @@ namespace HoursTracker.Web.Controllers
                     Name = project.Name,
                     Code = project.Code,
                     Budget = project.Budget,
-                    VinculationId = project.VinculationTypeId,
                     VinculationType = project.VinculationType.Type
         }) ;
 
@@ -58,7 +57,7 @@ namespace HoursTracker.Web.Controllers
                 Name = projectViewModel.Name,
                 Code = projectViewModel.Code,
                 Budget = projectViewModel.Budget,
-                VinculationTypeId = projectViewModel.VinculationId
+                VinculationTypeId = projectViewModel.VinculationTypeId
             };
 
             await _projectService.Create(project);
@@ -84,7 +83,7 @@ namespace HoursTracker.Web.Controllers
                 Name = projectViewModel.Name,
                 Code = projectViewModel.Code,
                 Budget = projectViewModel.Budget,
-                VinculationTypeId = projectViewModel.VinculationId
+                VinculationTypeId = projectViewModel.VinculationTypeId
 
             };
             await _projectService.Update(id, project);

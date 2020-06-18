@@ -18,7 +18,6 @@ using HoursTracker.Data.Repositories.ProjectHours;
 using HoursTracker.Data.Repositories.Projects;
 using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Data.Repositories.Students;
-using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Aggregates.Careers;
@@ -29,7 +28,6 @@ using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Aggregates.Students;
-using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,9 +35,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using HoursTracker.Data.Repositories.Periods;
-using HoursTracker.Core.Periods;
 using HoursTracker.Data.Repositories.VinculationTypes;
+using HoursTracker.Core.VinculationTypes;
 
 namespace HoursTracker.Web
 {
