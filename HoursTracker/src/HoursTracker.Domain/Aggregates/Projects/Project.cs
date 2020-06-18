@@ -2,11 +2,9 @@
 using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace HoursTracker.Domain.Aggregates.Projects
 {
@@ -26,6 +24,7 @@ namespace HoursTracker.Domain.Aggregates.Projects
 
         [Column("id_vinculacion")]
         public int VinculationTypeId { get; set; }
+
         public VinculationType VinculationType { get; set; }
 
         public ICollection<SectionProject> SectionProjects { get; set; } = new HashSet<SectionProject>();

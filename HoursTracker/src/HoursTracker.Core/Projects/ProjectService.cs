@@ -1,31 +1,45 @@
-﻿using HoursTracker.Domain.Aggregates.Projects;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using HoursTracker.Domain.Aggregates.Projects;
+using HoursTracker.Domain.Aggregates.VinculationTypes;
+using Microsoft.EntityFrameworkCore;
 
 namespace HoursTracker.Core.Projects
 {
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
-
-        public ProjectService(IProjectRepository projectRepository)
+        private readonly IVinculationTypeRepository _vinculationTypeRepository;
+        public ProjectService(IProjectRepository projectRepository, IVinculationTypeRepository vinculationTypeRepository)
         {
             _projectRepository = projectRepository;
+            _vinculationTypeRepository = vinculationTypeRepository;
         }
-
         public async Task<IEnumerable<Project>> All()
         {
-            return await _projectRepository
-               .Filter(project => !project.Disabled)
-               .ToListAsync();
+            
+                return await _projectRepository
+                .Filter(project => !project.Disabled)
+                .Include(x => x.VinculationType)
+                .ToListAsync();
+           
         }
 
-        public async Task Create(Project career)
+        public async Task Create(CreateProjectDto project)
         {
-            throw new NotImplementedException();
+            // await _projectRepository.Add(project);
+           var vinculationType = await _vinculationTypeRepository.FindById(project.VinculationTypeId);
+
+            var projectInfo = new Project
+            {
+                Code = project.Code,
+                Name = project.Name,
+                Budget= project.Budget,
+                VinculationTypeId = vinculationType.Id
+               
+            };
+
+            await _projectRepository.Add(projectInfo);
         }
 
         public async Task<Project> FindById(int id)
@@ -35,12 +49,23 @@ namespace HoursTracker.Core.Projects
 
         public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var project = await _projectRepository.FindById(id);
+            await _projectRepository.Disable(project);
         }
 
-        public async Task Update(int id, Project section)
+       public async Task Update(int id, Project project)
         {
-            throw new NotImplementedException();
+            var existingProject = await _projectRepository.FindById(id);
+
+            existingProject.Code = project.Code;
+            existingProject.Name = project.Name;
+            existingProject.Budget = project.Budget;
+            existingProject.VinculationTypeId = project.VinculationTypeId;
+           
+
+
+
+            await _projectRepository.Update(existingProject);
         }
     }
 }
