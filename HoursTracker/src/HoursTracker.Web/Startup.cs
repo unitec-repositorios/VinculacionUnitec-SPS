@@ -41,6 +41,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using HoursTracker.Data.Repositories.VinculationTypes;
 using HoursTracker.Core.VinculationTypes;
 
@@ -61,6 +62,7 @@ namespace HoursTracker.Web
             services
                 .AddDbContext<HoursTrackerContext>(options =>
                     options
+                        .UseLoggerFactory(MyLoggerFactory)
                         .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
@@ -71,6 +73,9 @@ namespace HoursTracker.Web
 
             ConfigureDependencies(services);
         }
+        
+        public static readonly ILoggerFactory MyLoggerFactory
+            = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         private static void ConfigureDependencies(IServiceCollection services)
         {

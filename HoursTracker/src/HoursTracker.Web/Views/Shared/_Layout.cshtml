@@ -545,14 +545,19 @@
     <script src="~/lib/theme/js/admin.js"></script>
 
     <!-- Jquery DataTable Plugin Js -->
+
     <script src="~/lib/theme/plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="~/lib/theme/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
     <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
     <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
     <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/lib/theme/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 
     <!-- Demo Js -->
     <script src="~/lib/theme/js/demo.js"></script>
@@ -560,27 +565,27 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         const language = {
-                decimal: "",
-                emptyTable: "No hay información",
-                info: "Mostrando _START_ al _END_ de _TOTAL_ registros",
-                infoEmpty: "Mostrando 0 al 0 de 0 registros",
-                infoFiltered: "(Filtrado de _MAX_ total entradas)",
-                infoPostFix: "",
-                thousands: ",",
-                lengthMenu: "Mostrar _MENU_ Entradas",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-                search: "Buscar:",
-                zeroRecords: "Sin resultados encontrados",
-                paginate: {
-                  first: "Primero",
-                  last: "Ultimo",
-                  next: "Siguiente",
-                  previous: "Anterior",
-                },
-              }
+            decimal: "",
+            emptyTable: "No hay información",
+            info: "Mostrando _START_ al _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 al 0 de 0 registros",
+            infoFiltered: "(Filtrado de _MAX_ total entradas)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Mostrar _MENU_ Entradas",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior",
+            },
+        }
     </script>
-    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

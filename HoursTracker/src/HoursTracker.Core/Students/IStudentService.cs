@@ -15,6 +15,8 @@ namespace HoursTracker.Core.Students
 
         Task Remove(int id);
 
-        Task Update(int id, UpdateStudentDto student);
+        Task Update(int id, UpdateSudentDto student);
+
+        Task<IEnumerable<StudentsHoursReportDto>> HoursByStudent();
     }
 }

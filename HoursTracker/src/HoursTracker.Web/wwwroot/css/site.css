@@ -1,3 +1,7 @@
+﻿.dtrg-group {
+    font-weight: bold;
+}
+
 ﻿.btn-group.bootstrap-select.form-control.show-tick.dropup.open > div > * {
     margin-left: 30px;
 }
