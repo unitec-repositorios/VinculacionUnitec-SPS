@@ -6,6 +6,8 @@ using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
 using HoursTracker.Core.Classes;
 using HoursTracker.Core.Professors;
+using HoursTracker.Core.ProjectHours;
+using HoursTracker.Core.Projects;
 using HoursTracker.Core.Sections;
 using HoursTracker.Core.Students;
 using HoursTracker.Core.Periods;
@@ -16,6 +18,9 @@ using HoursTracker.Data.Repositories.Periods;
 using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
 using HoursTracker.Data.Repositories.Professors;
+using HoursTracker.Data.Repositories.ProjectHours;
+using HoursTracker.Data.Repositories.Projects;
+using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Data.Repositories.Students;
 using HoursTracker.Data.Repositories.Sections;
 using HoursTracker.Domain.Aggregates.Campuses;
@@ -23,6 +28,8 @@ using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Periods;
 using HoursTracker.Domain.Aggregates.Classes;
 using HoursTracker.Domain.Aggregates.Professors;
+using HoursTracker.Domain.Aggregates.ProjectHours;
+using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Contracts;
@@ -77,14 +84,21 @@ namespace HoursTracker.Web
 
             services.AddScoped<ICampusRepository, CampusRepository>();
             services.AddScoped<ICampusService, CampusService>();
+
             services.AddScoped<ICareerRepository, CareerRepository>();
             services.AddScoped<ICareerService, CareerService>();
+
             services.AddScoped<IClassRepository, ClassRepository>();
             services.AddScoped<IClassService, ClassService>();
+
             services.AddScoped<IStudentRepository, StudentsRepository>();
             services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<ISectionRepository, SectionsRepository>();
+            services.AddScoped<IProjectHourRepository, ProjectHourRepository>();
+            services.AddScoped<IProjectHourService, ProjectHourService>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<ISectionService, SectionService>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IPeriodRepository, PeriodRepository>();
             services.AddScoped<IPeriodService, PeriodService>();
         }

@@ -27,6 +27,8 @@ namespace HoursTracker.Domain.Aggregates.ProjectHours
 
         [Column("horas_trabajadas")]
         public int Hours { get; set; }
+        [Column("estado")]
+        public int TableState { get; set; }
 
     }
 }
