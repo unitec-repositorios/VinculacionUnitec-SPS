@@ -63,7 +63,7 @@ namespace HoursTracker.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateStudentViewModel studentViewModel)
         {
-            var existingCode = await _studentService.FindByCode(studentViewModel.Account);
+            var existingCode = await _studentService.FindByCode(studentViewModel.Id);
 
             if (existingCode == null)
             {
@@ -107,7 +107,7 @@ namespace HoursTracker.Web.Controllers
         public async Task<ActionResult> Edit(int id, CreateStudentViewModel studentViewModel)
         {
             var temp = await _studentService.FindById(id);
-            var existingCode = await _studentService.FindByCode(studentViewModel.Account);
+            var existingCode = await _studentService.FindByCode(studentViewModel.Id);
 
             if (existingCode == null || existingCode.Account == temp.Account)
             {
