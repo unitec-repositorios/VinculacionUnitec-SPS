@@ -13,5 +13,7 @@
         public bool Settlement { get; set; }
         public string Email { get; set; }
         public bool isInBot { get; set; }
+
+        public string TelegramAccount { get; set; }
     }
 }

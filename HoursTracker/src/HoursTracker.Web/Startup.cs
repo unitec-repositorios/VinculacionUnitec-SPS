@@ -1,6 +1,7 @@
 using HoursTracker.Core.Campuses;
 using HoursTracker.Core.Careers;
 using HoursTracker.Core.Classes;
+using HoursTracker.Core.Faculties;
 using HoursTracker.Core.Professors;
 using HoursTracker.Core.ProjectHours;
 using HoursTracker.Core.Projects;
@@ -9,10 +10,12 @@ using HoursTracker.Core.Students;
 using HoursTracker.Core.Periods;
 using HoursTracker.Data.Contexts;
 using HoursTracker.Data.Repositories;
+using HoursTracker.Data.Repositories.Bot;
 using HoursTracker.Data.Repositories.Campuses;
 using HoursTracker.Data.Repositories.Periods;
 using HoursTracker.Data.Repositories.Careers;
 using HoursTracker.Data.Repositories.Classes;
+using HoursTracker.Data.Repositories.Faculties;
 using HoursTracker.Data.Repositories.Professors;
 using HoursTracker.Data.Repositories.ProjectHours;
 using HoursTracker.Data.Repositories.Projects;
@@ -24,6 +27,7 @@ using HoursTracker.Domain.Aggregates.VinculationTypes;
 using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Periods;
 using HoursTracker.Domain.Aggregates.Classes;
+using HoursTracker.Domain.Aggregates.Faculties;
 using HoursTracker.Domain.Aggregates.Professors;
 using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Aggregates.Projects;
@@ -87,6 +91,10 @@ namespace HoursTracker.Web
 
             services.AddScoped<IStudentRepository, StudentsRepository>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IFacultyRepository, FacultyRepository>();
+            services.AddScoped<IFacultyService, FacultyService>();
+
+            services.AddScoped<IDataBotRepository, DataBotRepository>();
             services.AddScoped<IProjectHourRepository, ProjectHourRepository>();
             services.AddScoped<IProjectHourService, ProjectHourService>();
             services.AddScoped<ISectionRepository, SectionRepository>();

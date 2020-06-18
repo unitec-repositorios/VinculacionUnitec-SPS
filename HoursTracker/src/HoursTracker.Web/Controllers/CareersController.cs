@@ -27,13 +27,15 @@ namespace HoursTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            
             var data = (await _careerService.All())
                 .Select(career => new CareerViewModel
                 {
                     Id = career.Id,
                     Name = career.Name,
                     Code = career.Code,
-                });
+                    FacultyName = career.Faculty,
+                });;
 
             return Ok(data);
         }
@@ -50,15 +52,26 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CareerViewModel careerViewModel)
+        public async Task<ActionResult> Create(CareerViewModel careerViewModel)
         {
-            var career = new Career
+            var existingCode = await _careerService.FindByCode(careerViewModel.Code);
+            if (existingCode == null)
             {
-                Name = careerViewModel.Name,
-                Code = careerViewModel.Code
-            };
+                var career = new Career
+                {
+                    Name = careerViewModel.Name,
+                    Code = careerViewModel.Code,
+                    FacultyId = careerViewModel.FacultyId,
+                };
 
-            await _careerService.Create(career);
+                await _careerService.Create(career);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una carrera con ese codigo");
+            }
+            
         }
 
         [HttpDelete]
@@ -74,14 +87,26 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, CareerViewModel careerViewModel)
+        public async Task<ActionResult> Edit(int id, CareerViewModel careerViewModel)
         {
-            var career = new Career
+            var temp = await _careerService.FindById(id);
+            var existingCode = await _careerService.FindByCode(careerViewModel.Code);
+            if (existingCode == null || existingCode.Code == temp.Code)
             {
-                Name = careerViewModel.Name,
-                Code = careerViewModel.Code
-            };
-            await _careerService.Update(id, career);
+                var career = new Career
+                {
+                    Name = careerViewModel.Name,
+                    Code = careerViewModel.Code,
+                    FacultyId = careerViewModel.FacultyId
+                };
+                await _careerService.Update(id, career);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una carrera con ese codigo");
+            }
+            
         }
     }
 }

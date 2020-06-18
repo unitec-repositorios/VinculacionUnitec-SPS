@@ -6,7 +6,8 @@ namespace HoursTracker.Core.Students
 {
     public interface IStudentService
     {
-        Task<Student> FindById(int id);
+        Task<Student> FindByCode(string code);
+        Task<SingleStudentDto> FindById(int id);
 
         Task Create(CreateStudentDto student);
 

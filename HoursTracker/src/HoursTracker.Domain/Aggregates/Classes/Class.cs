@@ -21,6 +21,9 @@ namespace HoursTracker.Domain.Aggregates.Classes
         [StringLength(20)]
         public string ClassCode { get; set; }
 
+        
+
+        
         public ICollection<ClassCareer> ClassCareers { get; set; } = new HashSet<ClassCareer>();
     }
 }

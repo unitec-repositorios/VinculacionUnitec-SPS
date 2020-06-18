@@ -19,9 +19,21 @@
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El campus ha si creado exitosamente!
+                            ¡El campus ha sido creado exitosamente!
                         </div>
                     `);
+                },
+                error: (error) => {
+                    if (error.responseText === "Ya existe un campus con este codigo") {
+                        $(this).prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡Ya existe un campus con ese codigo!
+                        </div>
+                    `);
+                    }
+                      console.log(error);
+                    //some stuff on failure
                 }
             })
 
@@ -57,7 +69,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="Code" name="Code" class="form-control" autocomplete="off">
+                                    <input type="text" id="Code" name="Code" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +81,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="Name" name="Name" class="form-control" autocomplete="off">
+                                    <input type="text" id="Name" name="Name" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>

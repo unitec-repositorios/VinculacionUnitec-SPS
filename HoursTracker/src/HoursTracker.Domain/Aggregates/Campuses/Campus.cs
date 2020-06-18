@@ -16,7 +16,6 @@ namespace HoursTracker.Domain.Aggregates.Campuses
     [Table("campuses")]
     public class Campus : BaseEntity, IAggregateRoot
     {
-        
 
         [Column("codigo_campus")]
         [StringLength(20)]

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Campuses
@@ -22,9 +23,14 @@ namespace HoursTracker.Core.Campuses
                 .ToListAsync();
         }
 
+        public async Task<Campus> FindByCode(string code)
+        {
+            return await _campusRepository.FirstOrDefault(c => c.Code == code);
+        }
+
         public async Task Create(Campus campus)
         {
-            await _campusRepository.Add(campus);
+                await _campusRepository.Add(campus);         
         }
 
         public async Task<Campus> FindById(int id)
