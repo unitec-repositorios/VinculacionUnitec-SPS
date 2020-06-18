@@ -27,10 +27,13 @@ namespace HoursTracker.Web.Controllers
         public async Task<IActionResult> All()
         {
             var data = (await _sectionService.All())
-                .Select(career => new SectionViewModel
+                .Select(section => new SectionsViewModel
                 {
-                    Id = career.Id,
-                    Code = career.Code,
+                    Id = section.Id,
+                    Class = section.Class,
+                    Code = section.Code,
+                    Period = section.Period,
+                    Professor = section.Professor
                 });
 
             return Ok(data);
@@ -39,6 +42,51 @@ namespace HoursTracker.Web.Controllers
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _sectionService.FindById(id));
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task Create(CreateSectionViewModel sectionViewModel)
+        {
+            var section = new CreateSectionDto
+            {
+                Code = sectionViewModel.Code,
+                Class = sectionViewModel.Class,
+                Period = sectionViewModel.Period,
+                Professor = sectionViewModel.Professor
+            };
+
+            await _sectionService.Create(section);
+        }
+
+        [HttpDelete]
+        public async Task Delete(int id)
+        {
+            await _sectionService.Remove(id);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(id);
+        }
+
+        [HttpPut]
+        public async Task Edit(int id, CreateSectionViewModel sectionViewModel)
+        {
+            var section = new UpdateSectionDto()
+            {
+                Code = sectionViewModel.Code,
+                Class = sectionViewModel.Class,
+                Period = sectionViewModel.Period,
+                Professor = sectionViewModel.Professor
+            };
+            await _sectionService.Update(id, section);
         }
     }
 }

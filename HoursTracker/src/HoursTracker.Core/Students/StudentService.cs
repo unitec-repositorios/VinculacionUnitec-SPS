@@ -104,8 +104,6 @@ namespace HoursTracker.Core.Students
 
         public async Task Update(int id, UpdateStudentDto student)
         {
-
-
             var stud = _studentRepository
                 .All()
                 .Include(x => x.StudentCareers)
@@ -113,9 +111,11 @@ namespace HoursTracker.Core.Students
 
             if (stud.Email != student.Email)
             {
-
                 var studentBot = await _dataBotRepository.FirstOrDefault(x => x.Student.Id == id);
-                await _dataBotRepository.Delete(studentBot);
+                if(studentBot != null)
+                {
+                    await _dataBotRepository.Delete(studentBot);
+                }
             }
             stud.Account = student.Account;
             stud.FirstName = student.FirstName;
@@ -131,10 +131,9 @@ namespace HoursTracker.Core.Students
                         CareerId = x,
                         StudentId = id
                     }), x => x.CareerId);
-
         }
 
-        public async Task<Student> FindByCode(int code)
+        public async Task<Student> FindByCode(string code)
         {
             return await _studentRepository.FirstOrDefault(c => c.Account == code);
         }

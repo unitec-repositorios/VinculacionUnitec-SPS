@@ -15,8 +15,6 @@
     }
     $(function () {
 
-        setFormValues(@Model);
-
         $.get('@Url.Action("All", "Classes")', function (data) {
             for (const { id, className } of data) {
                 $('#selectClass').append('<option value=' + id + '>' + className + '</option>').selectpicker('refresh');
@@ -32,6 +30,8 @@
                 $('#selectPeriodo').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
             }
         });
+
+        setFormValues(@Model);
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -111,7 +111,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="selectProfessor">Professor</label>
+                            <label for="selectProfessor">Maestro</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">

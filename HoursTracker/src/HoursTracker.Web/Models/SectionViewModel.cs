@@ -9,5 +9,11 @@ namespace HoursTracker.Web.Models
     {
         public int Id { get; set; }
         public string Code { get; set; }
+
+        public string Period { get; set; }
+
+        public string Class { get; set; }
+
+        public string Professor { get; set; }
     }
 }
