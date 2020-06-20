@@ -15,15 +15,17 @@
                     'excel', 'pdf'
                 ],
             ajax: {
-                url: "@Url.Action("All", "StudentsHoursReport")",
+                url: '@Url.Action("All", "StudentsHoursReport")',
                 dataSrc: ""
             },
               columns: [
-              { data: "account" },
-              { data: "studentName" },
-              { data: "projectName" },
-              { data: "sectionCode" },
+                { data: "account" },
+                  { data: "studentName" },
+                  { data: "projectCode" },
+                { data: "projectName" },
                   { data: "className" },
+                    { data: "periodCode" },
+                { data: "careerCode" },
                   { data: "hoursAmount" },
               ],
                 rowGroup: {
@@ -38,7 +40,13 @@
                             .append('<td>' + sum + '</td>');
                   },
               }
-          });
+            });
+
+            $('#searchButton').click(() => {
+                const searchTerm = $('#account').val();
+                table.ajax.url(`@Url.Action("All", "StudentsHoursReport")?account=${searchTerm}`).load();
+
+            });
 
           $(document).on('click', '.delete-action', function () {
               bootbox.confirm({
@@ -75,20 +83,36 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    <span>Maestros</span>
+                    <span>Reporte de horas por alumno</span>
                 </h2>
             </div>
             <div class="body">
                 <div class="table-responsive">
-
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="account">Numero de cuenta</label>
+                        </div>
+                        <div class="col-lg-3 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="searchButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Buscar</button>
+                        </div>
+                    </div>
                     <table id="reportTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
                                 <th>Cuenta</th>
                                 <th>Alumno</th>
-                                <th>Proyecto</th>
-                                <th>Sección</th>
-                                <th>Clase</th>
+                                <th>Código proyecto</th>
+                                <th>Nombre proyecto</th>
+                                <th>Nombre asignatura</th>
+                                <th>Código periodo</th>
+                                <th>Carreras</th>
                                 <th>Horas</th>
                             </tr>
                         </thead>

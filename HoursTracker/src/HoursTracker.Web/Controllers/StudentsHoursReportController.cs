@@ -21,9 +21,9 @@ namespace HoursTracker.Web
             return View();
         }
 
-        public async Task<ActionResult<IEnumerable<StudentsHoursReportDto>>> All()
+        public async Task<ActionResult<IEnumerable<StudentsHoursReportDto>>> All(string account)
         {
-            var data = (await _studentService.HoursByStudent()).ToList();
+            var data = (await _studentService.HoursByStudent(account)).ToList();
             return Ok(data);
         }
     }

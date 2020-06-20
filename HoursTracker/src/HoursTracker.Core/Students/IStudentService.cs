@@ -16,6 +16,6 @@ namespace HoursTracker.Core.Students
 
         Task Update(int id, UpdateSudentDto student);
 
-        Task<IEnumerable<StudentsHoursReportDto>> HoursByStudent();
+        Task<IEnumerable<StudentsHoursReportDto>> HoursByStudent(string account);
     }
 }
