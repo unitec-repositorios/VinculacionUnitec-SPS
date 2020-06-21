@@ -170,5 +170,31 @@ namespace HoursTracker.Core.Students
 
 
         }
+
+        public async Task<IEnumerable<StudentsHoursReportDto>> HoursByStudent(string account)
+        {            
+            return await _studentRepository
+                .Filter(x => x.Account.Equals(account))
+                .Include(x => x.ProjectHours)
+                .ThenInclude(s => s.Section)
+                .ThenInclude(x => x.Class)
+                .Include(x => x.ProjectHours)
+                .ThenInclude(s => s.Section)
+                .ThenInclude(x => x.Period)
+                .Include(x => x.ProjectHours)
+                .ThenInclude(x => x.Project)
+                .SelectMany(student => student.ProjectHours.DefaultIfEmpty(),
+                    (student, hours) => new StudentsHoursReportDto
+                    {
+                        Account = student.Account,
+                        ClassName = hours.Section.Class.ClassName,
+                        HoursAmount = hours.Hours,
+                        ProjectName = hours.Project.Name,
+                        PeriodCode = hours.Section.Period.Code,
+                        StudentName = $"{student.FirstName} {student.FirstSurname}",
+                        ProjectCode = hours.Project.Code,
+                        CareerCode = student.StudentCareers.FirstOrDefault().Career.Name
+                    }).ToListAsync();
+        }
     }
 }
