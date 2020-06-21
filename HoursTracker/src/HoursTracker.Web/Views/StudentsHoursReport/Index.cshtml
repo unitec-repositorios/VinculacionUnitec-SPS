@@ -36,7 +36,7 @@
                         var sum = rows.data().pluck("hoursAmount").reduce((a, b) => a + b * 1);
 
                         return $('<tr/>')
-                            .append('<td colspan="5">Total de horas</td>')
+                            .append('<td colspan="7">Total de horas</td>')
                             .append('<td>' + sum + '</td>');
                   },
               }
