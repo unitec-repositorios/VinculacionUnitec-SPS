@@ -35,11 +35,11 @@ namespace HoursTracker.Web.Controllers
         public async Task<IActionResult> All()
         {
             var data = (await _facultyService.All())
-                .Select(campus => new CampusViewModel
+                .Select(faculty => new FacultyViewModel
                 {
-                    Id = campus.Id,
-                    Name = campus.Name,
-                    Code = campus.Code,
+                    Id = faculty.Id,
+                    Code = faculty.Code,
+                    Name = faculty.Name
                 });
 
             return Ok(data);
@@ -57,24 +57,23 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CampusViewModel campusViewModel)
+        public async Task<ActionResult> Create(FacultyViewModel facultyViewModel)
         {
-            var existingCampus = await _facultyService.FindByCode(campusViewModel.Code);
-
-
-            if (existingCampus == null)
+            var existingCode = await _facultyService.FindByCode(facultyViewModel.Code);
+            if (existingCode == null)
             {
-                var campus = new Faculty
+                var faculty = new Faculty
                 {
-                    Name = campusViewModel.Name,
-                    Code = campusViewModel.Code
+                    Code = facultyViewModel.Code,
+                    Name = facultyViewModel.Name
                 };
-                await _facultyService.Create(campus);
+
+                await _facultyService.Create(faculty);
                 return Ok();
             }
             else
             {
-                return BadRequest("Ya existe un campus con este codigo");
+                return BadRequest("Ya existe una Facultad con este codigo");
             }
 
         }
@@ -92,22 +91,23 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Edit(int id, CampusViewModel campusViewModel)
+        public async Task<ActionResult> Edit(int id, FacultyViewModel facultyViewModel)
         {
-            var existinCampus = await _facultyService.FindByCode(campusViewModel.Code);
-            if (existinCampus == null)
+            var temp = await _facultyService.FindById(id);
+            var existingCode = await _facultyService.FindByCode(facultyViewModel.Code);
+            if (existingCode == null || temp.Code == existingCode.Code)
             {
-                var campus = new Faculty
+                var faculty = new Faculty
                 {
-                    Name = campusViewModel.Name,
-                    Code = campusViewModel.Code
+                    Code = facultyViewModel.Code,
+                    Name = facultyViewModel.Name
                 };
-                await _facultyService.Update(id, campus);
+                await _facultyService.Update(id, faculty);
                 return Ok();
             }
             else
             {
-                return BadRequest("Ya existe un campus con este codigo");
+                return BadRequest("Ya existe una Facultad con este codigo");
             }
 
         }
