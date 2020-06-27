@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Classes
 {
-    public class 
-        : IClassService
+    public class ClassService : IClassService
     {
         private readonly IClassRepository _classRepository;
         private readonly ICareerRepository _careerRepository;
@@ -123,15 +122,23 @@ namespace HoursTracker.Core.Classes
             return await _classRepository
                 .Filter(x => x.ClassCode.Equals(classCode))
 
-                .SelectMany(@class => @class.Sections
+                .SelectMany(@class => @class.Sections,
                     (@class, section) => new
                     {
-                        ClassCode = @class.ClassCode,
-                        ClassName = @class.ClassName,
-                        ProfessorName = $"{section.Section.Professor.FirstName} {section.Section.Professor.FirstLastName}",
-                        ProjectCode = sectionProjects.Project.Code, //sectionProjects.SectionProjects.Project.Code,
-                        ProjectName = sectionProjects.Project.Name,
+                        @class.ClassCode,
+                        @class.ClassName,
+                        ProfessorName = $"{section.Professor.FirstName} {section.Professor.FirstLastName}",
+                        section.SectionProjects
                     })
+                .SelectMany(@class => @class.SectionProjects, (subject, project) => new ProjectsClassReportDto
+                {
+                    ClassCode = subject.ClassCode,
+                    ClassName = subject.ClassName,
+                    ProfessorName = subject.ProfessorName,
+                    ProjectCode = project.Project.Code,
+                    ProjectName = project.Project.Name
+                }).ToListAsync();
+
 
         }
     }
