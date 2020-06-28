@@ -62,9 +62,14 @@ namespace HoursTracker.Core.Faculties
                     {
                         FacultyCode = faculty.Code,
                         FacultyName = faculty.Name,
-                        ClassCarrer = career.
+                        ClassCarrer = career.ClassCareers,
                     })
-                .SelectMany(x)
+                .SelectMany(x => x.ClassCarrer, (faculty, @class) => new {
+                    faculty.FacultyCode,
+                    faculty.FacultyName,
+                    @class.Class.ClassName,
+                    @class.Class.ClassCode,
+                })
 
                 .ToListAsync();
         }
