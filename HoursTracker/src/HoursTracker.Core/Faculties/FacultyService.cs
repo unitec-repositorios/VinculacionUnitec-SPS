@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace HoursTracker.Core.Faculties
 
         public async Task<Faculty> FindById(int id)
         {
-            return await _facultyRepository.FindById(id);      
+            return await _facultyRepository.FindById(id);
         }
 
         public async Task Remove(int id)
@@ -50,6 +51,22 @@ namespace HoursTracker.Core.Faculties
             existingFaculty.Name = faculty.Name;
 
             await _facultyRepository.Update(existingFaculty);
+        }
+
+        public async Task<IEnumerable<HoursFacultiesReportDto>> HoursFaculty(string code)
+        {
+            return _facultyRepository
+                .Filter(x => x.Code.Equals(code))
+                .SelectMany(faculty => faculty.Careers,
+                    (faculty, career) => new
+                    {
+                        FacultyCode = faculty.Code,
+                        FacultyName = faculty.Name,
+                        ClassCarrer = career.
+                    })
+                .SelectMany(x)
+
+                .ToListAsync();
         }
     }
 }

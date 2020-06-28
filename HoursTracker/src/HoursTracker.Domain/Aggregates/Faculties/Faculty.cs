@@ -1,4 +1,5 @@
 ﻿using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Domain.Contracts;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,6 @@ namespace HoursTracker.Domain.Aggregates.Faculties
         [StringLength(50)]
         public string Name { get; set; }
 
-        public ICollection<Career> Career { get; set; } = new HashSet<Career>();
+        public ICollection<Career> Careers { get; set; } = new HashSet<Career>();
     }
 }

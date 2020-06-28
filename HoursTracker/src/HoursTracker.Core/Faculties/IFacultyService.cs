@@ -18,5 +18,7 @@ namespace HoursTracker.Core.Faculties
         Task Remove(int id);
 
         Task Update(int id, Faculty faculty);
+
+        Task<IEnumerable<HoursFacultiesReportDto>> HoursFaculty(string code);
     }
 }

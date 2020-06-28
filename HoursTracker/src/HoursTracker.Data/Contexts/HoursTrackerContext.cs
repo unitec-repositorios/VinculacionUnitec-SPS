@@ -106,7 +106,7 @@ namespace HoursTracker.Data.Contexts
                .HasForeignKey(campusCareer => campusCareer.CareerId);
 
             modelBuilder.Entity<Faculty>()
-                .HasMany(f => f.Career)
+                .HasMany(f => f.Careers)
                 .WithOne(c => c.Faculty);
 
             modelBuilder.Entity<StudentSection>()
