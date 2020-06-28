@@ -7,7 +7,7 @@ namespace HoursTracker.Core.Faculties
     public class HoursFacultiesReportDto
     {
 
-        public string Code { get; set; }
+        public string FacultyCode { get; set; }
 
         public string FacultyName { get; set; }
 
