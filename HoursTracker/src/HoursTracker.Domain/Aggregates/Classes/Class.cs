@@ -1,4 +1,5 @@
 ﻿using HoursTracker.Domain.Aggregates.Careers;
+using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Domain.Contracts;
 using HoursTracker.Domain.Shared;
 using System;
@@ -21,9 +22,8 @@ namespace HoursTracker.Domain.Aggregates.Classes
         [StringLength(20)]
         public string ClassCode { get; set; }
 
-        
+        public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
 
-        
         public ICollection<ClassCareer> ClassCareers { get; set; } = new HashSet<ClassCareer>();
     }
 }

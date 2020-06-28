@@ -173,6 +173,9 @@ namespace HoursTracker.Data.Contexts
               .HasMany(f => f.ProjectHours)
               .WithOne(c => c.Student);
 
+            modelBuilder.Entity<Class>()
+              .HasMany(f => f.Sections)
+              .WithOne(c => c.Class);
 
 
 

@@ -15,5 +15,6 @@ namespace HoursTracker.Core.Sections
         Task Remove(int id);
 
         Task Update(int id, UpdateSectionDto section);
+
     }
 }
