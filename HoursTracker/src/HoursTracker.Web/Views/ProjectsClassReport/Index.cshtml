@@ -7,7 +7,7 @@
     <script>
         $(function () {
 
-            const table = $("#reportProjectsClassTable").DataTable({
+            const table = $("#reportTable").DataTable({
                 order: [[0, 'asc']],
                 language,
                 dom: 'Bfrtip',
@@ -61,7 +61,7 @@
                             <button id="searchButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Buscar</button>
                         </div>
                     </div>
-                    <table id="reportProjectsClassTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <table id="reportTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
                                 <th>Código de clase</th>
