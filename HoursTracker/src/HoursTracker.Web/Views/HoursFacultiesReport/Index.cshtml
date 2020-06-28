@@ -18,7 +18,7 @@
                 dataSrc: ""
             },
               columns: [
-                  { data: "code" },
+                  { data: "facultyCode" },
                   { data: "facultyName" },
                   { data: "classCode" },
                   { data: "className" },
@@ -34,7 +34,7 @@
                         var sum = rows.data().pluck("hoursAmount").reduce((a, b) => a + b * 1);
 
                         return $('<tr/>')
-                            .append('<td colspan="7">Total de horas</td>')
+                            .append('<td colspan="6">Total de horas</td>')
                             .append('<td>' + sum + '</td>');
                   },
               }
