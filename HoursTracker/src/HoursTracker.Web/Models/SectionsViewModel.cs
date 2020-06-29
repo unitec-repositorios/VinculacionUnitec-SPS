@@ -13,7 +13,7 @@ namespace HoursTracker.Web.Models
 
         public string Period { get; set; }
 
-        public string Class { get; set; }
+        public string ClassName { get; set; }
 
         public string Professor { get; set; }
     }

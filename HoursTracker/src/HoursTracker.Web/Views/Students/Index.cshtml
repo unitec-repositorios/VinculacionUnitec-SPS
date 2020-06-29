@@ -66,7 +66,7 @@
 
             $('#studentsTable thead tr:eq(1) th').each(function (i) {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+                $(this).html('<input type="text" class="inputsearch" placeholder="Buscar ' + title + '" />');
 
                 $('input', this).on('keyup change', function () {
                     if (table.column(i).search() !== this.value) {
