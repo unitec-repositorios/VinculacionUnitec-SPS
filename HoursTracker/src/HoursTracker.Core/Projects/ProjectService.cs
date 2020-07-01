@@ -17,26 +17,26 @@ namespace HoursTracker.Core.Projects
         }
         public async Task<IEnumerable<Project>> All()
         {
-            
-                return await _projectRepository
-                .Filter(project => !project.Disabled)
-                .Include(x => x.VinculationType)
-                .ToListAsync();
-           
+
+            return await _projectRepository
+            .Filter(project => !project.Disabled)
+            .Include(x => x.VinculationType)
+            .ToListAsync();
+
         }
 
         public async Task Create(CreateProjectDto project)
         {
             // await _projectRepository.Add(project);
-           var vinculationType = await _vinculationTypeRepository.FindById(project.VinculationTypeId);
+            var vinculationType = await _vinculationTypeRepository.FindById(project.VinculationTypeId);
 
             var projectInfo = new Project
             {
                 Code = project.Code,
                 Name = project.Name,
-                Budget= project.Budget,
+                Budget = project.Budget,
                 VinculationTypeId = vinculationType.Id
-               
+
             };
 
             await _projectRepository.Add(projectInfo);
@@ -53,7 +53,7 @@ namespace HoursTracker.Core.Projects
             await _projectRepository.Disable(project);
         }
 
-       public async Task Update(int id, Project project)
+        public async Task Update(int id, Project project)
         {
             var existingProject = await _projectRepository.FindById(id);
 
@@ -61,11 +61,13 @@ namespace HoursTracker.Core.Projects
             existingProject.Name = project.Name;
             existingProject.Budget = project.Budget;
             existingProject.VinculationTypeId = project.VinculationTypeId;
-           
+
 
 
 
             await _projectRepository.Update(existingProject);
         }
+
     }
+
 }

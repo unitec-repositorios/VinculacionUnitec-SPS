@@ -17,5 +17,7 @@ namespace HoursTracker.Core.Projects
         Task Remove(int id);
 
         Task Update(int id, Project project);
+
+
     }
 }

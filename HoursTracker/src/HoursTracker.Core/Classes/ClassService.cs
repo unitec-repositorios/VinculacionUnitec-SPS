@@ -1,5 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+
+using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -23,7 +25,7 @@ namespace HoursTracker.Core.Classes
 
         public async Task<IEnumerable<SingleClassDto>> All()
         {
-            var data =  await _classRepository
+            var data = await _classRepository
                 .Filter(@class => !@class.Disabled)
                 .Include(@class => @class.ClassCareers)
                 .ThenInclude(c => c.Career)
@@ -113,6 +115,31 @@ namespace HoursTracker.Core.Classes
                     CareerId = x,
                     ClassId = id
                 }), x => x.CareerId);
+        }
+
+        public async Task<IEnumerable<ProjectsClassReportDto>> ProjectsByClass(string classCode)
+        {
+            return await _classRepository
+                .Filter(x => x.ClassCode.Equals(classCode))
+
+                .SelectMany(@class => @class.Sections,
+                    (@class, section) => new
+                    {
+                        @class.ClassCode,
+                        @class.ClassName,
+                        ProfessorName = $"{section.Professor.FirstName} {section.Professor.FirstLastName}",
+                        section.SectionProjects
+                    })
+                .SelectMany(@class => @class.SectionProjects, (subject, project) => new ProjectsClassReportDto
+                {
+                    ClassCode = subject.ClassCode,
+                    ClassName = subject.ClassName,
+                    ProfessorName = subject.ProfessorName,
+                    ProjectCode = project.Project.Code,
+                    ProjectName = project.Project.Name
+                }).ToListAsync();
+
+
         }
     }
 }
