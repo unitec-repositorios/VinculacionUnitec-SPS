@@ -96,16 +96,21 @@ namespace HoursTracker.Web
 
             services.AddScoped<IStudentRepository, StudentsRepository>();
             services.AddScoped<IStudentService, StudentService>();
+
             services.AddScoped<IFacultyRepository, FacultyRepository>();
             services.AddScoped<IFacultyService, FacultyService>();
 
             services.AddScoped<IDataBotRepository, DataBotRepository>();
+
             services.AddScoped<IProjectHourRepository, ProjectHourRepository>();
             services.AddScoped<IProjectHourService, ProjectHourService>();
+
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<ISectionService, SectionService>();
+
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectService, ProjectService>();
+
             services.AddScoped<IPeriodRepository, PeriodRepository>();
             services.AddScoped<IPeriodService, PeriodService>();
 
