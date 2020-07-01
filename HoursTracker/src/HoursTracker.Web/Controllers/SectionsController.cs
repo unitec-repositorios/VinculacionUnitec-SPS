@@ -30,7 +30,7 @@ namespace HoursTracker.Web.Controllers
                 .Select(section => new SectionsViewModel
                 {
                     Id = section.Id,
-                    Class = section.Class,
+                    ClassName = section.Class,
                     Code = section.Code,
                     Period = section.Period,
                     Professor = section.Professor

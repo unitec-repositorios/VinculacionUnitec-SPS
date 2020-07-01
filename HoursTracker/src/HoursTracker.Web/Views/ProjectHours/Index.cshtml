@@ -14,6 +14,7 @@
                 url: "@Url.Action("All", "ProjectHours")",
                 dataSrc: ""
             },
+
             buttons: [
               {
                 text: "Agregar",
@@ -37,7 +38,7 @@
                   },
 
               { data: null },
-            ],
+              ],
             columnDefs: [
               {
                 targets: [-1],
@@ -129,15 +130,35 @@
                       }
                 });
           });
+           
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val();
+
+                $("#projecthoursTable tr").each(function (index) {
+                    if (index !== 0) {
+
+                        $row = $(this);
+
+                        var id = $row.find("td:first").text();
+
+                        if (id.indexOf(value) !== 0) {
+                            $row.hide();
+                        }
+                        else {
+                            $row.show();
+                        }
+                    }
+                });
+            });
 
             $('#projecthoursTable thead tr').clone(true).appendTo('#projecthoursTable thead');
-
             $('#projecthoursTable thead tr:eq(1) th').each(function (i) {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+                $(this).html('<input type="text" class="inputsearch"  placeholder="Buscar ' + title + '" />');
 
                 $('input', this).on('keyup change', function () {
                     if (table.column(i).search() !== this.value) {
+                        alert(this.value)
                         table
                             .column(i)
                             .search(this.value)
@@ -147,6 +168,8 @@
 
 
             });
+
+          
 
         });
 
@@ -166,13 +189,11 @@
                 </h2>
             </div>
             <div class="body">
-                
-                <br />
                 <div class="table-responsive">
                     <table id="projecthoursTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
-                                <th>Numero de Cuenta</th>
+                                <th>Número de Cuenta</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Seccion</th>
