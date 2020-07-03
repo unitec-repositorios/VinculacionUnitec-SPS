@@ -8,12 +8,21 @@
 
     function setFormValues(id) {
         $.get(`@Url.Action("Get", "Students")/${id}`, data => {
-          for (var key in data) {
-            $('[name="'+key+'"]').val(data[key]);
-          }
+            for (var key in data) {
+              $('[name="' + key + '"]').val(data[key]);
+
+            }
+
+
+            $('#selectCareers').selectpicker('val', data.careers);
+            $('#selectCampus').selectpicker('val', data.campus);
+
         });
     }
-    $(function () {
+        $(function () {
+
+            $('#selectCareers').selectpicker();
+            $('#selectCampus').selectpicker();
 
         setFormValues(@Model);
 
@@ -22,11 +31,13 @@
                 $('#selectCareers').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
             }
         });
-        $.get('@Url.Action("All", "Campuses")', function (data) {
+
+         $.get('@Url.Action("All", "Campuses")', function (data) {
             for (const { id, name } of data) {
                 $('#selectCampus').append('<option value=' + id + '>' + name + '</option>').selectpicker('refresh');
             }
         });
+
 
         $(".form-horizontal").submit(function (event){
             event.preventDefault();
@@ -41,6 +52,18 @@
                             ¡El alumno ha si editado exitosamente!
                         </div>
                     `);
+                },
+                error: (error) => {
+                    if (error.responseText === "Ya existe un Estudiante con este numero de Cuenta") {
+                        $(this).prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡Ya existe un Estudiante con este numero de Cuenta!
+                        </div>
+                    `);
+                    }
+                    console.log(error);
+                    //some stuff on failure
                 }
             })
 
@@ -73,7 +96,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off">
+                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +108,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off">
+                                    <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +132,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="firstSurname" name="firstSurname" class="form-control" autocomplete="off">
+                                    <input type="text" id="firstSurname" name="firstSurname" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +156,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="email" name="email" class="form-control" autocomplete="off">
+                                    <input type="text" id="email" name="email" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +168,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCampus" name="campus" class="form-control show-tick">
+                                    <select id="selectCampus" name="campusName" class="form-control show-tick" required>
                                     </select>
                                 </div>
                             </div>
@@ -158,7 +181,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCareers" name="careers" class="form-control show-tick" multiple>
+                                    <select id="selectCareers" name="careers" class="form-control show-tick" data-live-search="true" multiple required>
                                     </select>
                                 </div>
                             </div>

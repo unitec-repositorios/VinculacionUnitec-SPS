@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Nueva seccion";
+}
+
+@section Scripts {
+
+    <script>
+    $(function () {
+        $.get('@Url.Action("All", "Classes")', function (data) {
+            for (const { id, className } of data) {
+                $('#selectClass').append('<option value=' + id + '>' + className + '</option>').selectpicker('refresh');
+            }
+        });
+        $.get('@Url.Action("All", "Professors")', function (data) {
+            for (const { id, firstName, secondName, firstLastName, secondLastName } of data) {
+                $('#selectProfessor').append('<option value=' + id + '>' + firstName + " " + secondName + " " + firstLastName + " " + secondLastName + " "  + '</option>').selectpicker('refresh');
+            }
+        });
+        $.get('@Url.Action("All", "Periods")', function (data) {
+            for (const { id, code } of data) {
+                $('#selectPeriodo').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
+            }
+        });
+        $(".form-horizontal").submit(function (event){
+            event.preventDefault();
+            $(this).ajaxSubmit({
+                url: '@Url.Action("Create", "Sections")',
+                type: 'post',
+                resetForm: true,
+                success: () => {
+                    $(this).prepend(`
+                        <div id="alert" class="alert bg-green alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡La seccion ha si creada exitosamente!
+                        </div>
+                    `);
+                }
+            })
+        })
+    });
+        jQuery(function ($) {
+            $('.back-button').click(function (e) {
+                history.back();
+            });
+        });
+    </script>
+
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    <button type="button" class="back-button btn btn-primary btn-circle waves-effect"> <i class="fa fa-arrow-left"></i> </button>
+                    Agregar seccion
+                </h2>
+            </div>
+            <div class="body form-center">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="code">Codigo</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="selectPeriodo">Periodo</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectPeriodo" name="period" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="selectClass">Clase</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectClass" name="class" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="selectProfessor">Professor</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="selectProfessor" name="professor" class="form-control show-tick">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="saveButton" type="submit" class="btn btn-primary m-t-15 waves-effect">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

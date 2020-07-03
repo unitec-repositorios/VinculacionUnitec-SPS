@@ -42,7 +42,8 @@ namespace HoursTracker.Web.Controllers
                     CareerName = student.CareerName,
                     CampusName = student.CampusName,
                     Email = student.Email,
-                    isInBot = student.isInBot
+                    isInBot = student.isInBot,
+                    TelegramAccount = student.TelegramAccount
                 }); ;
 
             return Ok(data);
@@ -60,22 +61,33 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CreateStudentViewModel studentViewModel)
+        public async Task<ActionResult> Create(CreateStudentViewModel studentViewModel)
         {
-            var student = new CreateStudentDto
-            {
-                Account = studentViewModel.Account,
-                FirstName = studentViewModel.FirstName,
-                SecondName = studentViewModel.SecondName,
-                FirstSurname = studentViewModel.FirstSurname,
-                SecondSurname = studentViewModel.SecondSurname,
-                Campus = studentViewModel.Campus,
-                Careers = studentViewModel.Careers,
-                Settlement = studentViewModel.Settlement,
-                Email = studentViewModel.Email
-            };
+            var existingCode = await _studentService.FindByCode(studentViewModel.Account);
 
-            await _studentService.Create(student);
+            if (existingCode == null)
+            {
+                var student = new CreateStudentDto
+                {
+                    Account = studentViewModel.Account,
+                    FirstName = studentViewModel.FirstName,
+                    SecondName = studentViewModel.SecondName,
+                    FirstSurname = studentViewModel.FirstSurname,
+                    SecondSurname = studentViewModel.SecondSurname,
+                    Campus = studentViewModel.Campus,
+                    Careers = studentViewModel.Careers,
+                    Settlement = studentViewModel.Settlement,
+                    Email = studentViewModel.Email
+                };
+
+                await _studentService.Create(student);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe un Estudiante con este numero de Cuenta");
+            }
+            
 
         }
 
@@ -92,21 +104,34 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, CreateStudentViewModel studentViewModel)
+        public async Task<ActionResult> Edit(int id, CreateStudentViewModel studentViewModel)
         {
-            var student = new UpdateSudentDto()
+            var temp = await _studentService.FindById(id);
+            var existingCode = await _studentService.FindByCode(studentViewModel.Account);
+
+            if (existingCode == null || existingCode.Account == temp.Account)
             {
-                Account = studentViewModel.Account,
-                FirstName = studentViewModel.FirstName,
-                SecondName = studentViewModel.SecondName,
-                FirstSurname = studentViewModel.FirstSurname,
-                SecondSurname = studentViewModel.SecondSurname,
-                Campus = studentViewModel.Campus,
-                Careers = studentViewModel.Careers,
-                Settlement = studentViewModel.Settlement,
-                Email = studentViewModel.Email
-            };
-            await _studentService.Update(id, student);
+                var student = new UpdateStudentDto
+                {
+                    Account = studentViewModel.Account,
+                    Email = studentViewModel.Email,
+                    Campus = studentViewModel.Campus,
+                    FirstName = studentViewModel.FirstName,
+                    SecondName = studentViewModel.SecondName,
+                    FirstSurname = studentViewModel.FirstSurname,
+                    SecondSurname = studentViewModel.SecondSurname,
+                    Careers = studentViewModel.Careers,
+                    Settlement = studentViewModel.Settlement,
+                    Id = id
+                };
+                await _studentService.Update(id, student);
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest("Ya existe un Estudiante con este numero de Cuenta");
+            }
+            
         }
     }
 }

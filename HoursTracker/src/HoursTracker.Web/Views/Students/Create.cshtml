@@ -29,6 +29,18 @@
                             ¡El alumno ha si creado exitosamente!
                         </div>
                     `);
+                },
+                error: (error) => {
+                    if (error.responseText === "Ya existe un Estudiante con este numero de Cuenta") {
+                        $(this).prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡Ya existe un Estudiante con este numero de Cuenta!
+                        </div>
+                    `);
+                    }
+                    console.log(error);
+                    //some stuff on failure
                 }
             })
         })
@@ -60,7 +72,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off">
+                                    <input type="text" id="account" name="account" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +84,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off">
+                                    <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +108,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="firstSurname" name="firstSurname" class="form-control" autocomplete="off">
+                                    <input type="text" id="firstSurname" name="firstSurname" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +132,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="email" name="email" class="form-control" autocomplete="off">
+                                    <input type="text" id="email" name="email" class="form-control" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +144,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectCampus" name="campus" class="form-control show-tick">
+                                    <select id="selectCampus" name="campus" class="form-control show-tick" title="Nothing Selected"  required>
                                     </select>
                                 </div>
                             </div>
@@ -142,10 +154,10 @@
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                             <label for="selectCareers">Carrera</label>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <select id="selectCareers" name="careers" class="form-control show-tick" multiple>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7" >
+                            <div class="form-group" >
+                                <div class="form-line"  >
+                                    <select id="selectCareers" name="careers" class="form-control show-tick" multiple data-live-search="true"  required>
                                     </select>
                                 </div>
                             </div>

@@ -4,7 +4,7 @@ namespace HoursTracker.Core.Students
 {
     public class CreateStudentDto
     {
-        public int Account { get; set; }
+        public string Account { get; set; }
 
         public string FirstName { get; set; }
 
@@ -21,5 +21,7 @@ namespace HoursTracker.Core.Students
         public bool Settlement { get; set; }
 
         public string Email { get; set; }
+
+ 
     }
 }

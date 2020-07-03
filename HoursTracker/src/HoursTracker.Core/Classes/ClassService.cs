@@ -1,5 +1,7 @@
 ﻿using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Classes;
+
+using HoursTracker.Domain.Aggregates.Projects;
 using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -23,19 +25,38 @@ namespace HoursTracker.Core.Classes
 
         public async Task<IEnumerable<SingleClassDto>> All()
         {
-            return await _classRepository
+            var data = await _classRepository
                 .Filter(@class => !@class.Disabled)
                 .Include(@class => @class.ClassCareers)
                 .ThenInclude(c => c.Career)
-                .Select(@class => new SingleClassDto { 
+                .SelectMany(@class => @class.ClassCareers.DefaultIfEmpty(),
+                (@class, career) => new SingleClassDto
+                {
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
+                    CareerNames = career.Career.Name,
                     ClassName = @class.ClassName,
                     Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
-                .ToListAsync();
+                 .ToListAsync();
+
+            return data.GroupBy(
+                @class => @class.Id,
+                (Id, @class) => new SingleClassDto
+                {
+                    Id = @class.First().Id,
+                    ClassCode = @class.First().ClassCode,
+                    CareerNames = string.Join(", ", @class.Select(c => c.CareerNames)),
+                    ClassName = @class.First().ClassName,
+                    Careers = @class.First().Careers
+                }
+                );
         }
 
+        public async Task<Class> FindByCode(string code)
+        {
+            return await _classRepository.FirstOrDefault(c => c.ClassCode == code);
+        }
         public async Task Create(CreateClassDto @class)
         {
             var careers = _careerRepository.Filter(career => @class.Careers.Contains(career.Id));
@@ -94,6 +115,31 @@ namespace HoursTracker.Core.Classes
                     CareerId = x,
                     ClassId = id
                 }), x => x.CareerId);
+        }
+
+        public async Task<IEnumerable<ProjectsClassReportDto>> ProjectsByClass(string classCode)
+        {
+            return await _classRepository
+                .Filter(x => x.ClassCode.Equals(classCode))
+
+                .SelectMany(@class => @class.Sections,
+                    (@class, section) => new
+                    {
+                        @class.ClassCode,
+                        @class.ClassName,
+                        ProfessorName = $"{section.Professor.FirstName} {section.Professor.FirstLastName}",
+                        section.SectionProjects
+                    })
+                .SelectMany(@class => @class.SectionProjects, (subject, project) => new ProjectsClassReportDto
+                {
+                    ClassCode = subject.ClassCode,
+                    ClassName = subject.ClassName,
+                    ProfessorName = subject.ProfessorName,
+                    ProjectCode = project.Project.Code,
+                    ProjectName = project.Project.Name
+                }).ToListAsync();
+
+
         }
     }
 }

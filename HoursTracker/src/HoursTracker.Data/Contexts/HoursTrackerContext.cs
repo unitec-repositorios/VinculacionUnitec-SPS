@@ -50,6 +50,9 @@ namespace HoursTracker.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Campus>().HasIndex(c=> c.Code).IsUnique();
+            modelBuilder.Entity<Career>().HasIndex(c=> c.Code).IsUnique();
+            modelBuilder.Entity<Class>().HasIndex(c => c.ClassCode).IsUnique();
             modelBuilder.Entity<ClassCareer>()
                 .HasKey(classCareer => new { classCareer.ClassId, classCareer.CareerId });
 
@@ -103,7 +106,7 @@ namespace HoursTracker.Data.Contexts
                .HasForeignKey(campusCareer => campusCareer.CareerId);
 
             modelBuilder.Entity<Faculty>()
-                .HasMany(f => f.Career)
+                .HasMany(f => f.Careers)
                 .WithOne(c => c.Faculty);
 
             modelBuilder.Entity<StudentSection>()
@@ -170,6 +173,9 @@ namespace HoursTracker.Data.Contexts
               .HasMany(f => f.ProjectHours)
               .WithOne(c => c.Student);
 
+            modelBuilder.Entity<Class>()
+              .HasMany(f => f.Sections)
+              .WithOne(c => c.Class);
 
 
 

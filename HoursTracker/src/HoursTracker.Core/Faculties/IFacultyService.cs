@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Faculties
 {
-    interface IFacultyService
+    public interface IFacultyService
     {
+        Task<Faculty> FindByCode(string code);
+
         Task<Faculty> FindById(int id);
 
         Task Create(Faculty faculty);
@@ -17,5 +19,7 @@ namespace HoursTracker.Core.Faculties
         Task Remove(int id);
 
         Task Update(int id, Faculty faculty);
+
+        Task<IEnumerable<HoursFacultiesReportDto>> HoursFaculty(string code);
     }
 }

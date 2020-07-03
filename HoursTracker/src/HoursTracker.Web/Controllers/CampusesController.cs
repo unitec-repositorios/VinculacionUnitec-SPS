@@ -50,15 +50,26 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CampusViewModel campusViewModel)
+        public async Task<ActionResult> Create(CampusViewModel campusViewModel)
         {
-            var campus = new Campus
+            var existingCampus = await _campusService.FindByCode(campusViewModel.Code);
+ 
+            
+            if (existingCampus == null)
             {
-                Name = campusViewModel.Name,
-                Code = campusViewModel.Code
-            };
-
-            await _campusService.Create(campus);
+                var campus = new Campus
+                {
+                    Name = campusViewModel.Name,
+                    Code = campusViewModel.Code
+                };
+                await _campusService.Create(campus);
+                return Ok();
+            }
+            else
+            {
+                return  BadRequest("Ya existe un campus con este codigo");
+            }
+            
         }
 
         [HttpDelete]
@@ -74,14 +85,25 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, CampusViewModel campusViewModel)
+        public async Task<ActionResult> Edit(int id, CampusViewModel campusViewModel)
         {
-            var campus = new Campus
+            var temp = await _campusService.FindById(id);
+            var existinCampus = await _campusService.FindByCode(campusViewModel.Code);
+            if (existinCampus == null || temp.Code == existinCampus.Code)
             {
-                Name = campusViewModel.Name,
-                Code = campusViewModel.Code
-            };
-            await _campusService.Update(id, campus);
+                var campus = new Campus
+                {
+                    Name = campusViewModel.Name,
+                    Code = campusViewModel.Code
+                };
+                await _campusService.Update(id, campus);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe un campus con este codigo");
+            }
+            
         }
     }
 }

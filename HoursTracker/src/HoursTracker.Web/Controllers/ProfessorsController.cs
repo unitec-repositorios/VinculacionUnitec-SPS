@@ -51,18 +51,27 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(ProfessorViewModel professorViewModel)
+        public async Task<ActionResult> Create(ProfessorViewModel professorViewModel)
         {
-            var professor = new Professor
+            var existingCode = await _professorService.FindByCode(professorViewModel.Code);
+            if (existingCode == null) {
+                var professor = new Professor
+                {
+                    Code = professorViewModel.Code,
+                    FirstName = professorViewModel.FirstName,
+                    SecondName = professorViewModel.SecondName,
+                    FirstLastName = professorViewModel.FirstLastName,
+                    SecondLastName = professorViewModel.SecondLastName
+                };
+
+                await _professorService.Create(professor);
+                return Ok();
+            }
+            else
             {
-                Code = professorViewModel.Code,
-                FirstName = professorViewModel.FirstName,
-                SecondName = professorViewModel.SecondName,
-                FirstLastName = professorViewModel.FirstLastName,
-                SecondLastName = professorViewModel.SecondLastName
-            };
+                return BadRequest("Ya existe un Maestro con este codigo");
+            }
             
-            await _professorService.Create(professor);
         }
 
         [HttpDelete]
@@ -78,17 +87,27 @@ namespace HoursTracker.Web.Controllers
         }
         
         [HttpPut]
-        public async Task Edit(int id, ProfessorViewModel professorViewModel)
+        public async Task<ActionResult> Edit(int id, ProfessorViewModel professorViewModel)
         {
-            var professor = new Professor
+            var temp = await _professorService.FindById(id);
+            var existingCode = await _professorService.FindByCode(professorViewModel.Code);
+            if (existingCode == null || temp.Code == existingCode.Code) {
+                var professor = new Professor
+                {
+                    Code = professorViewModel.Code,
+                    FirstName = professorViewModel.FirstName,
+                    SecondName = professorViewModel.SecondName,
+                    FirstLastName = professorViewModel.FirstLastName,
+                    SecondLastName = professorViewModel.SecondLastName
+                };
+                await _professorService.Update(id, professor);
+                return Ok();
+            }
+            else
             {
-                Code = professorViewModel.Code,
-                FirstName = professorViewModel.FirstName,
-                SecondName = professorViewModel.SecondName,
-                FirstLastName = professorViewModel.FirstLastName,
-                SecondLastName = professorViewModel.SecondLastName
-            };
-            await _professorService.Update(id, professor);
+                return BadRequest("Ya existe un Maestro con este codigo");
+            }
+            
         }
     }
 }

@@ -12,6 +12,8 @@ namespace HoursTracker.Core.Classes
 
         public string ClassCode { get; set; }
 
+        public string CareerNames { get; set; }
+
         public IEnumerable<int> Careers { get; set; }
     }
 }
