@@ -32,7 +32,11 @@ namespace exportarBaseDatosVinculacion
                 return;
             }
 
-            SqlConnection con = new SqlConnection();
+            this.Hide();
+            MainForm fm = new MainForm();
+            fm.Show();
+
+            /*SqlConnection con = new SqlConnection();
             con.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker;Trusted_Connection=True;";
             con.Open();
             SqlCommand cmd = new SqlCommand("select usuario, contrasena from usuarios where usuario='" + userTxt.Text + "'and contrasena='" + passwordTxt.Text + "'", con);
@@ -50,7 +54,7 @@ namespace exportarBaseDatosVinculacion
             {
                 MessageBox.Show("Invalid Login please check username and password");
                 con.Close();
-            }
+            }*/
         }
 
         private void closeButton_Click(object sender, EventArgs e)

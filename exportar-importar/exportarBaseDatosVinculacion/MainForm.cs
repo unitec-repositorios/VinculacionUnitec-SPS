@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Windows.Forms;
 using _Excel = Microsoft.Office.Interop.Excel;
 
@@ -20,6 +23,7 @@ namespace exportarBaseDatosVinculacion
             SqlConnection cnn;
             string connectionstring = null;
             string sql = null;
+            System.Data.DataTable miTabla = null;
 
             _Excel.Application xlApp;
             _Excel.Workbook xlWorkBook;
@@ -30,63 +34,72 @@ namespace exportarBaseDatosVinculacion
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (_Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-            connectionstring = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker;Trusted_Connection=True;";
+            _Excel.Sheets worksheets = xlWorkBook.Worksheets;
+            var xlNewSheet = (_Excel.Worksheet)worksheets.Add(worksheets[1], Type.Missing, Type.Missing, Type.Missing);
+
+            connectionstring = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker2;Trusted_Connection=True;";
             cnn = new SqlConnection(connectionstring);
             cnn.Open();
 
-            sql = "SELECT * FROM usuarios";
+            //CONTANDO TABLAS
+            System.Data.DataTable schema = cnn.GetSchema("Tables");
+            int tableCount = schema.AsEnumerable().Count(t => t.Field<string>("TABLE_TYPE") == "BASE TABLE");
+            labelAmountTables.Text = "Tablas: 1" + "/" + tableCount;
+            labelAmountTables.Visible = true;
+
+            //GETTING TABLE NAMES
+            List<string> TableNames = new List<string>();
+            foreach (DataRow row in schema.Rows)
+            {
+                TableNames.Add(row[2].ToString());
+            }
 
             SqlDataAdapter dscmd = new SqlDataAdapter(sql, cnn);
             DataSet ds = new DataSet();
-            dscmd.Fill(ds);
+            labelTitle.Text = "EXPORTANDO TABLA: ";
 
-            System.Data.DataTable miTabla = ds.Tables[0];
-
-            for (int i = 1; i < miTabla.Columns.Count + 1; i++)
+            for (int l = 0; l < tableCount; l++)
             {
-                xlWorkSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
-            }
+                progressBar.Value = 0;
+                labelNameTable.Text = TableNames[l];
+                labelAmountTables.Text = "Tablas: " + l + "/" + tableCount;
+                sql = "SELECT * FROM " + TableNames[l];
+                dscmd = null;
+                ds = null;
+                miTabla = null;
 
-            for (int j = 0; j < miTabla.Rows.Count; j++)
-            {
-                for (int k = 0; k < miTabla.Columns.Count; k++)
+                worksheets = xlWorkBook.Worksheets;
+                xlNewSheet = (_Excel.Worksheet)worksheets.Add(worksheets[1], Type.Missing, Type.Missing, Type.Missing);
+                xlNewSheet.Name = TableNames[l];
+
+                xlNewSheet = (_Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                dscmd = new SqlDataAdapter(sql, cnn);
+                ds = new DataSet();
+                dscmd.Fill(ds);
+                miTabla = ds.Tables[0];
+                progressBar.Maximum = miTabla.Rows.Count;
+
+                for (int i = 1; i < miTabla.Columns.Count + 1; i++)
                 {
-                    xlWorkSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
+                    xlNewSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
                 }
-            }
 
-            xlApp.Visible = true;
-
-            sql = "SELECT * FROM campuses";
-
-            dscmd = null;
-            ds = null;
-            miTabla = null;
-
-            _Excel.Sheets worksheets = xlWorkBook.Worksheets;
-            var xlNewSheet = (_Excel.Worksheet)worksheets.Add(worksheets[1], Type.Missing, Type.Missing, Type.Missing);
-            xlNewSheet.Name = "newsheet";
-
-            xlNewSheet = (_Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-            dscmd = new SqlDataAdapter(sql, cnn);
-            ds = new DataSet();
-            dscmd.Fill(ds);
-
-            miTabla = ds.Tables[0];
-
-            for (int i = 1; i < miTabla.Columns.Count + 1; i++)
-            {
-                xlNewSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
-            }
-
-            for (int j = 0; j < miTabla.Rows.Count; j++)
-            {
-                for (int k = 0; k < miTabla.Columns.Count; k++)
+                for (int j = 0; j < miTabla.Rows.Count; j++)
                 {
-                    xlNewSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
+                    for (int k = 0; k < miTabla.Columns.Count; k++)
+                    {
+                        xlNewSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
+                    }
+                    progressBar.Value = j;
                 }
+
             }
 
+            //AL TERMINAR EXPORTACIONES
+            labelAmountTables.Text = "Tablas: " + tableCount + "/" + tableCount;
+            progressBar.Value = progressBar.Maximum;
+            labelTitle.Text = "EXPORTACION";
+            labelNameTable.Text = "TERMINADA.";
             xlApp.Visible = true;
         }
 
@@ -98,13 +111,13 @@ namespace exportarBaseDatosVinculacion
             result = MessageBox.Show("Esta seguro que desea salir?", caption, buttons);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
         }
 
         private void MainForm_FormClosed(object sender, EventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void importButton_Click(object sender, EventArgs e)

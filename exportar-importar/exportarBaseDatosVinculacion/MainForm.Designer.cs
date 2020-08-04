@@ -30,11 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.exportButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelAmountTables = new System.Windows.Forms.Label();
+            this.labelNameTable = new System.Windows.Forms.Label();
+            this.importButton = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.closeButton = new System.Windows.Forms.Button();
-            this.importButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,33 +52,69 @@
             this.exportButton.UseVisualStyleBackColor = false;
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
-            // label1
+            // labelTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Ultima exportacion: ";
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Location = new System.Drawing.Point(26, 36);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(116, 13);
+            this.labelTitle.TabIndex = 1;
+            this.labelTitle.Text = "Seleccione una opcion";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelAmountTables);
+            this.panel1.Controls.Add(this.labelNameTable);
             this.panel1.Controls.Add(this.importButton);
             this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.closeButton);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelTitle);
             this.panel1.Controls.Add(this.exportButton);
             this.panel1.Location = new System.Drawing.Point(134, 37);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(357, 247);
             this.panel1.TabIndex = 2;
             // 
+            // labelAmountTables
+            // 
+            this.labelAmountTables.AutoSize = true;
+            this.labelAmountTables.Location = new System.Drawing.Point(43, 104);
+            this.labelAmountTables.Name = "labelAmountTables";
+            this.labelAmountTables.Size = new System.Drawing.Size(35, 13);
+            this.labelAmountTables.TabIndex = 11;
+            this.labelAmountTables.Text = "label1";
+            this.labelAmountTables.Visible = false;
+            // 
+            // labelNameTable
+            // 
+            this.labelNameTable.AutoSize = true;
+            this.labelNameTable.Location = new System.Drawing.Point(161, 36);
+            this.labelNameTable.Name = "labelNameTable";
+            this.labelNameTable.Size = new System.Drawing.Size(13, 13);
+            this.labelNameTable.TabIndex = 10;
+            this.labelNameTable.Text = "  ";
+            // 
+            // importButton
+            // 
+            this.importButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.importButton.ForeColor = System.Drawing.Color.Black;
+            this.importButton.Location = new System.Drawing.Point(177, 147);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(118, 40);
+            this.importButton.TabIndex = 9;
+            this.importButton.Text = "Importar base datos";
+            this.importButton.UseVisualStyleBackColor = false;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // progressBar
             // 
             this.progressBar.Location = new System.Drawing.Point(46, 64);
+            this.progressBar.Maximum = 10;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(249, 37);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 8;
+            this.progressBar.Value = 1;
             this.progressBar.Visible = false;
             // 
             // closeButton
@@ -91,18 +129,6 @@
             this.closeButton.UseMnemonic = false;
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
-            // importButton
-            // 
-            this.importButton.BackColor = System.Drawing.Color.LimeGreen;
-            this.importButton.ForeColor = System.Drawing.Color.Black;
-            this.importButton.Location = new System.Drawing.Point(177, 147);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(118, 40);
-            this.importButton.TabIndex = 9;
-            this.importButton.Text = "Importar base datos";
-            this.importButton.UseVisualStyleBackColor = false;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
             // MainForm
             // 
@@ -129,10 +155,12 @@
         #endregion
 
         private System.Windows.Forms.Button exportButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.Label labelNameTable;
+        private System.Windows.Forms.Label labelAmountTables;
     }
 }
