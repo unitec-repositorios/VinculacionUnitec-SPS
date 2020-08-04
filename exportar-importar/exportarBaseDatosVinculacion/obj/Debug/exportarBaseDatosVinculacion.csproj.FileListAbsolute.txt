@@ -1,0 +1,15 @@
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\bin\Debug\exportarBaseDatosVinculacion.exe.config
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\bin\Debug\exportarBaseDatosVinculacion.exe
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\bin\Debug\exportarBaseDatosVinculacion.pdb
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csprojAssemblyReference.cache
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.Properties.Resources.resources
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csproj.GenerateResource.cache
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csproj.CoreCompileInputs.cache
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.exe
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.pdb
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\bin\Debug\aa-DJ\exportarBaseDatosVinculacion.resources.dll
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\aa-DJ\exportarBaseDatosVinculacion.resources.dll
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.LoginForm.resources
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.LoginForm.aa-DJ.resources
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.MainForm.resources
+C:\Users\Sarah\source\repos\exportarBaseDatosVinculacion\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csproj.ResolveComReference.cache
