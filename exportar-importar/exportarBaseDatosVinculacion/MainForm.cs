@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using _Excel = Microsoft.Office.Interop.Excel;
 
@@ -17,9 +18,30 @@ namespace exportarBaseDatosVinculacion
             InitializeComponent();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void DelegateMethod(int num)
+        {
+            progressBar.Value = num;
+        }
+
         private void exportButton_Click(object sender, EventArgs e)
         {
+            DialogResult result;
+            string caption = "ADVERTENCIA";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            result = MessageBox.Show("TIEMPO DE ESPERA: 15 MIN \n. Desea continuar?", caption, buttons);
+            if (result != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+            exportButton.Enabled = false;
+            importButton.Enabled = false;
             progressBar.Visible = true;
+
             SqlConnection cnn;
             string connectionstring = null;
             string sql = null;
@@ -78,21 +100,7 @@ namespace exportarBaseDatosVinculacion
                 dscmd.Fill(ds);
                 miTabla = ds.Tables[0];
                 progressBar.Maximum = miTabla.Rows.Count;
-
-                for (int i = 1; i < miTabla.Columns.Count + 1; i++)
-                {
-                    xlNewSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
-                }
-
-                for (int j = 0; j < miTabla.Rows.Count; j++)
-                {
-                    for (int k = 0; k < miTabla.Columns.Count; k++)
-                    {
-                        xlNewSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
-                    }
-                    progressBar.Value = j;
-                }
-
+                exportOperation(miTabla, xlNewSheet);
             }
 
             //AL TERMINAR EXPORTACIONES
@@ -100,29 +108,49 @@ namespace exportarBaseDatosVinculacion
             progressBar.Value = progressBar.Maximum;
             labelTitle.Text = "EXPORTACION";
             labelNameTable.Text = "TERMINADA.";
+            importButton.Enabled = true;
             xlApp.Visible = true;
+        }
+
+        private void exportOperation(System.Data.DataTable miTabla, Worksheet xlNewSheet)
+        {
+                for (int i = 1; i < miTabla.Columns.Count + 1; i++)
+                {
+                    xlNewSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
+                }
+
+                for (int j = 0; j < miTabla.Rows.Count; j++)
+                {
+
+                    for (int k = 0; k < miTabla.Columns.Count; k++)
+                    {
+                        xlNewSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
+                    }
+                    progressBar.Value = j;
+                }            
         }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            string caption = "Salir";
+            string caption = "Cerrar sesion";
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             result = MessageBox.Show("Esta seguro que desea salir?", caption, buttons);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                System.Windows.Forms.Application.Exit();
+                Close();
             }
-        }
-
-        private void MainForm_FormClosed(object sender, EventArgs e)
-        {
-            System.Windows.Forms.Application.Exit();
         }
 
         private void importButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LoginForm lf = new LoginForm();
+            lf.Show();
         }
     }
 }

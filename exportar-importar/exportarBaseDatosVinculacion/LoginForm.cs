@@ -32,28 +32,35 @@ namespace exportarBaseDatosVinculacion
                 return;
             }
 
-            this.Hide();
+            Hide();
             MainForm fm = new MainForm();
             fm.Show();
 
-            /*SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker;Trusted_Connection=True;";
-            con.Open();
-            SqlCommand cmd = new SqlCommand("select usuario, contrasena from usuarios where usuario='" + userTxt.Text + "'and contrasena='" + passwordTxt.Text + "'", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count > 0)
+            /*try
             {
-                con.Close();
-                this.Hide();
-                MainForm fm = new MainForm();
-                fm.Show();
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker2;Trusted_Connection=True;";
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select usuario, contrasena from usuarios where usuario='" + userTxt.Text + "'and contrasena='" + passwordTxt.Text + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    //con.Close();
+                    this.Hide();
+                    MainForm fm = new MainForm();
+                    fm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Login please check username and password");
+                    con.Close();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid Login please check username and password");
-                con.Close();
+                MessageBox.Show("Error conectando la base de datos. ", "ERROR BASE DE DATOS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }*/
         }
 
@@ -65,7 +72,7 @@ namespace exportarBaseDatosVinculacion
             result =  MessageBox.Show("Esta seguro que desea salir?", caption, buttons);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                this.Close();
+                System.Windows.Forms.Application.Exit();
             }
         }
     }
