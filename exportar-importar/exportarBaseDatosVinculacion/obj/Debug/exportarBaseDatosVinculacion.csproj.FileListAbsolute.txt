@@ -28,3 +28,13 @@ C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\expor
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\aa-DJ\exportarBaseDatosVinculacion.resources.dll
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.exe
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.pdb
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.ImportForm.resources
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.DataSet.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.pdb
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.DataSet.pdb
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.DataSet.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csproj.CopyComplete
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\Z.Dapper.Plus.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\Z.Dapper.Plus.xml

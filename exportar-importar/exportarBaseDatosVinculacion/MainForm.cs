@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Data.OleDb;
 using _Excel = Microsoft.Office.Interop.Excel;
 
 
@@ -109,7 +110,9 @@ namespace exportarBaseDatosVinculacion
 
         private void importButton_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            ImportForm im = new ImportForm();
+            im.Show();
         }
     }
 }
