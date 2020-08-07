@@ -1,15 +1,10 @@
 ﻿using ExcelDataReader;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Z.Dapper.Plus;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 
 namespace exportarBaseDatosVinculacion
 {
@@ -20,10 +15,9 @@ namespace exportarBaseDatosVinculacion
             InitializeComponent();
         }
 
-        private void cboSheet_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cboSheet_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = tableCollection[cboSheet.SelectedItem.ToString()];
-            dataGridView1.DataSource = dt;
+
         }
 
         DataTableCollection tableCollection;
@@ -70,13 +64,38 @@ namespace exportarBaseDatosVinculacion
         {
             try
             {
-                string selected = cboSheet.GetItemText(cboSheet.SelectedItem);
-                MessageBox.Show(selected);
-                //DapperPlusManager
-                if(selected == "alumnos")
-                {
+                string selectedSheet = cboSheet.GetItemText(cboSheet.SelectedItem);
+                string filePath = txtFilename.Text;
+                string conexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=Excel 12.0;";
 
-                }
+                OleDbConnection origen = default(OleDbConnection);
+                origen = new OleDbConnection(conexion);
+
+                OleDbCommand seleccion = default(OleDbCommand);
+                seleccion = new OleDbCommand("Select * from [" + selectedSheet + "$]", origen);
+
+                OleDbDataAdapter adaptador = new OleDbDataAdapter();
+                adaptador.SelectCommand = seleccion;
+
+                DataSet ds = new DataSet();
+                adaptador.Fill(ds);
+
+                dataGridView1.DataSource = ds.Tables[0];
+
+                origen.Close();
+
+                SqlConnection conexion_destino = new SqlConnection();
+                conexion_destino.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTrackerDemo;Trusted_Connection=True;";
+
+                conexion_destino.Open();
+
+                SqlBulkCopy importar = default(SqlBulkCopy);
+                importar = new SqlBulkCopy(conexion_destino);
+                importar.DestinationTableName = selectedSheet;
+                importar.WriteToServer(ds.Tables[0]);
+                conexion_destino.Close();
+
+                MessageBox.Show("Tabla Importada Exitosamente!");
 
             }
             catch (Exception ex)

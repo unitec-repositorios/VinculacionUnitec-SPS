@@ -36,5 +36,14 @@ C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\expor
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.DataSet.pdb
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelDataReader.DataSet.xml
 C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\obj\Debug\exportarBaseDatosVinculacion.csproj.CopyComplete
-C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\Z.Dapper.Plus.dll
-C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\Z.Dapper.Plus.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ClosedXML.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelNumberFormat.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\System.IO.Packaging.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ClosedXML.pdb
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ClosedXML.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\ExcelNumberFormat.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\System.IO.Packaging.xml
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\System.Data.OleDb.dll
+C:\Users\mitoo\Desktop\IngSoftware\VinculacionUnitec-SPS\exportar-importar\exportarBaseDatosVinculacion\bin\Debug\System.Data.OleDb.xml
