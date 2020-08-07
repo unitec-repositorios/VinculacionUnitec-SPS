@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoursTracker.Web", "src\Hou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoursTracker.Domain", "src\HoursTracker.Domain\HoursTracker.Domain.csproj", "{0B4F28B5-2EC3-49E6-A397-18676F64620F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoursTracker.Core", "src\HoursTracker.Core\HoursTracker.Core.csproj", "{C4AD188D-0C11-43C2-9DB9-149DD9F395B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoursTracker.Data", "src\HoursTracker.Data\HoursTracker.Data.csproj", "{723A0012-E7EC-48B6-9F15-86CA9C50AFA9}"
 EndProject
