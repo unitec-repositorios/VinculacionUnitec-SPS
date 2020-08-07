@@ -7,6 +7,7 @@ using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Domain.Aggregates.Students;
 using HoursTracker.Domain.Shared;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
@@ -54,6 +55,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _studentService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -91,12 +93,14 @@ namespace HoursTracker.Web.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
             await _studentService.Remove(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {

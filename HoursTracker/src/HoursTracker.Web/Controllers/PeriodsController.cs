@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Periods;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _periodService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {

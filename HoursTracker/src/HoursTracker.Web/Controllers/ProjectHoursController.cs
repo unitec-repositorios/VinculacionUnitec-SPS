@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HoursTracker.Core.ProjectHours;
 using HoursTracker.Domain.Aggregates.ProjectHours;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
@@ -46,6 +47,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _projecthourService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -67,12 +69,14 @@ namespace HoursTracker.Web.Controllers
             await _projecthourService.Create(projecthour);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
             await _projecthourService.Remove(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [HttpPut]
         public async Task Approve(int id)
@@ -80,6 +84,7 @@ namespace HoursTracker.Web.Controllers
             await _projecthourService.Accept(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {

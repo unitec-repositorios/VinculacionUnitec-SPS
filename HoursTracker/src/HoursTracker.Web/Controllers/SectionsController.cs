@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Sections;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
@@ -44,6 +45,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _sectionService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -64,12 +66,14 @@ namespace HoursTracker.Web.Controllers
             await _sectionService.Create(section);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
             await _sectionService.Remove(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
