@@ -50,17 +50,27 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(ProjectViewModel projectViewModel)
+        public async Task<ActionResult> Create(ProjectViewModel projectViewModel)
         {
-            var project = new CreateProjectDto
-            {
-                Name = projectViewModel.Name,
-                Code = projectViewModel.Code,
-                Budget = projectViewModel.Budget,
-                VinculationTypeId = projectViewModel.VinculationId
-            };
+            var existingCode = await _projectService.FindByCode(projectViewModel.Code);
 
-            await _projectService.Create(project);
+            if(existingCode == null)
+            {
+                var project = new CreateProjectDto
+                {
+                    Name = projectViewModel.Name,
+                    Code = projectViewModel.Code,
+                    Budget = projectViewModel.Budget,
+                    VinculationTypeId = projectViewModel.VinculationId
+                };
+
+                await _projectService.Create(project);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe un proyecto con este codigo");
+            }
         }
 
         [HttpDelete]
@@ -76,17 +86,29 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, ProjectViewModel projectViewModel)
+        public async Task<ActionResult> Edit(int id, ProjectViewModel projectViewModel)
         {
-            var project = new Project
-            {
-                Name = projectViewModel.Name,
-                Code = projectViewModel.Code,
-                Budget = projectViewModel.Budget,
-                VinculationTypeId = projectViewModel.VinculationId
 
-            };
-            await _projectService.Update(id, project);
+            var temp = await _projectService.FindById(id);
+            var existingCode = await _projectService.FindByCode(projectViewModel.Code);
+
+            if (existingCode == null || existingCode.Code == temp.Code)
+            {
+                var project = new Project
+                {
+                    Name = projectViewModel.Name,
+                    Code = projectViewModel.Code,
+                    Budget = projectViewModel.Budget,
+                    VinculationTypeId = projectViewModel.VinculationId
+
+                };
+                await _projectService.Update(id, project);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe un proyecto con este codigo");
+            }
         }
 
     }
