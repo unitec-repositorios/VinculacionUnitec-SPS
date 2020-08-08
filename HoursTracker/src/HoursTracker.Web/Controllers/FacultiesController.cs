@@ -73,7 +73,7 @@ namespace HoursTracker.Web.Controllers
             }
             else
             {
-                return BadRequest("Ya existe una facultad con ese codigo");
+                return BadRequest("Ya existe una Facultad con este codigo");
             }
 
         }
@@ -107,7 +107,7 @@ namespace HoursTracker.Web.Controllers
             }
             else
             {
-                return BadRequest("Ya existe una facultad con ese codigo");
+                return BadRequest("Ya existe una Facultad con este codigo");
             }
 
         }
