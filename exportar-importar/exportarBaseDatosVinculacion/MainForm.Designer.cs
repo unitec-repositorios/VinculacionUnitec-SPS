@@ -37,6 +37,7 @@
             this.importButton = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.closeButton = new System.Windows.Forms.Button();
+            this.labelNotClose = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelNotClose);
             this.panel1.Controls.Add(this.labelAmountTables);
             this.panel1.Controls.Add(this.labelNameTable);
             this.panel1.Controls.Add(this.importButton);
@@ -130,6 +132,16 @@
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
+            // labelNotClose
+            // 
+            this.labelNotClose.AutoSize = true;
+            this.labelNotClose.Location = new System.Drawing.Point(43, 212);
+            this.labelNotClose.Name = "labelNotClose";
+            this.labelNotClose.Size = new System.Drawing.Size(35, 13);
+            this.labelNotClose.TabIndex = 12;
+            this.labelNotClose.Text = "label1";
+            this.labelNotClose.Visible = false;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.closeButton;
@@ -162,5 +174,6 @@
         private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.Label labelNameTable;
         private System.Windows.Forms.Label labelAmountTables;
+        private System.Windows.Forms.Label labelNotClose;
     }
 }

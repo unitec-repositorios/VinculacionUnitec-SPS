@@ -38,29 +38,28 @@ namespace exportarBaseDatosVinculacion
                 return;
             }
 
+            //updating form values
             exportButton.Enabled = false;
             importButton.Enabled = false;
+            labelNotClose.Text = "Por favor no cerrar aplicacion durante exportacion.";
+            labelNotClose.Visible = true;
+            closeButton.Enabled = false;
             progressBar.Visible = true;
 
-            SqlConnection cnn;
-            string connectionstring = null;
-            string sql = null;
-            System.Data.DataTable miTabla = null;
-
+            //starting exportation
             _Excel.Application xlApp;
-            _Excel.Workbook xlWorkBook;
+            _Excel.Workbook xlWorkBook = null;
             _Excel.Worksheet xlWorkSheet;
             object misValue = System.Reflection.Missing.Value;
 
             xlApp = new Microsoft.Office.Interop.Excel.Application();
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (_Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            xlWorkSheet.Name = "Fecha Exportacion";
+            DateTime now = DateTime.Now;
+            xlWorkSheet.Cells[1, 1] = now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
 
-            _Excel.Sheets worksheets = xlWorkBook.Worksheets;
-            var xlNewSheet = (_Excel.Worksheet)worksheets.Add(worksheets[1], Type.Missing, Type.Missing, Type.Missing);
-
-            connectionstring = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker2;Trusted_Connection=True;";
-            cnn = new SqlConnection(connectionstring);
+            SqlConnection cnn = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker2;Trusted_Connection=True;");
             cnn.Open();
 
             //CONTANDO TABLAS
@@ -76,11 +75,15 @@ namespace exportarBaseDatosVinculacion
                 TableNames.Add(row[2].ToString());
             }
 
+            string sql = null;
+            System.Data.DataTable sqlTable = null;
             SqlDataAdapter dscmd = new SqlDataAdapter(sql, cnn);
             DataSet ds = new DataSet();
+            _Excel.Sheets worksheets = null;
+            _Excel.Worksheet xlNewSheet = null;
             labelTitle.Text = "EXPORTANDO TABLA: ";
 
-            for (int l = 0; l < tableCount; l++)
+            for (int l = 0; l < tableCount; l++) 
             {
                 progressBar.Value = 0;
                 labelNameTable.Text = TableNames[l];
@@ -88,7 +91,7 @@ namespace exportarBaseDatosVinculacion
                 sql = "SELECT * FROM " + TableNames[l];
                 dscmd = null;
                 ds = null;
-                miTabla = null;
+                sqlTable = null;
 
                 worksheets = xlWorkBook.Worksheets;
                 xlNewSheet = (_Excel.Worksheet)worksheets.Add(worksheets[1], Type.Missing, Type.Missing, Type.Missing);
@@ -98,9 +101,9 @@ namespace exportarBaseDatosVinculacion
                 dscmd = new SqlDataAdapter(sql, cnn);
                 ds = new DataSet();
                 dscmd.Fill(ds);
-                miTabla = ds.Tables[0];
-                progressBar.Maximum = miTabla.Rows.Count;
-                exportOperation(miTabla, xlNewSheet);
+                sqlTable = ds.Tables[0];
+                progressBar.Maximum = sqlTable.Rows.Count;
+                exportOperation(sqlTable, xlNewSheet);
             }
 
             //AL TERMINAR EXPORTACIONES
@@ -109,22 +112,26 @@ namespace exportarBaseDatosVinculacion
             labelTitle.Text = "EXPORTACION";
             labelNameTable.Text = "TERMINADA.";
             importButton.Enabled = true;
+            exportButton.Enabled = true;
+            labelNotClose.Visible = false;
+            closeButton.Enabled = true;
+            cnn.Close();
             xlApp.Visible = true;
         }
 
-        private void exportOperation(System.Data.DataTable miTabla, Worksheet xlNewSheet)
+        private void exportOperation(System.Data.DataTable sqlTable, Worksheet xlNewSheet)
         {
-                for (int i = 1; i < miTabla.Columns.Count + 1; i++)
+                for (int i = 1; i < sqlTable.Columns.Count + 1; i++)
                 {
-                    xlNewSheet.Cells[1, i] = miTabla.Columns[i - 1].ColumnName;
+                    xlNewSheet.Cells[1, i] = sqlTable.Columns[i - 1].ColumnName;
                 }
 
-                for (int j = 0; j < miTabla.Rows.Count; j++)
-                {
+                for (int j = 0; j < sqlTable.Rows.Count; j++)
+            {
 
-                    for (int k = 0; k < miTabla.Columns.Count; k++)
+                    for (int k = 0; k < sqlTable.Columns.Count; k++)
                     {
-                        xlNewSheet.Cells[j + 2, k + 1] = miTabla.Rows[j].ItemArray[k].ToString();
+                        xlNewSheet.Cells[j + 2, k + 1] = sqlTable.Rows[j].ItemArray[k].ToString();
                     }
                     progressBar.Value = j;
                 }            
