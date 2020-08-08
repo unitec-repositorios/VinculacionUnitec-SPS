@@ -41,7 +41,6 @@ namespace exportarBaseDatosVinculacion
             //updating form values
             exportButton.Enabled = false;
             importButton.Enabled = false;
-            labelNotClose.Text = "Por favor no cerrar aplicacion durante exportacion.";
             labelNotClose.Visible = true;
             closeButton.Enabled = false;
             progressBar.Visible = true;

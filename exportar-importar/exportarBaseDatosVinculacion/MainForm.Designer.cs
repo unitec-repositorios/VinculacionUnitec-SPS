@@ -135,11 +135,12 @@
             // labelNotClose
             // 
             this.labelNotClose.AutoSize = true;
-            this.labelNotClose.Location = new System.Drawing.Point(43, 212);
+            this.labelNotClose.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.labelNotClose.Location = new System.Drawing.Point(49, 11);
             this.labelNotClose.Name = "labelNotClose";
-            this.labelNotClose.Size = new System.Drawing.Size(35, 13);
+            this.labelNotClose.Size = new System.Drawing.Size(246, 13);
             this.labelNotClose.TabIndex = 12;
-            this.labelNotClose.Text = "label1";
+            this.labelNotClose.Text = "Por favor no cerrar aplicacion durante exportacion.";
             this.labelNotClose.Visible = false;
             // 
             // MainForm
