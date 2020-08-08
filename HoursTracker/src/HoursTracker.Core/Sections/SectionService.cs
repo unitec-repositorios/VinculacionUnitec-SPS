@@ -86,11 +86,5 @@ namespace HoursTracker.Core.Sections
 
             await _sectionRepository.Add(sectionInfo);
         }
-
-        public async Task<Section> FindByCode(string code)
-        {
-            return await _sectionRepository.FirstOrDefault(c => c.Code == code);
-        }
-
     }
 }

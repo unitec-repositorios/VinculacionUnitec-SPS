@@ -47,20 +47,9 @@
                     $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡El Proyecto ha sido editado exitosamente!
+                            ¡El Proyecto ah sido editado exitosamente!
                         </div>
                     `);
-                },
-                error: (error) => {
-                    if (error.responseText === "Ya existe un proyecto con este codigo") {
-                        $(this).prepend(`
-                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡Ya existe un proyecto con este codigo!
-                        </div>
-                    `);
-                    }
-                    console.log(error);
                 }
             })
 
@@ -95,7 +84,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
+                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -107,7 +96,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un nombre')">
+                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -119,7 +108,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="number" id="budget" name="budget" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un costo')">
+                                    <input type="text" id="budget" name="budget" class="form-control" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -131,7 +120,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectVinculation" name="vinculationId" class="form-control show-tick" title="Seleccione una opcion" required data-live-search="true" oninvalid="this.setCustomValidity('Porfavor seleccione una opcion')">
+                                    <select id="selectVinculation" name="vinculationId" class="form-control show-tick">
                                     </select>
                                 </div>
                             </div>
