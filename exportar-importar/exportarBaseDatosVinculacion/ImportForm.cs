@@ -86,8 +86,16 @@ namespace exportarBaseDatosVinculacion
 
                 SqlConnection conexion_destino = new SqlConnection();
                 conexion_destino.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTrackerDemo;Trusted_Connection=True;";
-
+                string delQuery = "Delete From " + selectedSheet;
+                string identReset = "DBCC CHECKIDENT('" + selectedSheet + "', RESEED, 0)";
                 conexion_destino.Open();
+
+                SqlCommand cmd = new SqlCommand(delQuery, conexion_destino);
+                cmd.ExecuteNonQuery();
+
+                cmd = new SqlCommand(identReset, conexion_destino);
+                cmd.ExecuteNonQuery();
+
 
                 SqlBulkCopy importar = default(SqlBulkCopy);
                 importar = new SqlBulkCopy(conexion_destino);

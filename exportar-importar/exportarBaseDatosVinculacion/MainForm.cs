@@ -30,11 +30,11 @@ namespace exportarBaseDatosVinculacion
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (_Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-            connectionstring = "Server=(localdb)\\MSSQLLocalDB;Database=HoursTracker;Trusted_Connection=True;";
+            connectionstring = "Data Source=54.185.99.214,1433;Network Library=DBMSSOCN;Initial Catalog=HoursTracker;User ID=admin;Password=admin123;";//"Server=(localdb)\\MSSQLLocalDB;Database=HoursTrackerDemo;Trusted_Connection=True;";
             cnn = new SqlConnection(connectionstring);
             cnn.Open();
 
-            sql = "SELECT * FROM usuarios";
+            sql = "SELECT * FROM facultades";
 
             SqlDataAdapter dscmd = new SqlDataAdapter(sql, cnn);
             DataSet ds = new DataSet();
