@@ -65,7 +65,6 @@ namespace HoursTracker.Web.Controllers
                     Period = sectionViewModel.Period,
                     Professor = sectionViewModel.Professor
                 };
-
                 await _sectionService.Create(section);
                 return Ok();
             }
