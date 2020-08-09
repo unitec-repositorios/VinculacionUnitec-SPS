@@ -7,29 +7,60 @@
     <script>
 
     function setFormValues(id) {
-        $.get(`@Url.Action("Get", "Sections")/${id}`, data => {
-          for (var key in data) {
-            $('[name="'+key+'"]').val(data[key]);
-          }
-        });
-    }
-    $(function () {
+        $.get({
+                url: `@Url.Action("Get", "Sections")/${id}`,
+            success: (data) => {
+                    for (var key in data) {
+                        $('[name="' + key + '"]').val(data[key]);
+                }
+                $('#selectClass').val(data.classId);
+                $('#selectProfessor').val(data.professorId);
+                $('#selectPeriodo').val(data.periodId);
 
-        $.get('@Url.Action("All", "Classes")', function (data) {
-            for (const { id, className } of data) {
-                $('#selectClass').append('<option value=' + id + '>' + className + '</option>').selectpicker('refresh');
-            }
-        });
-        $.get('@Url.Action("All", "Professors")', function (data) {
-            for (const { id, firstName, secondName, firstLastName, secondLastName } of data) {
-                $('#selectProfessor').append('<option value=' + id + '>' + firstName + " " + secondName + " " + firstLastName + " " + secondLastName + " "  + '</option>').selectpicker('refresh');
-            }
-        });
-        $.get('@Url.Action("All", "Periods")', function (data) {
-            for (const { id, code } of data) {
-                $('#selectPeriodo').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
-            }
-        });
+                $('#selectClass').selectpicker("refresh");
+                $('#selectProfessor').selectpicker("refresh");
+                $('#selectPeriodo').selectpicker("refresh");
+                },
+                async: false
+            });
+
+        }
+
+        $(function () {
+
+            $('#selectClass').selectpicker();
+            $('#selectProfessor').selectpicker();
+            $('#selectPeriodo').selectpicker();
+
+            $.get({
+                url: '@Url.Action("SingleClasses", "Classes")',
+                success: (data) => {
+                    for (const { id, className } of data) {
+                        $('#selectClass').append('<option value=' + id + '>' + className + '</option>').selectpicker('refresh');
+                    }
+                },
+                async: false
+            });
+
+            $.get({
+                url: '@Url.Action("All", "Professors")',
+                success: (data) => {
+                    for (const { id, firstName, secondName, firstLastName, secondLastName } of data) {
+                        $('#selectProfessor').append('<option value=' + id + '>' + firstName + " " + secondName + " " + firstLastName + " " + secondLastName + " " + '</option>').selectpicker('refresh');
+                    }
+                },
+                async: false
+            });
+
+            $.get({
+                url: '@Url.Action("All", "Periods")',
+                success: (data) => {
+                    for (const { id, code } of data) {
+                        $('#selectPeriodo').append('<option value=' + id + '>' + code + '</option>').selectpicker('refresh');
+                    }
+                },
+                async: false
+            });
 
         setFormValues(@Model);
 

@@ -6,7 +6,7 @@
 
     <script>
     $(function () {
-        $.get('@Url.Action("All", "Classes")', function (data) {
+        $.get('@Url.Action("SingleClasses", "Classes")', function (data) {
             for (const { id, className } of data) {
                 $('#selectClass').append('<option value=' + id + '>' + className + '</option>').selectpicker('refresh');
             }
