@@ -32,22 +32,23 @@
             this.exportButton = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelNotClose = new System.Windows.Forms.Label();
             this.labelAmountTables = new System.Windows.Forms.Label();
             this.labelNameTable = new System.Windows.Forms.Label();
             this.importButton = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.closeButton = new System.Windows.Forms.Button();
-            this.labelNotClose = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // exportButton
             // 
-            this.exportButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.exportButton.BackColor = System.Drawing.SystemColors.Control;
             this.exportButton.ForeColor = System.Drawing.Color.Black;
-            this.exportButton.Location = new System.Drawing.Point(46, 147);
+            this.exportButton.Location = new System.Drawing.Point(61, 181);
+            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(118, 40);
+            this.exportButton.Size = new System.Drawing.Size(157, 49);
             this.exportButton.TabIndex = 0;
             this.exportButton.Text = "Exportar base datos";
             this.exportButton.UseVisualStyleBackColor = false;
@@ -56,9 +57,10 @@
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(26, 36);
+            this.labelTitle.Location = new System.Drawing.Point(35, 44);
+            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(116, 13);
+            this.labelTitle.Size = new System.Drawing.Size(151, 17);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Seleccione una opcion";
             // 
@@ -72,17 +74,31 @@
             this.panel1.Controls.Add(this.closeButton);
             this.panel1.Controls.Add(this.labelTitle);
             this.panel1.Controls.Add(this.exportButton);
-            this.panel1.Location = new System.Drawing.Point(134, 37);
+            this.panel1.Location = new System.Drawing.Point(179, 46);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(357, 247);
+            this.panel1.Size = new System.Drawing.Size(476, 304);
             this.panel1.TabIndex = 2;
+            // 
+            // labelNotClose
+            // 
+            this.labelNotClose.AutoSize = true;
+            this.labelNotClose.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.labelNotClose.Location = new System.Drawing.Point(65, 14);
+            this.labelNotClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelNotClose.Name = "labelNotClose";
+            this.labelNotClose.Size = new System.Drawing.Size(329, 17);
+            this.labelNotClose.TabIndex = 12;
+            this.labelNotClose.Text = "Por favor no cerrar aplicacion durante exportacion.";
+            this.labelNotClose.Visible = false;
             // 
             // labelAmountTables
             // 
             this.labelAmountTables.AutoSize = true;
-            this.labelAmountTables.Location = new System.Drawing.Point(43, 104);
+            this.labelAmountTables.Location = new System.Drawing.Point(57, 128);
+            this.labelAmountTables.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAmountTables.Name = "labelAmountTables";
-            this.labelAmountTables.Size = new System.Drawing.Size(35, 13);
+            this.labelAmountTables.Size = new System.Drawing.Size(46, 17);
             this.labelAmountTables.TabIndex = 11;
             this.labelAmountTables.Text = "label1";
             this.labelAmountTables.Visible = false;
@@ -90,19 +106,21 @@
             // labelNameTable
             // 
             this.labelNameTable.AutoSize = true;
-            this.labelNameTable.Location = new System.Drawing.Point(161, 36);
+            this.labelNameTable.Location = new System.Drawing.Point(215, 44);
+            this.labelNameTable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNameTable.Name = "labelNameTable";
-            this.labelNameTable.Size = new System.Drawing.Size(13, 13);
+            this.labelNameTable.Size = new System.Drawing.Size(16, 17);
             this.labelNameTable.TabIndex = 10;
             this.labelNameTable.Text = "  ";
             // 
             // importButton
             // 
-            this.importButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.importButton.BackColor = System.Drawing.SystemColors.Control;
             this.importButton.ForeColor = System.Drawing.Color.Black;
-            this.importButton.Location = new System.Drawing.Point(177, 147);
+            this.importButton.Location = new System.Drawing.Point(236, 181);
+            this.importButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(118, 40);
+            this.importButton.Size = new System.Drawing.Size(157, 49);
             this.importButton.TabIndex = 9;
             this.importButton.Text = "Importar base datos";
             this.importButton.UseVisualStyleBackColor = false;
@@ -110,10 +128,11 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(46, 64);
+            this.progressBar.Location = new System.Drawing.Point(61, 79);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.progressBar.Maximum = 10;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(249, 37);
+            this.progressBar.Size = new System.Drawing.Size(332, 46);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 8;
             this.progressBar.Value = 1;
@@ -121,38 +140,29 @@
             // 
             // closeButton
             // 
-            this.closeButton.BackColor = System.Drawing.Color.Red;
+            this.closeButton.BackColor = System.Drawing.SystemColors.Control;
             this.closeButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.closeButton.Location = new System.Drawing.Point(207, 202);
+            this.closeButton.Location = new System.Drawing.Point(276, 249);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(118, 32);
+            this.closeButton.Size = new System.Drawing.Size(157, 39);
             this.closeButton.TabIndex = 7;
             this.closeButton.Text = "Salir";
             this.closeButton.UseMnemonic = false;
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // labelNotClose
-            // 
-            this.labelNotClose.AutoSize = true;
-            this.labelNotClose.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.labelNotClose.Location = new System.Drawing.Point(49, 11);
-            this.labelNotClose.Name = "labelNotClose";
-            this.labelNotClose.Size = new System.Drawing.Size(246, 13);
-            this.labelNotClose.TabIndex = 12;
-            this.labelNotClose.Text = "Por favor no cerrar aplicacion durante exportacion.";
-            this.labelNotClose.Visible = false;
-            // 
             // MainForm
             // 
             this.AcceptButton = this.closeButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(615, 342);
+            this.ClientSize = new System.Drawing.Size(820, 421);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
