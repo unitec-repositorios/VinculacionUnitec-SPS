@@ -10,6 +10,8 @@ namespace HoursTracker.Core.Projects
     {
         Task<Project> FindById(int id);
 
+        Task<Project> FindByCode(string code);
+
         Task Create(CreateProjectDto project);
 
         Task<IEnumerable<Project>> All();

@@ -37,7 +37,7 @@
                     `);
                 },
                 error: (error) => {
-                    if (error.responseText === "Ya existe una facultad con este codigo") {
+                    if (error.responseText === "Ya existe una facultad con ese codigo") {
                         $(this).prepend(`
                         <div id="alert" class="alert bg-red alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -81,7 +81,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off" required>
+                                    <input type="text" id="code" name="code" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off" required>
+                                    <input type="text" id="name" name="name" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un nombre')">
                                 </div>
                             </div>
                         </div>
