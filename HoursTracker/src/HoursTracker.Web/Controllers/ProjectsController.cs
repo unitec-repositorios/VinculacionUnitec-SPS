@@ -40,7 +40,17 @@ namespace HoursTracker.Web.Controllers
 
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _projectService.FindById(id));
+            var pro = await _projectService.FindById(id);
+            var proret = new ProjectViewModel
+            {
+                Id = pro.Id,
+                Budget = pro.Budget,
+                Code = pro.Code,
+                Name = pro.Name,
+                VinculationId = pro.VinculationTypeId,
+            };
+            return Ok(proret);
+            //return Ok(await _projectService.FindById(id));
         }
 
         [HttpGet]

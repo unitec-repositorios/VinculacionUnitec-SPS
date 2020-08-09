@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Editar asignatura";
+    ViewData["Title"] = "Editar proyecto";
 }
 
 @section Scripts {
@@ -14,26 +14,19 @@
             $('[name="'+key+'"]').val(data[key]);
             }
 
-            $('#select').selectpicker('val', data.Projects);
+            $('#selectVinculation').selectpicker('val', data.Projects);
         });
     }
 
         $(function () {
 
-            $('#selectCareers').selectpicker();
+            $('#selectVinculation').selectpicker();
 
-            $.get('@Url.Action("All", "Projects")', function (data) {
-                for (const { id, name } of data) {
-                    $('#selectCareers').append('<option value= ' + id + '>' + name + '</option>').selectpicker('refresh');
-                }
-
-                setFormValues(@Model);
-
-            });
              $.get('@Url.Action("All", "VinculationTypes")', function (data) {
-            for (const { id, type } of data) {
-                $('#selectVinculation').append('<option value=' + id + '>' + type + '</option>').selectpicker('refresh');
-            }
+                for (const { id, type } of data) {
+                    $('#selectVinculation').append('<option value=' + id + '>' + type + '</option>').selectpicker('refresh');
+                 }
+                 setFormValues(@Model);
         });
 
         $(".form-horizontal").submit(function (event){
@@ -126,12 +119,12 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label for="selectCampus">Tipo de Vinculacion</label>
+                            <label for="selectVinculation">Tipo de Vinculacion</label>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectVinculation" name="vinculationId" class="form-control show-tick" title="Seleccione una opcion" required data-live-search="true" oninvalid="this.setCustomValidity('Porfavor seleccione una opcion')">
+                                    <select id="selectVinculation" name="vinculationId" class="form-control show-tick" title="Seleccione una opcion" required data-live-search="true" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor seleccione una opcion')">
                                     </select>
                                 </div>
                             </div>

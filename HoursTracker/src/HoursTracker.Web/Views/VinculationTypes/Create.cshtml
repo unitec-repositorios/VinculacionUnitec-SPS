@@ -24,7 +24,7 @@
                     `);
                 },
                 error: (error) => {
-                    if (error.responseText === "Ya existe una facultad con ese codigo") {
+                    if (error.responseText === "Ya existe un tipo de vinculación con este codigo") {
                         $(this).prepend(`
                         <div id="alert" class="alert bg-red alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
