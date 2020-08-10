@@ -8,7 +8,8 @@
         $(function () {
 
           const table = $("#projecthoursTable").DataTable({
-            language,
+              language,
+              "bFilter": false,
             dom: "Bfrtip",
             ajax: {
                 url: "@Url.Action("All", "ProjectHours")",

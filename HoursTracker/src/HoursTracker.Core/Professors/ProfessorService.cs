@@ -51,6 +51,7 @@ namespace HoursTracker.Core.Professors
                     SecondLastName = x.SecondLastName,
                     SecondName = x.SecondName
                 })
+                .AsNoTracking()
                 .ToListAsync();
         }
 

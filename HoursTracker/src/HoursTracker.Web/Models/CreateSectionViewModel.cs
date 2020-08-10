@@ -1,4 +1,7 @@
-﻿namespace HoursTracker.Web.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace HoursTracker.Web.Models
 {
     public class CreateSectionViewModel
     {
@@ -11,5 +14,7 @@
         public int Class { get; set; }
 
         public int Professor { get; set; }
+
+        public IEnumerable<string> Students { get; set; }
     }
 }
