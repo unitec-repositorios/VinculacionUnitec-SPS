@@ -75,7 +75,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="Code" name="Code" class="form-control" autocomplete="off" required>
+                                    <input type="text" id="Code" name="Code" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="Name" name="Name" class="form-control" autocomplete="off" required>
+                                    <input type="text" id="Name" name="Name" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un nombre')">
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="selectFaculty" name="facultyId" class="form-control show-tick" multiple required>
+                                    <select id="selectFaculty" name="facultyId" class="form-control show-tick" multiple required title="Seleccione una opcion" data-live-search="true" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
                                     </select>
                                 </div>
                             </div>

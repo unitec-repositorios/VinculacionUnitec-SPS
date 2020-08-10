@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Sections;
+using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,17 +52,26 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CreateSectionViewModel sectionViewModel)
+        public async Task<ActionResult> Create(CreateSectionViewModel sectionViewModel)
         {
-            var section = new CreateSectionDto
-            {
-                Code = sectionViewModel.Code,
-                Class = sectionViewModel.Class,
-                Period = sectionViewModel.Period,
-                Professor = sectionViewModel.Professor
-            };
+            var existingCode = await _sectionService.FindByCode(sectionViewModel.Code);
 
-            await _sectionService.Create(section);
+            if(existingCode == null)
+            {
+                var section = new CreateSectionDto
+                {
+                    Code = sectionViewModel.Code,
+                    Class = sectionViewModel.Class,
+                    Period = sectionViewModel.Period,
+                    Professor = sectionViewModel.Professor
+                };
+                await _sectionService.Create(section);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una seccion con este codigo");
+            }
         }
 
         [HttpDelete]
@@ -77,16 +87,27 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, CreateSectionViewModel sectionViewModel)
+        public async Task<ActionResult> Edit(int id, CreateSectionViewModel sectionViewModel)
         {
-            var section = new UpdateSectionDto()
+            var temp = await _sectionService.FindById(id);
+            var existingCode = await _sectionService.FindByCode(sectionViewModel.Code);
+
+            if (existingCode == null || existingCode.Code == temp.Code)
             {
-                Code = sectionViewModel.Code,
-                Class = sectionViewModel.Class,
-                Period = sectionViewModel.Period,
-                Professor = sectionViewModel.Professor
-            };
-            await _sectionService.Update(id, section);
+                var section = new UpdateSectionDto()
+                {
+                    Code = sectionViewModel.Code,
+                    Class = sectionViewModel.Class,
+                    Period = sectionViewModel.Period,
+                    Professor = sectionViewModel.Professor
+                };
+                await _sectionService.Update(id, section);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una seccion con este codigo");
+            }
         }
     }
 }
