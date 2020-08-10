@@ -23,10 +23,6 @@ namespace HoursTracker.Web.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                //services.AddDefaultIdentity<User>()
-                //    .AddEntityFrameworkStores<IdentityContext>();
-
-                //Demo
                 services.AddScoped<IdentityErrorDescriber, CustomIdentityErrorDescriber>();
 
                 services.AddDefaultIdentity<User>(options =>
