@@ -6,6 +6,7 @@
 
     <script>
         $(function () {
+
             const table = $("#studentsTable").DataTable({
                 language,
                 "dom": 'lrtip',
@@ -36,6 +37,23 @@
                     },
                 ],
             });
+
+            function resetAll() {
+                document.getElementById('createSectionForm').reset();
+
+                $("#selectClass").val('default');
+                $("#selectClass").selectpicker("refresh");
+
+                $("#selectProfessor").val('default');
+                $("#selectProfessor").selectpicker("refresh");
+
+                $("#selectPeriodo").val('default');
+                $("#selectPeriodo").selectpicker("refresh");
+
+                table.rows()
+                    .remove()
+                    .draw();
+            }
 
         $('#searchButton').click(() => {
                 const accountInfo = $('#studentAccount').val();
@@ -103,12 +121,13 @@
                     type: 'POST',
                     data,
                     success: function (data) {
-                        $(this).prepend(`
+                        $('#message').prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡La sección ha si editada exitosamente!
+                            ¡La sección ha si creada exitosamente!
                         </div>
                     `);
+                        resetAll();
                     }
                 });
 
@@ -133,7 +152,8 @@
                 </h2>
             </div>
             <div class="body form-center">
-                <form class="form-horizontal">
+                <p id="message"></p>
+                <form class="form-horizontal" id="createSectionForm">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                             <label for="code">Codigo</label>

@@ -40,6 +40,14 @@ namespace HoursTracker.Web.Controllers
             return Ok(data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> StudentsBySection(int id)
+        {
+            var data = (await _sectionService.FindStudentsBySection(id));
+
+            return Ok(data);
+        }
+
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _sectionService.FindById(id));
