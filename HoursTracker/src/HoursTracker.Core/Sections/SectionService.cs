@@ -88,9 +88,6 @@ namespace HoursTracker.Core.Sections
             var period = await _periodRepository.FindById(section.Period);
             var professor = await _professorRepository.FindById(section.Professor);
 
-
-            var students = _studentRepository.Filter(student => section.Students.Contains(student.Account)).ToList();
-
             var sectionInfo = new Section
             {
                 Code = section.Code,
@@ -99,9 +96,14 @@ namespace HoursTracker.Core.Sections
                 Class = clase,
             };
 
-            foreach (var student in students)
+            if (section.Students != null && section.Students.Count() > 0)
             {
-                sectionInfo.StudentSections.Add(new StudentSection { Student = student });
+                var students = _studentRepository.Filter(student => section.Students.Contains(student.Account)).ToList();
+
+                foreach (var student in students)
+                {
+                    sectionInfo.StudentSections.Add(new StudentSection { Student = student });
+                }
             }
 
             await _sectionRepository.Add(sectionInfo);
@@ -114,7 +116,8 @@ namespace HoursTracker.Core.Sections
 
         public async Task<IEnumerable<SingleStudentDto>> FindStudentsBySection(int id)
         {
-            var data = await _studentRepository.Filter(x => x.StudentSections.Any(x => x.SectionId == id)).Select(x => new SingleStudentDto {
+            var data = await _studentRepository.Filter(x => x.StudentSections.Any(x => x.SectionId == id)).Select(x => new SingleStudentDto
+            {
                 Id = x.Id,
                 Account = x.Account,
                 Email = x.Email,
