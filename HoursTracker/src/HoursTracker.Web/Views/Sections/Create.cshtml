@@ -37,7 +37,29 @@
                     },
                 ],
             });
+            $(document).on('click', '.delete-action', function () {
+                bootbox.confirm({
+                    message: "¿Está seguro que desea elimiar el registro?",
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-default'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-primary'
+                        }
+                    },
+                    callback: result => {
+                        if (!result) return;
+                        table
+                            .row($(this).parents('tr'))
+                            .remove()
+                            .draw();
 
+                    }
+                });
+            });
             function resetAll() {
                 document.getElementById('createSectionForm').reset();
 
