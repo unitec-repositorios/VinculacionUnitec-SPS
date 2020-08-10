@@ -44,6 +44,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using HoursTracker.Data.Repositories.VinculationTypes;
 using HoursTracker.Core.VinculationTypes;
+using HoursTracker.Web.Areas.Identity.Data;
+using HoursTracker.Web.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using HoursTracker.Web.Models;
 
 namespace HoursTracker.Web
 {
@@ -63,6 +68,11 @@ namespace HoursTracker.Web
                 .AddDbContext<HoursTrackerContext>(options =>
                     options
                         .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Identity/Account/AccessDenied");
+            });
 
             services
                 .AddControllersWithViews()
@@ -139,15 +149,15 @@ namespace HoursTracker.Web
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                //.RequireAuthorization();
+                    pattern: "{controller=Home}/{action=Index}/{id?}")
+                .RequireAuthorization();
                 endpoints.MapRazorPages();
             });
         }

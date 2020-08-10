@@ -8,6 +8,7 @@ namespace HoursTracker.Core.Sections
     public interface ISectionService
     {
         Task<Section> FindById(int id);
+        Task<Section> FindByCode(string code);
 
         Task Create(CreateSectionDto section);
 

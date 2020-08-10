@@ -21,7 +21,6 @@ namespace HoursTracker.Data.Contexts
         public HoursTrackerContext(DbContextOptions options) : base(options)
         {
         }
-        
         public DbSet<Professor> Professors { get; set; }
 
         public DbSet<Campus> Campuses { get; set; }

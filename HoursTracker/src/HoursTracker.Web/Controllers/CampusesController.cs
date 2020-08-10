@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HoursTracker.Core.Campuses;
 using HoursTracker.Domain.Aggregates.Campuses;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
@@ -18,6 +19,7 @@ namespace HoursTracker.Web.Controllers
             _campusService = campusService;
         }
 
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -43,6 +45,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _campusService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -72,6 +75,7 @@ namespace HoursTracker.Web.Controllers
             
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
@@ -84,6 +88,7 @@ namespace HoursTracker.Web.Controllers
             return View(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult> Edit(int id, CampusViewModel campusViewModel)
         {
