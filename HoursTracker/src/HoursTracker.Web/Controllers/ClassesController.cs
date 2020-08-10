@@ -42,6 +42,21 @@ namespace HoursTracker.Web.Controllers
             return Ok(data2);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SingleClasses()
+        {
+            var data = (await _classService.SingleClasses());
+            var data2 = data
+            .Select(@class => new ClassViewModel
+            {
+                Id = @class.Id,
+                ClassCode = @class.ClassCode,
+                ClassName = @class.ClassName,
+            });
+
+            return Ok(data2);
+        }
+
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _classService.FindById(id));
