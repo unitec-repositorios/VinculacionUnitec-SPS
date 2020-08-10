@@ -13,6 +13,7 @@ using HoursTracker.Domain.Aggregates.Careers;
 using HoursTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using HoursTracker.Domain.Aggregates.Faculties;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HoursTracker.Web.Controllers
 {
@@ -50,6 +51,7 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _facultyService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -78,12 +80,14 @@ namespace HoursTracker.Web.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
             await _facultyService.Remove(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {

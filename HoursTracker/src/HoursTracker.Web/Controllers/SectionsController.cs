@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoursTracker.Core.Sections;
+using HoursTracker.Domain.Aggregates.Sections;
 using HoursTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoursTracker.Web.Controllers
@@ -39,11 +41,20 @@ namespace HoursTracker.Web.Controllers
             return Ok(data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> StudentsBySection(int id)
+        {
+            var data = (await _sectionService.FindStudentsBySection(id));
+
+            return Ok(data);
+        }
+
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _sectionService.FindById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -51,25 +62,37 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Create(CreateSectionViewModel sectionViewModel)
+        public async Task<ActionResult> Create(CreateSectionViewModel sectionViewModel)
         {
-            var section = new CreateSectionDto
-            {
-                Code = sectionViewModel.Code,
-                Class = sectionViewModel.Class,
-                Period = sectionViewModel.Period,
-                Professor = sectionViewModel.Professor
-            };
+            var existingCode = await _sectionService.FindByCode(sectionViewModel.Code);
 
-            await _sectionService.Create(section);
+            if(existingCode == null)
+            {
+                var section = new CreateSectionDto
+                {
+                    Code = sectionViewModel.Code,
+                    Class = sectionViewModel.Class,
+                    Period = sectionViewModel.Period,
+                    Professor = sectionViewModel.Professor,
+                    Students = sectionViewModel.Students
+                };
+                await _sectionService.Create(section);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una seccion con este codigo");
+            }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task Delete(int id)
         {
             await _sectionService.Remove(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -77,16 +100,28 @@ namespace HoursTracker.Web.Controllers
         }
 
         [HttpPut]
-        public async Task Edit(int id, CreateSectionViewModel sectionViewModel)
+        public async Task<ActionResult> Edit(int id, CreateSectionViewModel sectionViewModel)
         {
-            var section = new UpdateSectionDto()
+            var temp = await _sectionService.FindById(id);
+            var existingCode = await _sectionService.FindByCode(sectionViewModel.Code);
+
+            if (existingCode == null || existingCode.Code == temp.Code)
             {
-                Code = sectionViewModel.Code,
-                Class = sectionViewModel.Class,
-                Period = sectionViewModel.Period,
-                Professor = sectionViewModel.Professor
-            };
-            await _sectionService.Update(id, section);
+                var section = new UpdateSectionDto()
+                {
+                    Code = sectionViewModel.Code,
+                    Class = sectionViewModel.Class,
+                    Period = sectionViewModel.Period,
+                    Professor = sectionViewModel.Professor,
+                    Students = sectionViewModel.Students
+                };
+                await _sectionService.Update(id, section);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Ya existe una seccion con este codigo");
+            }
         }
     }
 }

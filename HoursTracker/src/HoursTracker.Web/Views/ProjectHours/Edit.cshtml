@@ -130,7 +130,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="student" name="student" class="form-control" autocomplete="off" disabled>
+                                    <input type="text" id="student" name="student" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
                                 </div>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="section" name="section" class="form-control show-tick" multiple data-live-search="true" required>
+                                    <select id="section" name="section" class="form-control show-tick" required title="Seleccione una opcion" data-live-search="true" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor seleccione una opcion')">
                                     </select>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select id="project" name="project" class="form-control show-tick" multiple data-live-search="true" required>
+                                    <select id="project" name="project" class="form-control show-tick" required title="Seleccione una opcion" data-live-search="true" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor seleccione una opcion')">
                                     </select>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="hours" name="hours" class="form-control" autocomplete="off">
+                                    <input type="number" id="hours" name="hours" class="form-control" autocomplete="off" required maxlength="50" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Porfavor ingrese un codigo')">
                                 </div>
                             </div>
                         </div>
