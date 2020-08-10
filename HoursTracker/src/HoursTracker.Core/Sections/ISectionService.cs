@@ -9,8 +9,6 @@ namespace HoursTracker.Core.Sections
     {
         Task<Section> FindById(int id);
 
-        Task<Section> FindByCode(string code);
-
         Task Create(CreateSectionDto section);
 
         Task<IEnumerable<SingleSectionDto>> All();
