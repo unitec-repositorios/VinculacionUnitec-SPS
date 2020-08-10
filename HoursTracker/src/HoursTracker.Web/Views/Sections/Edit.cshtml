@@ -28,6 +28,70 @@
 
         $(function () {
 
+
+            const table = $("#studentsTable").DataTable({
+                language,
+                "dom": 'lrtip',
+                "bPaginate": false,
+            columns: [
+              { data: "account" },
+              { data: "firstName" },
+              { data: "secondName" },
+              { data: "firstSurname" },
+              { data: "secondSurname" },
+              { data: "email" },
+              { data: null },
+            ],
+            columnDefs: [
+              {
+                targets: [-1],
+                width: 80,
+                render: function (data, type, row) {
+                  const {id} = row;
+                  return (
+                    `<div class="text-center">
+                        <button type="button" class="btn bg-red waves-effect delete-action" data-id=${id}>
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>`
+                  );
+                },
+              },
+            ],
+            });
+
+            $('#searchButton').click(() => {
+                const accountInfo = $('#studentAccount').val();
+
+                if (table.rows().data().toArray().find(({ account }) => account === accountInfo)) {
+                    $('#message').prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡El alumno ya existen en la sección!
+                        </div>
+                    `);
+                    return;
+                }
+
+                $.get({
+                    url: `@Url.Action("FindByAccount", "Students")/${accountInfo}`,
+                    error: (xhr, status, error) => {
+                        $('#message').prepend(`
+                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            ¡El alumno con la cuenta ${accountInfo} no fue encontrado!
+                        </div>
+                    `);
+                    },
+                    success: (data) => {
+                        table.rows.add([data]).draw();
+                        $('#studentAccount').val('');
+                    },
+                async: false
+            });
+
+            });
+
             $('#selectClass').selectpicker();
             $('#selectProfessor').selectpicker();
             $('#selectPeriodo').selectpicker();
@@ -64,35 +128,27 @@
 
         setFormValues(@Model);
 
-        $(".form-horizontal").submit(function (event){
-            event.preventDefault();
+            $(".form-horizontal").submit(function (event) {
+                event.preventDefault();
 
-            $(this).ajaxSubmit({
-                url: '@Url.Action("Edit", "Sections")',
-                type: 'put',
-                success: () => {
-                    $(this).prepend(`
+                const data = $(".form-horizontal").serializeArray().reduce((prev, current) => ({ ...prev, [current.name]: current.value }), {});
+                data.students = table.rows().data().toArray().map(x => x.account);
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "Sections")',
+                    type: 'PUT',
+                    data,
+                    success: function (data) {
+                        $(this).prepend(`
                         <div id="alert" class="alert bg-green alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡La seccion ha si editada exitosamente!
-                        </div>
-                    `);
-                },
-                error: (error) => {
-                    if (error.responseText === "Ya existe una seccion con este codigo") {
-                        $(this).prepend(`
-                        <div id="alert" class="alert bg-red alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            ¡Ya existe una seccion con este codigo!
+                            ¡La sección ha si editada exitosamente!
                         </div>
                     `);
                     }
-                    console.log(error);
-                    //some stuff on failure
-                }
-            })
+                });
 
-        })
+            });
     });
         jQuery(function ($) {
             $('.back-button').click(function (e) {
@@ -113,6 +169,7 @@
                 </h2>
             </div>
             <div class="body form-center">
+                <p id="message"></p>
                 <form class="form-horizontal">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -164,6 +221,39 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row clearfix" style="margin-top: 50px">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label for="student">Numero de cuenta</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="studentAccount" name="student" class="form-control" autocomplete="off" maxlength="50">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button id="searchButton" type="button" class="btn btn-primary m-t-15 waves-effect">Buscar</button>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive">
+
+                        <table id="studentsTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Cuenta</th>
+                                    <th>Primer nombre</th>
+                                    <th>Segundo nombre</th>
+                                    <th>Primer apellido</th>
+                                    <th>Segundo apellido</th>
+                                    <th>Correo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">

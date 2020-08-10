@@ -62,7 +62,6 @@ namespace HoursTracker.Web
             services
                 .AddDbContext<HoursTrackerContext>(options =>
                     options
-                        .UseLoggerFactory(MyLoggerFactory)
                         .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services

@@ -54,6 +54,22 @@ namespace HoursTracker.Web.Controllers
             return Ok(await _studentService.FindById(id));
         }
 
+        public async Task<IActionResult> FindByAccount(string id)
+        {
+            
+            
+            try
+            {
+                var student = await _studentService.FindByAccount(id);
+                return Ok(student);
+            }
+            catch (System.Exception)
+            {
+
+                return BadRequest("Invalid account");
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

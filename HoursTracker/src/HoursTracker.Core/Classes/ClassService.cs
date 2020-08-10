@@ -95,8 +95,6 @@ namespace HoursTracker.Core.Classes
 
         public async Task<SingleClassDto> FindById(int id)
         {
-
-
             return await _classRepository
                 .Filter(@class => !@class.Disabled && @class.Id == id)
                 .Include(@class => @class.ClassCareers)

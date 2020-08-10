@@ -63,7 +63,8 @@ namespace HoursTracker.Web.Controllers
                     Code = sectionViewModel.Code,
                     Class = sectionViewModel.Class,
                     Period = sectionViewModel.Period,
-                    Professor = sectionViewModel.Professor
+                    Professor = sectionViewModel.Professor,
+                    Students = sectionViewModel.Students
                 };
                 await _sectionService.Create(section);
                 return Ok();
@@ -99,7 +100,8 @@ namespace HoursTracker.Web.Controllers
                     Code = sectionViewModel.Code,
                     Class = sectionViewModel.Class,
                     Period = sectionViewModel.Period,
-                    Professor = sectionViewModel.Professor
+                    Professor = sectionViewModel.Professor,
+                    Students = sectionViewModel.Students
                 };
                 await _sectionService.Update(id, section);
                 return Ok();
