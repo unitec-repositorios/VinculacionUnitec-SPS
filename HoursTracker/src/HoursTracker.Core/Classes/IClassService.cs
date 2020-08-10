@@ -15,6 +15,8 @@ namespace HoursTracker.Core.Classes
 
         Task<IEnumerable<SingleClassDto>> All();
 
+        Task<IEnumerable<SingleClassDto>> SingleClasses();
+
         Task Remove(int id);
 
         Task Update(int id, UpdateClassDto @class);

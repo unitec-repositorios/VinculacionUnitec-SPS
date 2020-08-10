@@ -13,5 +13,7 @@ namespace HoursTracker.Core.Sections
         public int Class { get; set; }
 
         public int Professor { get; set; }
+
+        public IEnumerable<string> Students { get; set; }
     }
 }

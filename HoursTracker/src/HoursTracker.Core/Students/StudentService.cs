@@ -5,6 +5,7 @@ using HoursTracker.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace HoursTracker.Core.Students
@@ -195,6 +196,28 @@ namespace HoursTracker.Core.Students
                         ProjectCode = hours.Project.Code,
                         CareerCode = student.StudentCareers.FirstOrDefault().Career.Name
                     }).ToListAsync();
+        }
+
+        public async Task<SingleStudentDto> FindByAccount(string id)
+        {
+            var student = await _studentRepository.FirstOrDefault(x => x.Account.Equals(id));
+
+
+            if (student == null)
+            {
+                throw new System.Exception();
+            }
+
+            return new SingleStudentDto
+            {
+                Account = student.Account,
+                Email = student.Email,
+                Id = student.Id,
+                FirstName = student.FirstName,
+                FirstSurname = student.FirstSurname,
+                SecondName = student.SecondName,
+                SecondSurname = student.SecondSurname,
+            };
         }
     }
 }

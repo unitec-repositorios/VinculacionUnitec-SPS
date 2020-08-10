@@ -23,6 +23,24 @@ namespace HoursTracker.Core.Classes
             _careerRepository = careerRepository;
         }
 
+        public async Task<IEnumerable<SingleClassDto>> SingleClasses()
+        {
+            var data = await _classRepository
+                .Filter(@class => !@class.Disabled)
+                .AsNoTracking()
+                .Select(x => new SingleClassDto
+                {
+                    ClassName = x.ClassName,
+                    ClassCode = x.ClassCode,
+                    Id = x.Id
+                }
+                )
+                .AsNoTracking()
+                 .ToListAsync();
+
+            return data;
+        }
+
         public async Task<IEnumerable<SingleClassDto>> All()
         {
             var data = await _classRepository
@@ -35,9 +53,9 @@ namespace HoursTracker.Core.Classes
                     Id = @class.Id,
                     ClassCode = @class.ClassCode,
                     CareerNames = career.Career.Name,
-                    ClassName = @class.ClassName,
                     Careers = @class.ClassCareers.Select(x => x.CareerId)
                 })
+                .AsNoTracking()
                  .ToListAsync();
 
             return data.GroupBy(
@@ -77,8 +95,6 @@ namespace HoursTracker.Core.Classes
 
         public async Task<SingleClassDto> FindById(int id)
         {
-
-
             return await _classRepository
                 .Filter(@class => !@class.Disabled && @class.Id == id)
                 .Include(@class => @class.ClassCareers)

@@ -68,11 +68,6 @@ namespace HoursTracker.Core.Projects
             await _projectRepository.Update(existingProject);
         }
 
-        public async Task<Project> FindByCode(string code)
-        {
-            return await _projectRepository.FirstOrDefault(c => c.Code == code);
-        }
-
     }
 
 }
